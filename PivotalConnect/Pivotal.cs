@@ -21,37 +21,37 @@ namespace PivotalConnect {
 			SetMembers();
 		}
 
-		public List<Story> GetStories() {
-			var storiesXDoc = GetPivotalResponse("projects/$PROJECTID/iterations/current", new Dictionary<string, string> { { "projectId", ProjectId.ToString() } });
-			var storiesXObj = storiesXDoc.Descendants("story");
+		//public List<Story> GetStories() {
+		//  var storiesXDoc = GetPivotalResponse("projects/$PROJECTID/iterations/current", new Dictionary<string, string> { { "projectId", ProjectId.ToString() } });
+		//  var storiesXObj = storiesXDoc.Descendants("story");
 
-			var stories = storiesXObj.Select(s => new Story {
-				Id = int.Parse(s.Descendants("id").First().Value),
-				Type = (StoryType)Enum.Parse(typeof(StoryType), s.Descendants("story_type").First().Value, true),
-				Name = s.Descendants("name").First().Value,
-				Tasks = s.Descendants("task").Select(t => new Task {
-					Id = int.Parse(t.Descendants("id").First().Value),
-					Description = t.Descendants("description").First().Value,
-					Complete = bool.Parse(t.Descendants("complete").First().Value)
-				}).OrderBy(t => t.Complete).ToList()
-			}).ToList();
+		//  var stories = storiesXObj.Select(s => new Story {
+		//    Id = int.Parse(s.Descendants("id").First().Value),
+		//    Type = (StoryType)Enum.Parse(typeof(StoryType), s.Descendants("story_type").First().Value, true),
+		//    Name = s.Descendants("name").First().Value,
+		//    Tasks = s.Descendants("task").Select(t => new Task {
+		//      Id = int.Parse(t.Descendants("id").First().Value),
+		//      Description = t.Descendants("description").First().Value,
+		//      Complete = bool.Parse(t.Descendants("complete").First().Value)
+		//    }).OrderBy(t => t.Complete).ToList()
+		//  }).ToList();
 
-			return stories;
-		}
+		//  return stories;
+		//}
 
-		public List<Task> GetTasks(int storyId) {
-			var parameters = new Dictionary<string, string> {
-			  {"projectId", ProjectId.ToString()},
-				{"storyId", storyId.ToString()}
-			};
-			var tasksXDoc = GetPivotalResponse("projects/$PROJECTID/stories/$STORYID", parameters);
+		//public List<Task> GetTasks(int storyId) {
+		//  var parameters = new Dictionary<string, string> {
+		//    {"projectId", ProjectId.ToString()},
+		//    {"storyId", storyId.ToString()}
+		//  };
+		//  var tasksXDoc = GetPivotalResponse("projects/$PROJECTID/stories/$STORYID", parameters);
 
-			return tasksXDoc.Descendants("task").Select(task => new Task {
-				Id = int.Parse(task.Descendants("id").First().Value),
-				Description = task.Descendants("description").First().Value,
-				Complete = bool.Parse(task.Descendants("complete").First().Value)
-			}).ToList();
-		}
+		//  return tasksXDoc.Descendants("task").Select(task => new Task {
+		//    Id = int.Parse(task.Descendants("id").First().Value),
+		//    Description = task.Descendants("description").First().Value,
+		//    Complete = bool.Parse(task.Descendants("complete").First().Value)
+		//  }).ToList();
+		//}
 
 		XDocument GetPivotalResponse(string path, Dictionary<string, string> parameters) {
 			var uri = PivotalUrl + path + "?token=" + token;
