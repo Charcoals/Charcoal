@@ -5,9 +5,10 @@ using System.Text;
 using PivotalTrackerDotNet.Domain;
 
 namespace PivotalTrackerDotNet {
-	public class MemberShipService:AAuthenticatedService {
+	public class MembershipService : AAuthenticatedService {
 		const string MemberShipEndpoint = "projects/{0}/memberships";
-		public MemberShipService(AuthenticationToken token) : base(token) {
+		public MembershipService(AuthenticationToken token)
+			: base(token) {
 		}
 
 		public List<Person> GetMembers(int projectId) {

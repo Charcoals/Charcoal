@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using PivotalConnect;
 using PivotalTrackerDotNet;
+using PivotalTrackerDotNet.Domain;
 
 namespace PivotalExtension {
 	public partial class _Default : System.Web.UI.Page {
-		protected readonly Pivotal Pivotal = Pivotal.Instance;
-		protected static StoryService Service = new StoryService(AuthenticationService.Authenticate("v5core", "changeme"));
+		static readonly AuthenticationToken Token = AuthenticationService.Authenticate("v5core", "changeme");
 		const int ProjectId = 424921;
+
+		protected static StoryService Service = new StoryService(Token);
+		protected static List<Person> Members = new MembershipService(Token).GetMembers(ProjectId); 
 		
-		protected bool hideCompletedTasks = false;
+		protected bool HideCompletedTasks = false;
 
 		protected void Page_Load(object sender, EventArgs e) {
 			StoryRepeater.DataSource = Service.GetStories(ProjectId);
@@ -21,7 +19,7 @@ namespace PivotalExtension {
 		}
 
 		protected void HideCompletedCheckbox_Click(object sender, EventArgs e) {
-			hideCompletedTasks = HideCompletedCheckbox.Checked;
+			HideCompletedTasks = HideCompletedCheckbox.Checked;
 			StoryRepeater.DataBind();
 		}
 	}

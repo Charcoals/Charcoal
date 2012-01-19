@@ -9,11 +9,16 @@ namespace PivotalTrackerDotNet.Domain {
 		public string Description { get; set; }
 		public bool Complete { get; set; }
 		public int ParentStoryId { get; set; }
+		public int ProjectId { get; set; }
 
-		Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})+(\))?");
+		static readonly AuthenticationToken Token = AuthenticationService.Authenticate("v5core", "changeme");
+		protected static List<Person> Members;
+
+		Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?");
 
 		public string GetDescriptionWithoutOwners() {
-			return FullOwnerRegex.Replace(Description, "");
+			var descriptionWithoutOwners = FullOwnerRegex.Replace(Description, "");
+			return descriptionWithoutOwners.Length == 0 ? "(Placeholder)" : descriptionWithoutOwners;
 		}
 
 		public void SetOwners(List<Member> owners) {
@@ -27,15 +32,19 @@ namespace PivotalTrackerDotNet.Domain {
 			}
 		}
 
-		public List<Member> GetOwners() {
-			var owners = new List<Member>();
+		public List<Person> GetOwners() {
+			if (Members == null) {
+				Members = new MembershipService(Token).GetMembers(ProjectId);
+			}
+
+			var owners = new List<Person>();
 			if (Complete) return owners;
 
 			var regex = new Regex(@"[A-Z]{2,3}(\/[A-Z]{2,3})+");
 			var matches = regex.Matches(Description);
 
 			if (matches.Count > 0) {
-				var membersLookup = Pivotal.Members.ToDictionary(m => m.Initials);
+				var membersLookup = Members.ToDictionary(m => m.Initials);
 				var initials = matches[0].Value.Split('/');
 				foreach (var owner in initials) {
 					if (membersLookup.ContainsKey(owner)) {

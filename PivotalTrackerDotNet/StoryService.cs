@@ -40,12 +40,15 @@ namespace PivotalTrackerDotNet {
 		}
 
 		Story GetStoryWithTasks(int projectId, Story story) {
-			var request= BuildRequest();
+			var request = BuildRequest();
 			request.Resource = string.Format(TaskEndpoint, projectId, story.Id);
 			var taskResponse = RestClient.Execute<List<Task>>(request);
 			story.Tasks = taskResponse.Data;
 			if (story.Tasks != null) {
-				story.Tasks.ForEach(e => e.ParentStoryId = story.Id);
+				story.Tasks.ForEach(e => {
+					e.ParentStoryId = story.Id;
+					e.ProjectId = projectId;
+				});
 			}
 			return story;
 		}

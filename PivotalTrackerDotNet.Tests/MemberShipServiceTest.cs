@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
-using PivotalTrackerDotNet.Domain;
+﻿using NUnit.Framework;
 
 namespace PivotalTrackerDotNet.Tests {
 	[TestFixture]
-	public class MemberShipServiceTest {
-		private MemberShipService memberShipService = null;
+	public class MembershipServiceTest {
+		private MembershipService membershipService = null;
 		const int projectId = 456301;
 
 		[TestFixtureSetUp]
 		public void TestFixtureSetUp() {
-			memberShipService = new MemberShipService(AuthenticationService.Authenticate(TestCredentials.Username, TestCredentials.Password));
+			membershipService = new MembershipService(AuthenticationService.Authenticate(TestCredentials.Username, TestCredentials.Password));
 		}
 
 		[Test]
 		public void CanRetrieveAllPersonsAllowedInAProject() {
-			var persons = memberShipService.GetMembers(projectId);
+			var persons = membershipService.GetMembers(projectId);
 			Assert.NotNull(persons);
 			Assert.AreEqual(1, persons.Count);
 		}

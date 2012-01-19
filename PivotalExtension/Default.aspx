@@ -25,7 +25,7 @@
                 </td>
                 <td>
                     <div>
-                        <asp:Repeater ID="TaskRepeater" runat="server" DataSource="<%# ((Story)Container.DataItem).Tasks.Where(t=> !hideCompletedTasks || !t.Complete) %>">
+                        <asp:Repeater ID="TaskRepeater" runat="server" DataSource="<%# ((Story)Container.DataItem).Tasks.Where(t=> !HideCompletedTasks || !t.Complete) %>">
                             <ItemTemplate>
                                 <div class="<%# ((Task)Container.DataItem).GetStyle() %>">
                                     <%# ((Task)Container.DataItem).GetDescriptionWithoutOwners() %>
