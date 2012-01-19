@@ -5,15 +5,18 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using PivotalConnect;
+using PivotalTrackerDotNet;
 
 namespace PivotalExtension {
 	public partial class _Default : System.Web.UI.Page {
-		Pivotal pivotal = Pivotal.Instance;
+		protected readonly Pivotal Pivotal = Pivotal.Instance;
+		protected static StoryService Service = new StoryService(AuthenticationService.Authenticate("v5core", "changeme"));
+		const int ProjectId = 424921;
 		
 		protected bool hideCompletedTasks = false;
 
 		protected void Page_Load(object sender, EventArgs e) {
-			StoryRepeater.DataSource = pivotal.GetStories();
+			StoryRepeater.DataSource = Service.GetCurrentStories(ProjectId);
 			StoryRepeater.DataBind();
 		}
 

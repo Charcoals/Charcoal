@@ -28,6 +28,14 @@ namespace PivotalTrackerDotNet {
 			return response.Data;
 		}
 
+		public List<Story> GetCurrentStories(int projectId) {
+			var request = BuildRequest();
+			request.Resource = string.Format("projects/{0}/iterations/current", projectId);
+
+			var response = RestClient.Execute<List<Story>>(request);
+			return response.Data;
+		}
+
 		RestRequest BuildRequest() {
 			var request = new RestRequest(Method.GET);
 			request.AddHeader("X-TrackerToken", m_token.Guid.ToString("N"));
