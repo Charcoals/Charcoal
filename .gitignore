@@ -1,4 +1,4 @@
-_ReSharper.*
+*ReSharper.*
 bin
 obj
 *.suo
