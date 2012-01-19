@@ -9,8 +9,8 @@ namespace PivotalExtension {
 		const int ProjectId = 424921;
 
 		protected static StoryService Service = new StoryService(Token);
-		protected static List<Person> Members = new MembershipService(Token).GetMembers(ProjectId); 
-		
+		protected static List<Person> Members = new MembershipService(Token).GetMembers(ProjectId);
+
 		protected bool HideCompletedTasks = false;
 
 		protected void Page_Load(object sender, EventArgs e) {

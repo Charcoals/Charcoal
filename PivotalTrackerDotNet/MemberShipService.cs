@@ -12,7 +12,7 @@ namespace PivotalTrackerDotNet {
 		}
 
 		public List<Person> GetMembers(int projectId) {
-			var request = BuildRequest();
+			var request = BuildGetRequest();
 			request.Resource = string.Format(MemberShipEndpoint, projectId);
 			var response = RestClient.Execute<List<Person>>(request);
 			return response.Data;

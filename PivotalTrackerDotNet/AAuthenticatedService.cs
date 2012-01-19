@@ -11,8 +11,15 @@ namespace PivotalTrackerDotNet {
 			RestClient.BaseUrl = PivotalTrackerRestEndpoint.ENDPOINT;
 		}
 
-		protected RestRequest BuildRequest() {
+		protected RestRequest BuildGetRequest() {
 			var request = new RestRequest(Method.GET);
+			request.AddHeader("X-TrackerToken", m_token.Guid.ToString("N"));
+			request.RequestFormat = DataFormat.Xml;
+			return request;
+		}
+
+		protected RestRequest BuildPutRequest() {
+			var request = new RestRequest(Method.PUT);
 			request.AddHeader("X-TrackerToken", m_token.Guid.ToString("N"));
 			request.RequestFormat = DataFormat.Xml;
 			return request;

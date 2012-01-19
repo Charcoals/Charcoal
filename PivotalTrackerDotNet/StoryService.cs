@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using PivotalTrackerDotNet.Domain;
-using RestSharp;
-using RestSharp.Authenticators;
+using RestSharp.Contrib;
 
 namespace PivotalTrackerDotNet {
 	public class StoryService : AAuthenticatedService {
@@ -18,7 +14,7 @@ namespace PivotalTrackerDotNet {
 		}
 
 		public Story GetStory(int projectId, int storyId) {
-			var request = BuildRequest();
+			var request = BuildGetRequest();
 			request.Resource = string.Format(StoryEndpoint + "/{1}", projectId, storyId);
 
 			var response = RestClient.Execute<Story>(request);
@@ -28,7 +24,7 @@ namespace PivotalTrackerDotNet {
 		}
 
 		public List<Story> GetStories(int projectId) {
-			var request = BuildRequest();
+			var request = BuildGetRequest();
 			request.Resource = string.Format(StoryEndpoint, projectId);
 
 			var response = RestClient.Execute<List<Story>>(request);
@@ -40,7 +36,7 @@ namespace PivotalTrackerDotNet {
 		}
 
 		Story GetStoryWithTasks(int projectId, Story story) {
-			var request = BuildRequest();
+			var request = BuildGetRequest();
 			request.Resource = string.Format(TaskEndpoint, projectId, story.Id);
 			var taskResponse = RestClient.Execute<List<Task>>(request);
 			story.Tasks = taskResponse.Data;
@@ -51,6 +47,12 @@ namespace PivotalTrackerDotNet {
 				});
 			}
 			return story;
+		}
+
+		public void SaveTask(Task task) {
+			var request = BuildPutRequest();
+			request.Resource = string.Format(TaskEndpoint + "/{2}?task[description]={3}&task[complete]={4}", task.ProjectId, task.ParentStoryId, task.Id, HttpUtility.UrlEncode(task.Description), task.Complete);
+			RestClient.Execute(request);
 		}
 	}
 }

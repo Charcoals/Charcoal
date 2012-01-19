@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using PivotalConnect;
 using PivotalTrackerDotNet;
-using PivotalTrackerDotNet.Domain;
 
 namespace PivotalConsole {
 	class Program {
 		static void Main(string[] args) {
-			var service = new StoryService(AuthenticationService.Authenticate("v5core", "changeme"));
+			var token = AuthenticationService.Authenticate("v5core", "changeme");
+			var service = new StoryService(token);
 			var stories = service.GetStories(424921);
 
 			//var stories = Pivotal.Instance.GetStories();

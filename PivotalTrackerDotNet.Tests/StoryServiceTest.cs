@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 
 namespace PivotalTrackerDotNet.Tests {
@@ -32,6 +33,24 @@ namespace PivotalTrackerDotNet.Tests {
 			var stories = storyService.GetStories(projectId);
 			Assert.NotNull(stories);
 			Assert.AreEqual(2, stories.Count);
+		}
+
+		[Test]
+		public void CanSaveTask() {
+			const int projectId = 456301;
+			const int storyId = 23590427;
+
+			var guid = Guid.NewGuid().ToString();
+
+			var stories = storyService.GetStories(456301);
+			var task = stories[0].Tasks[0];
+			task.Description = guid;
+
+			storyService.SaveTask(task);
+
+			stories = storyService.GetStories(456301);
+
+			Assert.AreEqual(guid, stories[0].Tasks[0].Description);
 		}
 	}
 }

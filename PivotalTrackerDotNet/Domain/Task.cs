@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
-using PivotalConnect;
 
 namespace PivotalTrackerDotNet.Domain {
 	public class Task {
@@ -21,7 +20,7 @@ namespace PivotalTrackerDotNet.Domain {
 			return descriptionWithoutOwners.Length == 0 ? "(Placeholder)" : descriptionWithoutOwners;
 		}
 
-		public void SetOwners(List<Member> owners) {
+		public void SetOwners(List<Person> owners) {
 			if (owners.Count == 0) return;
 
 			var match = FullOwnerRegex.Match(Description);
