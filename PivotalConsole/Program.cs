@@ -10,7 +10,7 @@ namespace PivotalConsole {
 	class Program {
 		static void Main(string[] args) {
 			var service = new StoryService(AuthenticationService.Authenticate("v5core", "changeme"));
-			var stories = service.GetCurrentStories(424921);
+			var stories = service.GetStories(424921);
 
 			//var stories = Pivotal.Instance.GetStories();
 			//foreach (var story in stories) {

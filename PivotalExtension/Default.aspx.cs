@@ -16,7 +16,7 @@ namespace PivotalExtension {
 		protected bool hideCompletedTasks = false;
 
 		protected void Page_Load(object sender, EventArgs e) {
-			StoryRepeater.DataSource = Service.GetCurrentStories(ProjectId);
+			StoryRepeater.DataSource = Service.GetStories(ProjectId);
 			StoryRepeater.DataBind();
 		}
 
