@@ -96,6 +96,10 @@
       <Project>{AB9416EF-FF11-409A-8657-EC66C212B7D2}</Project>
       <Name>PivotalConnect</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PivotalTrackerDotNet\PivotalTrackerDotNet.csproj">
+      <Project>{579B9125-0944-4C30-A31F-6C70A0DDE1C8}</Project>
+      <Name>PivotalTrackerDotNet</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
