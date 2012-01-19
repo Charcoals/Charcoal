@@ -21,6 +21,9 @@ namespace PivotalTrackerDotNet.Tests {
 			Assert.AreEqual("feature", story.StoryType);
 			Assert.AreEqual("Single Task", story.Name);
 			Assert.AreEqual(2, story.Estimate);
+			Assert.AreEqual(1, story.Tasks.Count);
+			Assert.AreEqual(storyId, story.Tasks[0].ParentStoryId);
+
 		}
 
 		[Test]
