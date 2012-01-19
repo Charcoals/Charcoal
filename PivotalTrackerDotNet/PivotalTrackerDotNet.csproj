@@ -46,10 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AAuthenticatedService.cs" />
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="Domain\AuthenticationToken.cs" />
+    <Compile Include="Domain\MemberShip.cs" />
     <Compile Include="Domain\Story.cs" />
     <Compile Include="Domain\Task.cs" />
+    <Compile Include="MemberShipService.cs" />
     <Compile Include="PivotalTrackerRestEndpoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoryService.cs" />
