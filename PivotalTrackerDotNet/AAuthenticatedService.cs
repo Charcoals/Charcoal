@@ -24,5 +24,21 @@ namespace PivotalTrackerDotNet {
 			request.RequestFormat = DataFormat.Xml;
 			return request;
 		}
+
+        protected RestRequest BuildDeleteRequest()
+        {
+            var request = new RestRequest(Method.DELETE);
+            request.AddHeader("X-TrackerToken", m_token.Guid.ToString("N"));
+            request.RequestFormat = DataFormat.Xml;
+            return request;
+        }
+
+        protected RestRequest BuildPostRequest()
+        {
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("X-TrackerToken", m_token.Guid.ToString("N"));
+            request.RequestFormat = DataFormat.Xml;
+            return request;
+        }
 	}
 }

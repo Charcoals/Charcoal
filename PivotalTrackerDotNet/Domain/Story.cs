@@ -12,6 +12,7 @@ namespace PivotalTrackerDotNet.Domain {
 		public string CurrentState { get; set; }
 		public string Description { get; set; }
 		public string Name { get; set; }
+        public string RequestedBy { get; set; }
 		public List<Task> Tasks { get; set; }
 	}
 
