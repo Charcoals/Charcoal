@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
 
@@ -21,6 +22,10 @@ namespace PivotalExtension {
 		protected void HideCompletedCheckbox_Click(object sender, EventArgs e) {
 			HideCompletedTasks = HideCompletedCheckbox.Checked;
 			StoryRepeater.DataBind();
+		}
+
+		protected void CompleteTaskLink_Click(object sender, EventArgs e) {
+			var ids = ((LinkButton)sender).CommandArgument.Split(':');
 		}
 	}
 }

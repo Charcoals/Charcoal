@@ -66,6 +66,10 @@ namespace PivotalTrackerDotNet.Domain {
 				return "task";
 			}
 		}
+
+		public string GetIdToken() {
+			return string.Format("{0}:{1}:{2}", ProjectId, ParentStoryId, Id);
+		}
 	}
 
 	//  <?xml version="1.0" encoding="UTF-8"?>

@@ -30,6 +30,7 @@
                                 <div class="<%# ((Task)Container.DataItem).GetStyle() %>">
                                     <%# ((Task)Container.DataItem).GetDescriptionWithoutOwners() %>
                                     <strong><%# String.Join("/", ((Task)Container.DataItem).GetOwners().Select(o => o.Initials))%></strong>
+                                    <asp:LinkButton ID="CompleteTaskLink" runat="server" OnClick="CompleteTaskLink_Click" Text="Complete" CommandArgument="<%# ((Task)Container.DataItem).GetIdToken() %>" />
                                 </div>
                             </ItemTemplate>
                         </asp:Repeater>
