@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.UI.WebControls;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
 
 namespace PivotalExtension {
 	public partial class _Default : System.Web.UI.Page {
-		static readonly AuthenticationToken Token = AuthenticationService.Authenticate("v5core", "changeme");
+		static readonly AuthenticationToken Token = AuthenticationService.Authenticate(ConfigurationManager.AppSettings["pivotalUserName"], ConfigurationManager.AppSettings["pivotalPassword"]);
 		const int ProjectId = 424921;
 
 		protected static StoryService Service = new StoryService(Token);

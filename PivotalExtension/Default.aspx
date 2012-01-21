@@ -27,7 +27,7 @@
                     <div>
                         <asp:Repeater ID="TaskRepeater" runat="server" DataSource="<%# ((Story)Container.DataItem).Tasks.Where(t=> !HideCompletedTasks || !t.Complete) %>">
                             <ItemTemplate>
-                                <div class="<%# ((Task)Container.DataItem).GetStyle() %>">
+                                <div class="<%# ((Task)Container.DataItem).GetStyle() %>" id="<%# ((Task)Container.DataItem).ParentStoryId + "-" + ((Task)Container.DataItem).Id %>">
                                     <%# ((Task)Container.DataItem).GetDescriptionWithoutOwners() %>
                                     <strong><%# String.Join("/", ((Task)Container.DataItem).GetOwners().Select(o => o.Initials))%></strong>
                                     <asp:LinkButton ID="CompleteTaskLink" runat="server" OnClick="CompleteTaskLink_Click" Text="Complete" CommandArgument="<%# ((Task)Container.DataItem).GetIdToken() %>" />
