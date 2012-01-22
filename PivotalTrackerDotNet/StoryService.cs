@@ -5,7 +5,7 @@ using RestSharp.Contrib;
 namespace PivotalTrackerDotNet {
 	public class StoryService : AAuthenticatedService {
 		private const string StoryEndpoint = "projects/{0}/iterations/current";
-	    private const string DeleteStoryEndpoint = "projects/{0}/stories/{1}";
+	    private const string SingleStoryEndpoint = "projects/{0}/stories/{1}";
 		const string TaskEndpoint = "projects/{0}/stories/{1}/tasks";
         private const string SaveStoryEndpoint = "projects/{0}/stories?story[name]={1}&story[requested_by]={2}&story[description]={3}";
 		public List<Story> CachedStories { get; private set; }
@@ -17,7 +17,7 @@ namespace PivotalTrackerDotNet {
 
 		public Story GetStory(int projectId, int storyId) {
 			var request = BuildGetRequest();
-			request.Resource = string.Format(StoryEndpoint + "/{1}", projectId, storyId);
+			request.Resource = string.Format(SingleStoryEndpoint, projectId, storyId);
 
 			var response = RestClient.Execute<Story>(request);
 			var story = response.Data;
@@ -40,7 +40,7 @@ namespace PivotalTrackerDotNet {
         public Story RemoveStory(int projectId, int storyId)
         {
             var request = BuildDeleteRequest();
-            request.Resource = string.Format(DeleteStoryEndpoint, projectId, storyId);
+            request.Resource = string.Format(SingleStoryEndpoint, projectId, storyId);
 
             var response = RestClient.Execute<Story>(request);
             var story = response.Data;
