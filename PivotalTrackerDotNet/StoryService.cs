@@ -3,7 +3,7 @@ using PivotalTrackerDotNet.Domain;
 using RestSharp.Contrib;
 
 namespace PivotalTrackerDotNet {
-	public class StoryService : AAuthenticatedService {
+	public class StoryService : AAuthenticatedService, PivotalTrackerDotNet.IStoryService {
 		private const string StoryEndpoint = "projects/{0}/iterations/current";
 	    private const string SingleStoryEndpoint = "projects/{0}/stories/{1}";
 		const string TaskEndpoint = "projects/{0}/stories/{1}/tasks";

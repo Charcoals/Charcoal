@@ -1,0 +1,20 @@
+﻿@model IEnumerable<PivotalTrackerDotNet.Domain.Story>
+
+@{
+    ViewBag.Title = "Current Iteration";
+}
+
+<h2>Current Iteration</h2>
+<table class="mainTable">
+@foreach (var item in Model) {
+    <tr class="story">
+        <td class="storyCol">@item.Name</td>
+        <td>
+            @foreach (var task in item.Tasks) {
+                @Html.Partial("TaskDetails", task)
+            }
+        </td>
+    </tr>
+}
+
+</table>

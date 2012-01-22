@@ -25,7 +25,7 @@
             @Html.DisplayFor(modelItem => item.IterationLength)
         </td>
         <td>
-            @Html.ActionLink("Current Iteration Tasks By Story", "CurrentTasks", "Story", new { id=item.Id })
+            @Html.ActionLink("Current Iteration Tasks By Story", "CurrentIteration", "Stories", new { projectId = item.Id }, null)
         </td>
     </tr>
 }

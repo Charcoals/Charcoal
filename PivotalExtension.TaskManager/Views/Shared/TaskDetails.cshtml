@@ -1,0 +1,7 @@
+﻿@model PivotalTrackerDotNet.Domain.Task
+
+<div class="@Model.GetStyle()" id="@string.Format("{0}-{1}", Model.ParentStoryId, Model.Id)">
+    <p>@Model.GetDescriptionWithoutOwners()</p>
+    <p><strong>@string.Join("/", Model.GetOwners().Select(o => o.Initials))</strong></p>
+    <p>@Html.ActionLink("Complete", "Complete", "Task", new { Id = Model.Id }, null)</p>
+</div>
