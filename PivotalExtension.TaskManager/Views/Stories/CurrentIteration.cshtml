@@ -28,12 +28,24 @@ $(function () {
 
 function SignUp() {
     initials = prompt('Enter your initials:', '');
-    $('.ui-selected').each(function() {
+    $('div.ui-selected').each(function() {
         if(initials != null && initials != '') {
-            items = $(this).attr('id').split('-');
-            alert('story: ' + items[0] + '\ntask: ' + items[1]);
+            var id = $(this).attr('id');
+            var items = id.split('-');
+            alert(initials + ' will sign up for:\n\nproject: ' + items[0] + '\nstory: ' + items[1] + '\ntask: ' + items[2]);
+            //this call will eventually be made against a SignUp action that performs sign up and then redirects to /Task/Details for replacement html
+            $.ajax({
+                type: 'GET',
+                url: '/Task/Details',
+                data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2],
+                success : function(html) {
+                            $('#' + id).replaceWith(html);
+                         },
+                error : function (xhr, ajaxOptions, thrownError){
+                            alert(thrownError);
+                        }   
+            });
         }
-        $(this).removeClass('ui-selected');
     });
 }
 </script>

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PivotalTrackerDotNet.Domain;
+
 namespace PivotalTrackerDotNet {
     public interface IStoryService {
-        PivotalTrackerDotNet.Domain.Story AddNewStory(int projectId, PivotalTrackerDotNet.Domain.Story toBeSaved);
-        System.Collections.Generic.List<PivotalTrackerDotNet.Domain.Story> GetStories(int projectId);
-        PivotalTrackerDotNet.Domain.Story GetStory(int projectId, int storyId);
-        PivotalTrackerDotNet.Domain.Story RemoveStory(int projectId, int storyId);
-        void SaveTask(PivotalTrackerDotNet.Domain.Task task);
+        Story AddNewStory(int projectId, Story toBeSaved);
+        System.Collections.Generic.List<Story> GetStories(int projectId);
+        Story GetStory(int projectId, int storyId);
+        Story RemoveStory(int projectId, int storyId);
+        Task GetTask(int projectId, int storyId, int taskId);
+        void SaveTask(Task task);
     }
 }
