@@ -3,4 +3,4 @@ bin
 obj
 *.suo
 user.config
-test-results/*
+*/test-results/*

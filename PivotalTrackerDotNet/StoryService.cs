@@ -7,7 +7,7 @@ namespace PivotalTrackerDotNet {
 		private const string StoryEndpoint = "projects/{0}/iterations/current";
 	    private const string SingleStoryEndpoint = "projects/{0}/stories/{1}";
 		const string TaskEndpoint = "projects/{0}/stories/{1}/tasks";
-        private const string SaveStoryEndpoint = "projects/{0}/stories?story[name]={1}&story[requested_by]={2}&story[description]={3}";
+        private const string SaveStoryEndpoint = "projects/{0}/stories?story[name]={1}&story[requested_by]={2}&story[description]={3}&story[story_type]={4}";
 		public List<Story> CachedStories { get; private set; }
 
 		public StoryService(AuthenticationToken token)
@@ -51,7 +51,7 @@ namespace PivotalTrackerDotNet {
         public Story AddNewStory(int projectId, Story toBeSaved)
         {
             var request = BuildPostRequest();
-            request.Resource = string.Format(SaveStoryEndpoint, projectId, toBeSaved.Name, toBeSaved.RequestedBy, toBeSaved.Description);
+            request.Resource = string.Format(SaveStoryEndpoint, projectId, toBeSaved.Name, toBeSaved.RequestedBy, toBeSaved.Description, toBeSaved.StoryType);
 
             var response = RestClient.Execute<Story>(request);
             var story = response.Data;
