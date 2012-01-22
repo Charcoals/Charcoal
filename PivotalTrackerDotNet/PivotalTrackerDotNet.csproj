@@ -49,11 +49,15 @@
     <Compile Include="AAuthenticatedService.cs" />
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="Domain\AuthenticationToken.cs" />
+    <Compile Include="Domain\Membership.cs" />
     <Compile Include="Domain\Person.cs" />
+    <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\Story.cs" />
     <Compile Include="Domain\Task.cs" />
+    <Compile Include="IProjectService.cs" />
     <Compile Include="MemberShipService.cs" />
     <Compile Include="PivotalTrackerRestEndpoint.cs" />
+    <Compile Include="ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoryService.cs" />
   </ItemGroup>
