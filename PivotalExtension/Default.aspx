@@ -45,7 +45,7 @@
     <a href="#" onclick="SignUp()">Sign Up for Selected</a>
     <script type="text/javascript">
         $(function () {
-            $('tr.story').selectable({
+            $('.mainTable').selectable({
                 filter: 'div.task',
             });
         });
