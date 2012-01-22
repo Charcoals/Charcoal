@@ -1,20 +1,39 @@
 ﻿@model IEnumerable<PivotalTrackerDotNet.Domain.Story>
-
 @{
     ViewBag.Title = "Current Iteration";
 }
-
-<h2>Current Iteration</h2>
+<h2>
+    Current Iteration</h2>
 <table class="mainTable">
-@foreach (var item in Model) {
-    <tr class="story">
-        <td class="storyCol">@item.Name</td>
-        <td>
-            @foreach (var task in item.Tasks) {
-                @Html.Partial("TaskDetails", task)
-            }
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model) {
+        <tr class="story">
+            <td class="storyCol">@item.Name
+            </td>
+            <td>
+                @foreach (var task in item.Tasks) {
+                    @Html.Partial("TaskDetails", task)
+                }
+            </td>
+        </tr>
+    }
 </table>
+<br />
+<a href="#" onclick="SignUp(); return false;">Sign Up for Selected</a>
+<script type="text/javascript">
+$(function () {
+    $('.mainTable').selectable({
+        filter: 'div.task',
+    });
+});
+
+function SignUp() {
+    initials = prompt('Enter your initials:', '');
+    $('.ui-selected').each(function() {
+        if(initials != null && initials != '') {
+            items = $(this).attr('id').split('-');
+            alert('story: ' + items[0] + '\ntask: ' + items[1]);
+        }
+        $(this).removeClass('ui-selected');
+    });
+}
+</script>
