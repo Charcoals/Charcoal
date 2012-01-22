@@ -76,5 +76,26 @@ namespace PivotalTrackerDotNet.Tests {
 
 			Assert.AreEqual(guid, stories[0].Tasks[0].Description);
 		}
+		
+		[Test]
+		public void CanAddAndDeleteNewTasks(){
+			const int projectId = 456301;
+			var story = new Story{Name="Nouvelle histoire", RequestedBy="pivotaltrackerdotnet",StoryType="feature", 
+				Description="bla bla bla and more bla", ProjectId=projectId};
+		    
+			var savedStory = storyService.AddNewStory(projectId,story);
+			
+			var task = new Task{Description="stuff stuff stuff", ParentStoryId=savedStory.Id, ProjectId=projectId };
+			
+			var savedTask = storyService.AddNewTask(task);
+			Assert.AreEqual(task.Description, savedTask.Description);
+			
+			var deletedTask = storyService.RemoveTask(task.ProjectId, task.ParentStoryId, savedTask.Id);
+			Assert.NotNull(deletedTask);
+			Assert.AreEqual(savedTask.Description, deletedTask.Description);
+			Assert.AreEqual(savedTask.Id, deletedTask.Id);	
+			
+			storyService.RemoveStory(projectId, savedStory.Id);
+		}
 	}
 }
