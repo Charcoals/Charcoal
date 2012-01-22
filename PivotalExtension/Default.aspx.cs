@@ -7,8 +7,9 @@ using PivotalTrackerDotNet.Domain;
 
 namespace PivotalExtension {
 	public partial class _Default : System.Web.UI.Page {
+        //TODO: these should be handled in login step, stored in session
 		static readonly AuthenticationToken Token = AuthenticationService.Authenticate(ConfigurationManager.AppSettings["pivotalUserName"], ConfigurationManager.AppSettings["pivotalPassword"]);
-		const int ProjectId = 424921;
+		static readonly int ProjectId = int.Parse(ConfigurationManager.AppSettings["pivotalProjectId"]);
 
 		protected static StoryService Service = new StoryService(Token);
 		protected static List<Person> Members = new MembershipService(Token).GetMembers(ProjectId);
