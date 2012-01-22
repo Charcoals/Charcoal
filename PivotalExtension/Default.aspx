@@ -42,4 +42,24 @@
             </table>
         </FooterTemplate>
     </asp:Repeater>
+    <a href="#" onclick="SignUp()">Sign Up for Selected</a>
+    <script type="text/javascript">
+        $(function () {
+            $('tr.story').selectable({
+                filter: 'div.task',
+            });
+        });
+
+        function SignUp() {
+            initials = prompt('Enter your initials:', '');
+            $('.ui-selected').each(function() {
+                if(initials != null && initials != '') {
+                    items = $(this).attr('id').split('-');
+                    alert('story: ' + items[0]);
+                    alert('task: ' + items[1]);
+                }
+                $(this).removeClass('ui-selected');
+            });
+        }
+    </script>
 </asp:Content>

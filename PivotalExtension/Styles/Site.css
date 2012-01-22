@@ -84,6 +84,11 @@ div.in-progress
     background-color: #F2E37E;    
 }
 
+div.ui-selected 
+{ 
+    background: #F39814; color: white; 
+}
+
 /* HEADINGS   
 ----------------------------------------------------------*/
 

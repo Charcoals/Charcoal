@@ -4,7 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head runat="server">
     <title></title>
-    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="~/Styles/Site.css" />
+    <link  type="text/css" rel="stylesheet" href="~/Scripts/css/ui-lightness/jquery-ui-1.8.17.custom.css" />
+    <script type="text/javascript" src="Scripts/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="Scripts/js/jquery-ui-1.8.17.custom.min.js"></script>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
