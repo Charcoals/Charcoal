@@ -62,7 +62,7 @@ namespace PivotalTrackerDotNet {
 
         public void SaveTask(Task task) {
             var request = BuildPutRequest();
-            request.Resource = string.Format(TaskEndpoint + "/{2}?task[description]={3}&task[complete]={4}", task.ProjectId, task.ParentStoryId, task.Id, HttpUtility.UrlEncode(task.Description), task.Complete);
+            request.Resource = string.Format(TaskEndpoint + "/{2}?task[description]={3}&task[complete]={4}", task.ProjectId, task.ParentStoryId, task.Id, HttpUtility.UrlEncode(task.Description), task.Complete.ToString().ToLower());
             RestClient.Execute(request);
         }
 
