@@ -396,14 +396,17 @@ tr.story td.storyCol
 
 div.task
 {
-    color: #333333;
-    border: 2px solid #444444;
-    padding: 5px;
+    background-image: url('blank-index-card.jpg');
+    color: #111111;
+    border: 1px solid #444444;
+    padding: 3px 5px 5px 5px;
     margin: 5px;
     float: left;
     width: 280px;
+    height: 160px;
     clip: auto;
     overflow: auto;
+    line-height: 15px;
 }
 
 div.complete
