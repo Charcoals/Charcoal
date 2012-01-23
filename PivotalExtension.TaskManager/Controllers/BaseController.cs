@@ -1,17 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Linq;
 using PivotalTrackerDotNet.Domain;
 
 namespace PivotalExtension.TaskManager.Controllers {
-    [SessionState(System.Web.SessionState.SessionStateBehavior.ReadOnly)]
-    public class BaseController : Controller {
-        protected AuthenticationToken Token {
-            get { return (AuthenticationToken)Session["token"]; }
-            set { Session.Add("token", value); }
-        }
-    }
+	[SessionState(System.Web.SessionState.SessionStateBehavior.ReadOnly)]
+	public class BaseController : Controller {
+		protected AuthenticationToken Token {
+			get {
+				if (Session != null) {
+					var token = Session["token"];
+					if (token is AuthenticationToken) {
+						return token as AuthenticationToken;
+					}
+				}
+				throw new NotAuthenticatedException();
+			}
+			set { Session.Add("token", value); }
+		}
+
+		protected override void OnException(ExceptionContext filterContext) {
+			if (filterContext.Exception is NotAuthenticatedException) {
+				Response.Redirect("~/Account/LogOn");
+			}
+			base.OnException(filterContext);
+		}
+	}
+
+	public class NotAuthenticatedException : Exception { }
 }

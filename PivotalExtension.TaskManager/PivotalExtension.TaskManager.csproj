@@ -75,6 +75,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\blank-index-card.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
@@ -90,9 +91,12 @@
     <Content Include="Content\css\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Content\css\ui-lightness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\css\ui-lightness\jquery-ui-1.8.17.custom.css" />
+    <Content Include="Content\green-index-card.png" />
     <Content Include="Content\js\jquery-1.7.1.min.js" />
     <Content Include="Content\js\jquery-ui-1.8.17.custom.min.js" />
     <Content Include="Content\js\modernizr-1.7.min.js" />
+    <Content Include="Content\orange-index-card.png" />
+    <Content Include="Content\yellow-index-card.png" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

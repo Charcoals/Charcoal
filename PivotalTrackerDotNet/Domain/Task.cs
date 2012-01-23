@@ -37,7 +37,6 @@ namespace PivotalTrackerDotNet.Domain {
 			}
 
 			var owners = new List<Person>();
-			if (Complete) return owners;
 
 			var regex = new Regex(@"[A-Z]{2,3}(\/[A-Z]{2,3})+");
 			var matches = regex.Matches(Description);
