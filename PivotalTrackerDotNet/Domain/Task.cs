@@ -13,7 +13,7 @@ namespace PivotalTrackerDotNet.Domain {
 		static readonly AuthenticationToken Token = AuthenticationService.Authenticate("v5core", "changeme");
 		protected static List<Person> Members;
 
-		static Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?", RegexOptions.Compiled);
+		static Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?$", RegexOptions.Compiled);
 
 		public string GetDescriptionWithoutOwners() {
 			var descriptionWithoutOwners = FullOwnerRegex.Replace(Description, "");
