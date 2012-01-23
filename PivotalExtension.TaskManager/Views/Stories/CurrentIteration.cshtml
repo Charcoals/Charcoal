@@ -2,8 +2,8 @@
 @{
     ViewBag.Title = "Current Iteration";
 }
-<h2>
-    Current Iteration</h2>
+<h2>Current Iteration</h2>
+<p><input type="checkbox" onclick="ToggleCompletedTasks()" id="hideCompleted" /> Hide completed tasks</p>
 <table class="mainTable">
     @foreach (var item in Model) {
         <tr class="story">
@@ -59,6 +59,14 @@ function Complete(id, completed) {
         error : function (xhr, ajaxOptions, thrownError){
                 alert(thrownError);
             }  
+    });
+}
+
+function ToggleCompletedTasks() {
+    showCompleted = $('#hideCompleted').attr('checked') != 'checked';
+
+    $('div.task.complete').each(function() {
+        $(this).toggle(showCompleted);
     });
 }
 </script>
