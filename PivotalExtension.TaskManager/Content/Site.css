@@ -396,36 +396,49 @@ tr.story td.storyCol
 
 div.task
 {
-    background-image: url('blank-index-card.jpg');
+    background-image: url('blank-index-card.png');
     color: #111111;
     border: 1px solid #444444;
     padding: 3px 5px 5px 5px;
     margin: 5px;
     float: left;
-    width: 280px;
-    height: 160px;
+    width: 380px;
+    height: 220px;
     clip: auto;
     overflow: auto;
     line-height: 15px;
+    color: #555555;
+}
+
+div.task h3
+{
+    text-align: center;
+    color: #555555;
 }
 
 div.complete
 {
-    color: #555555;
-    font-style: italic;
+    background-image: url('green-index-card.png');
     background-color: #9AD9A2;
 }
 
 div.in-progress
 {
-    color: #555555;
+    background-image: url('yellow-index-card.png');
     background-color: #F2E37E;
 }
 
 div.ui-selected
 {
-    background: #F39814;
+    background-image: url('orange-index-card.png');
+    background-color: #F39814;
+    font-weight: bold;
     color: white;
+}
+
+div.ui-selected h3
+{
+    color: White;
 }
 
 div.top-right
@@ -443,7 +456,7 @@ div.top-right
     right: 10px;
 }
 
-div.top-right a 
+div.top-right a
 {
     color: White;
     text-decoration: none;
