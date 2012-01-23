@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using PivotalTrackerDotNet;
 
 namespace PivotalExtension.TaskManager.Controllers {
-    [SessionState(System.Web.SessionState.SessionStateBehavior.ReadOnly)]
     public class ProjectsController : BaseController {
         IProjectService service;
         IProjectService Service {

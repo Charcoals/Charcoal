@@ -7,6 +7,7 @@ using System.Linq;
 using PivotalTrackerDotNet.Domain;
 
 namespace PivotalExtension.TaskManager.Controllers {
+    [SessionState(System.Web.SessionState.SessionStateBehavior.ReadOnly)]
     public class BaseController : Controller {
         protected AuthenticationToken Token {
             get { return (AuthenticationToken)Session["token"]; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using PivotalTrackerDotNet;
+using PivotalTrackerDotNet.Domain;
 
 namespace PivotalExtension.TaskManager.Controllers {
     public class TaskController : BaseController {
@@ -23,6 +24,15 @@ namespace PivotalExtension.TaskManager.Controllers {
 
         public ActionResult Details(int id, int storyId, int projectId) {
             return PartialView("TaskDetails", Service.GetTask(projectId, storyId, id));
+        }
+
+        [HttpPost]
+        public ActionResult SignUp(int id, int storyId, int projectId, string initials) {
+            var task = Service.GetTask(projectId, storyId, id);
+            var tempDescription = Task.FullOwnerRegex.Replace(task.Description, "").TrimEnd();
+            task.Description = tempDescription + " (" + initials + ")";
+            Service.SaveTask(task);
+            return PartialView("TaskDetails", task);
         }
 
     }
