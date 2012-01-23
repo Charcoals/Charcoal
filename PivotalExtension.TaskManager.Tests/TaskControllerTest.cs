@@ -167,5 +167,70 @@ namespace PivotalExtension.TaskManager.Tests {
                 Assert.AreEqual(string.Format("{0}", description.Replace(" (AA/FF)", "")), modelTask.Description);
             }
         }
+
+        [Test]
+        public void Complete() {
+            var mockery = new MockRepository();
+
+            var projectId = 3;
+            var storyId = 4;
+            var id = 5;
+            var initials = true;
+            var description = "Doin work";
+            var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId, Complete = false };
+
+            var storyService = mockery.StrictMock<IStoryService>();
+
+            using (mockery.Record())
+            using (mockery.Ordered()) {
+                Expect.Call(storyService.GetTask(projectId, storyId, id)).Return(task);
+                storyService.SaveTask(task);
+            }
+
+            using (mockery.Playback()) {
+                var controller = new TaskController(storyService);
+                var result = controller.Complete(id, storyId, projectId, initials);
+                var viewResult = result as PartialViewResult;
+                Assert.NotNull(viewResult);
+                Assert.AreEqual("TaskDetails", viewResult.ViewName);
+                Assert.IsInstanceOf<Task>(viewResult.Model);
+                var modelTask = viewResult.Model as Task;
+                Assert.AreEqual(projectId, modelTask.ProjectId);
+                Assert.AreEqual(storyId, modelTask.ParentStoryId);
+                Assert.AreEqual(id, modelTask.Id);
+                Assert.IsTrue(modelTask.Complete);
+            }
+        }
+
+        [Test]
+        public void Complete_Doesnt_Save_Task_If_No_Change() {
+            var mockery = new MockRepository();
+
+            var projectId = 3;
+            var storyId = 4;
+            var id = 5;
+            var initials = true;
+            var description = "Doin work";
+            var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId, Complete = true };
+
+            var str = string.Format("<a href=\"#\" onclick=\"Complete({this.id, {0}){2} return false{2}\">{1}</a>", (task.Complete ? "false" : "true"), (task.Complete ? "Reopen" : "Complete"), ((char)59).ToString());
+
+            var storyService = mockery.StrictMock<IStoryService>();
+
+            using (mockery.Record())
+            using (mockery.Ordered()) {
+                Expect.Call(storyService.GetTask(projectId, storyId, id)).Return(task);
+            }
+
+            using (mockery.Playback()) {
+                var controller = new TaskController(storyService);
+                var result = controller.Complete(id, storyId, projectId, initials);
+                var viewResult = result as PartialViewResult;
+                Assert.NotNull(viewResult);
+                Assert.AreEqual("TaskDetails", viewResult.ViewName);
+                Assert.IsInstanceOf<Task>(viewResult.Model);
+                Assert.AreEqual(task, viewResult.Model);
+            }
+        }
     }
 }

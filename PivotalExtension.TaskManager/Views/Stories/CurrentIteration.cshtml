@@ -46,4 +46,19 @@ function SignUp() {
         }
     });
 }
+
+function Complete(id, completed) {
+    var items = id.split('-');
+    $.ajax({
+        type: 'POST',
+        url: '/Task/Complete',
+        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&completed=' + completed,
+        success : function(html) {
+                $('#' + id).replaceWith(html);
+            },
+        error : function (xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }  
+    });
+}
 </script>

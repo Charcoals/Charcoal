@@ -34,5 +34,14 @@ namespace PivotalExtension.TaskManager.Controllers {
             return PartialView("TaskDetails", task);
         }
 
+        [HttpPost]
+        public ActionResult Complete(int id, int storyId, int projectId, bool completed) {
+            var task = Service.GetTask(projectId, storyId, id);
+            if (task.Complete != completed) {
+                task.Complete = completed;
+                Service.SaveTask(task);
+            }
+            return PartialView("TaskDetails", task);
+        }
     }
 }
