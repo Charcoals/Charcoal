@@ -13,11 +13,11 @@ namespace PivotalTrackerDotNet.Domain {
 		static readonly AuthenticationToken Token = AuthenticationService.Authenticate("v5core", "changeme");
 		protected static List<Person> Members;
 
-		public static Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?", RegexOptions.Compiled);
+		static Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?", RegexOptions.Compiled);
 
 		public string GetDescriptionWithoutOwners() {
 			var descriptionWithoutOwners = FullOwnerRegex.Replace(Description, "");
-			return descriptionWithoutOwners.Length == 0 ? "(Placeholder)" : descriptionWithoutOwners;
+			return descriptionWithoutOwners.Length == 0 ? "(Placeholder)" : descriptionWithoutOwners.TrimEnd();
 		}
 
 		public void SetOwners(List<Person> owners) {

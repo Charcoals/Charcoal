@@ -29,8 +29,7 @@ namespace PivotalExtension.TaskManager.Controllers {
         [HttpPost]
         public ActionResult SignUp(int id, int storyId, int projectId, string initials) {
             var task = Service.GetTask(projectId, storyId, id);
-            var tempDescription = Task.FullOwnerRegex.Replace(task.Description, "").TrimEnd();
-            task.Description = tempDescription + " (" + initials + ")";
+            task.Description = task.GetDescriptionWithoutOwners() + " (" + initials + ")";
             Service.SaveTask(task);
             return PartialView("TaskDetails", task);
         }
