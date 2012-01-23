@@ -425,3 +425,31 @@ div.ui-selected
     color: white;
 }
 
+div.top-right
+{
+    position: fixed;
+    width: 150px;
+    border: solid 1px #e1e1e1;
+    vertical-align: middle;
+    background: #333333;
+    color: White;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    top: 125px;
+    right: 10px;
+}
+
+div.top-right a 
+{
+    color: White;
+    text-decoration: none;
+}
+
+div.top-right a:hover
+{
+    color: Green;
+    text-decoration: none;
+}
+
+
