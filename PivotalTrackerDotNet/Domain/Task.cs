@@ -10,7 +10,6 @@ namespace PivotalTrackerDotNet.Domain {
 		public int ParentStoryId { get; set; }
 		public int ProjectId { get; set; }
 
-		static readonly AuthenticationToken Token = AuthenticationService.Authenticate("v5core", "changeme");
 		protected static List<Person> Members;
 
 		static Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?$", RegexOptions.Compiled);
@@ -31,9 +30,10 @@ namespace PivotalTrackerDotNet.Domain {
 			}
 		}
 
-		public List<Person> GetOwners() {
+		//TODO: Remove passthrough of token
+		public List<Person> GetOwners(AuthenticationToken token) {
 			if (Members == null) {
-				Members = new MembershipService(Token).GetMembers(ProjectId);
+				Members = new MembershipService(token).GetMembers(ProjectId);
 			}
 
 			var owners = new List<Person>();
@@ -54,11 +54,12 @@ namespace PivotalTrackerDotNet.Domain {
 			return owners;
 		}
 
-		public string GetStyle() {
+		//TODO: Remove passthrough of token
+		public string GetStyle(AuthenticationToken token) {
 			if (this.Complete) {
 				return "task complete";
 			}
-			else if (this.GetOwners().Any()) {
+			else if (this.GetOwners(token).Any()) {
 				return "task in-progress";
 			}
 			else {
