@@ -20,7 +20,7 @@ namespace PivotalExtension.TaskManager.Controllers {
 
 		protected override void OnException(ExceptionContext filterContext) {
 			if (filterContext.Exception is NotAuthenticatedException) {
-				Response.Redirect("~/Account/LogOn");
+				Response.Redirect("~/Account/LogOn?returnUrl=" + filterContext.HttpContext.Request.Url);
 			}
 			base.OnException(filterContext);
 		}

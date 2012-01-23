@@ -1,8 +1,9 @@
 ﻿@model PivotalTrackerDotNet.Domain.Task
+@using PivotalExtension.TaskManager
 
 <div class="@Model.GetStyle()" id="@string.Format("{0}-{1}-{2}", Model.ProjectId, Model.ParentStoryId, Model.Id)">
     <h3>Task</h3>
-    <p>@Model.GetDescriptionWithoutOwners()</p>
+    <p>@Html.Raw(Html.FormatLinksInPlace(Model.GetDescriptionWithoutOwners()))</p>
     <p><strong>@string.Join("/", Model.GetOwners().Select(o => o.Initials))</strong></p>
     <p><a href="#" onclick="Complete('@string.Format("{0}-{1}-{2}", Model.ProjectId, Model.ParentStoryId, Model.Id)', @(Model.Complete ? "false" : "true")); return false">@(Model.Complete ? "Reopen" : "Complete")</a></p>
 </div>
