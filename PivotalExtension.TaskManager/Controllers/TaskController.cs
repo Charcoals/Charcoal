@@ -29,7 +29,7 @@ namespace PivotalExtension.TaskManager.Controllers {
         [HttpPost]
         public ActionResult SignUp(int id, int storyId, int projectId, string initials) {
             var task = Service.GetTask(projectId, storyId, id);
-            task.Description = task.GetDescriptionWithoutOwners() + (string.IsNullOrEmpty(initials) ? "" : (" (" + initials + ")"));
+            task.Description = task.GetDescriptionWithoutOwners() + (string.IsNullOrEmpty(initials) ? "" : (" (" + initials.ToUpper() + ")"));
             Service.SaveTask(task);
             return PartialView("TaskDetails", task);
         }

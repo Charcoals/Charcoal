@@ -32,39 +32,73 @@ namespace PivotalExtension.TaskManager.Tests {
             }
         }
 
-        [Test]
-        public void SignUp() {
-            var mockery = new MockRepository();
+				[Test]
+				public void SignUp() {
+					var mockery = new MockRepository();
 
-            var projectId = 3;
-            var storyId = 4;
-            var id = 5;
-            var initials = "NN/GZ";
-            var description = "Doin work";
-            var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId };
+					var projectId = 3;
+					var storyId = 4;
+					var id = 5;
+					var initials = "NN/GZ";
+					var description = "Doin work";
+					var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId };
 
-            var storyService = mockery.StrictMock<IStoryService>();
+					var storyService = mockery.StrictMock<IStoryService>();
 
-            using (mockery.Record())
-            using (mockery.Ordered()) {
-                Expect.Call(storyService.GetTask(projectId, storyId, id)).Return(task);
-                storyService.SaveTask(task);
-            }
+					using (mockery.Record())
+					using (mockery.Ordered()) {
+						Expect.Call(storyService.GetTask(projectId, storyId, id)).Return(task);
+						storyService.SaveTask(task);
+					}
 
-            using (mockery.Playback()) {
-                var controller = new TaskController(storyService);
-                var result = controller.SignUp(id, storyId, projectId, initials);
-                var viewResult = result as PartialViewResult;
-                Assert.NotNull(viewResult);
-                Assert.AreEqual("TaskDetails", viewResult.ViewName);
-                Assert.IsInstanceOf<Task>(viewResult.Model);
-                var modelTask = viewResult.Model as Task;
-                Assert.AreEqual(projectId, modelTask.ProjectId);
-                Assert.AreEqual(storyId, modelTask.ParentStoryId);
-                Assert.AreEqual(id, modelTask.Id);
-                Assert.AreEqual(string.Format("{0} ({1})", description, initials), modelTask.Description);
-            }
-        }
+					using (mockery.Playback()) {
+						var controller = new TaskController(storyService);
+						var result = controller.SignUp(id, storyId, projectId, initials);
+						var viewResult = result as PartialViewResult;
+						Assert.NotNull(viewResult);
+						Assert.AreEqual("TaskDetails", viewResult.ViewName);
+						Assert.IsInstanceOf<Task>(viewResult.Model);
+						var modelTask = viewResult.Model as Task;
+						Assert.AreEqual(projectId, modelTask.ProjectId);
+						Assert.AreEqual(storyId, modelTask.ParentStoryId);
+						Assert.AreEqual(id, modelTask.Id);
+						Assert.AreEqual(string.Format("{0} ({1})", description, initials), modelTask.Description);
+					}
+				}
+
+				[Test]
+				public void SignUp_Lowercase_Initials() {
+					var mockery = new MockRepository();
+
+					var projectId = 3;
+					var storyId = 4;
+					var id = 5;
+					var initials = "nn/gz";
+					var description = "Doin work";
+					var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId };
+
+					var storyService = mockery.StrictMock<IStoryService>();
+
+					using (mockery.Record())
+					using (mockery.Ordered()) {
+						Expect.Call(storyService.GetTask(projectId, storyId, id)).Return(task);
+						storyService.SaveTask(task);
+					}
+
+					using (mockery.Playback()) {
+						var controller = new TaskController(storyService);
+						var result = controller.SignUp(id, storyId, projectId, initials);
+						var viewResult = result as PartialViewResult;
+						Assert.NotNull(viewResult);
+						Assert.AreEqual("TaskDetails", viewResult.ViewName);
+						Assert.IsInstanceOf<Task>(viewResult.Model);
+						var modelTask = viewResult.Model as Task;
+						Assert.AreEqual(projectId, modelTask.ProjectId);
+						Assert.AreEqual(storyId, modelTask.ParentStoryId);
+						Assert.AreEqual(id, modelTask.Id);
+						Assert.AreEqual(string.Format("{0} ({1})", description, initials.ToUpper()), modelTask.Description);
+					}
+				}
 
         [Test]
         public void SignUp_Already_Has_Initials() {
@@ -212,8 +246,6 @@ namespace PivotalExtension.TaskManager.Tests {
             var initials = true;
             var description = "Doin work";
             var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId, Complete = true };
-
-            var str = string.Format("<a href=\"#\" onclick=\"Complete({this.id, {0}){2} return false{2}\">{1}</a>", (task.Complete ? "false" : "true"), (task.Complete ? "Reopen" : "Complete"), ((char)59).ToString());
 
             var storyService = mockery.StrictMock<IStoryService>();
 
