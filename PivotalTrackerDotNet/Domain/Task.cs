@@ -10,63 +10,6 @@ namespace PivotalTrackerDotNet.Domain {
 		public int ParentStoryId { get; set; }
 		public int ProjectId { get; set; }
 
-		protected static List<Person> Members;
-
-		static Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?$", RegexOptions.Compiled);
-
-		public string GetDescriptionWithoutOwners() {
-			var descriptionWithoutOwners = FullOwnerRegex.Replace(Description, "");
-			return descriptionWithoutOwners.Length == 0 ? "(Placeholder)" : descriptionWithoutOwners.TrimEnd();
-		}
-
-		public void SetOwners(List<Person> owners) {
-			if (owners.Count == 0) return;
-
-			var match = FullOwnerRegex.Match(Description);
-			if (match != null) {
-				Description = Description.Remove(match.Index);
-				var initials = string.Join("/", owners.Select(o => o.Initials));
-				Description += " - " + initials;
-			}
-		}
-
-		//TODO: Remove passthrough of token
-		public List<Person> GetOwners(AuthenticationToken token) {
-			if (Members == null) {
-				Members = new MembershipService(token).GetMembers(ProjectId);
-			}
-
-			var owners = new List<Person>();
-
-			var regex = new Regex(@"[A-Z]{2,3}(\/[A-Z]{2,3})+");
-			var matches = regex.Matches(Description);
-
-			if (matches.Count > 0) {
-				var membersLookup = Members.ToDictionary(m => m.Initials);
-				var initials = matches[0].Value.Split('/');
-				foreach (var owner in initials) {
-					if (membersLookup.ContainsKey(owner)) {
-						owners.Add(membersLookup[owner]);
-					}
-				}
-			}
-
-			return owners;
-		}
-
-		//TODO: Remove passthrough of token
-		public string GetStyle(AuthenticationToken token) {
-			if (this.Complete) {
-				return "task complete";
-			}
-			else if (this.GetOwners(token).Any()) {
-				return "task in-progress";
-			}
-			else {
-				return "task";
-			}
-		}
-
 		public string GetIdToken() {
 			return string.Format("{0}:{1}:{2}", ProjectId, ParentStoryId, Id);
 		}

@@ -4,14 +4,26 @@ using PivotalExtension.TaskManager.Controllers;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
 using Rhino.Mocks;
+using System.Collections.Generic;
+using PivotalExtension.TaskManager.Models;
 
 namespace PivotalExtension.TaskManager.Tests {
     [TestFixture]
     public class TaskControllerTest {
+        MockRepository mockery;
+        [SetUp]
+        public void SetUp() {
+            mockery = new MockRepository();
+            var membershipService = mockery.StrictMock<IMembershipService>();
+            using(mockery.Record()){
+                SetupResult.For(membershipService.GetMembers(1)).IgnoreArguments().Return(new List<Person>());
+            }
+            TaskViewModel.service = membershipService;
+            //mockery.BackToRecord();
+        }
+
         [Test]
         public void Details() {
-            var mockery = new MockRepository();
-
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -28,82 +40,76 @@ namespace PivotalExtension.TaskManager.Tests {
                 var viewResult = result as PartialViewResult;
                 Assert.NotNull(viewResult);
                 Assert.AreEqual("TaskDetails", viewResult.ViewName);
-                Assert.IsInstanceOf<Task>(viewResult.Model);
+                Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
             }
         }
 
-				[Test]
-				public void SignUp() {
-					var mockery = new MockRepository();
+        [Test]
+        public void SignUp() {
+            var projectId = 3;
+            var storyId = 4;
+            var id = 5;
+            var initials = "NN/GZ";
+            var description = "Doin work";
+            var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId };
 
-					var projectId = 3;
-					var storyId = 4;
-					var id = 5;
-					var initials = "NN/GZ";
-					var description = "Doin work";
-					var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId };
+            var storyService = mockery.StrictMock<IStoryService>();
 
-					var storyService = mockery.StrictMock<IStoryService>();
+            using (mockery.Record())
+            using (mockery.Ordered()) {
+                Expect.Call(storyService.GetTask(projectId, storyId, id)).Return(task);
+                storyService.SaveTask(task);
+            }
 
-					using (mockery.Record())
-					using (mockery.Ordered()) {
-						Expect.Call(storyService.GetTask(projectId, storyId, id)).Return(task);
-						storyService.SaveTask(task);
-					}
+            using (mockery.Playback()) {
+                var controller = new TaskController(storyService);
+                var result = controller.SignUp(id, storyId, projectId, initials);
+                var viewResult = result as PartialViewResult;
+                Assert.NotNull(viewResult);
+                Assert.AreEqual("TaskDetails", viewResult.ViewName);
+                Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
+                var modelTask = viewResult.Model as TaskViewModel;
+                Assert.AreEqual(projectId, modelTask.ProjectId);
+                Assert.AreEqual(storyId, modelTask.ParentStoryId);
+                Assert.AreEqual(id, modelTask.Id);
+                Assert.AreEqual(string.Format("{0} ({1})", description, initials), modelTask.Description);
+            }
+        }
 
-					using (mockery.Playback()) {
-						var controller = new TaskController(storyService);
-						var result = controller.SignUp(id, storyId, projectId, initials);
-						var viewResult = result as PartialViewResult;
-						Assert.NotNull(viewResult);
-						Assert.AreEqual("TaskDetails", viewResult.ViewName);
-						Assert.IsInstanceOf<Task>(viewResult.Model);
-						var modelTask = viewResult.Model as Task;
-						Assert.AreEqual(projectId, modelTask.ProjectId);
-						Assert.AreEqual(storyId, modelTask.ParentStoryId);
-						Assert.AreEqual(id, modelTask.Id);
-						Assert.AreEqual(string.Format("{0} ({1})", description, initials), modelTask.Description);
-					}
-				}
+        [Test]
+        public void SignUp_Lowercase_Initials() {
+            var projectId = 3;
+            var storyId = 4;
+            var id = 5;
+            var initials = "nn/gz";
+            var description = "Doin work";
+            var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId };
 
-				[Test]
-				public void SignUp_Lowercase_Initials() {
-					var mockery = new MockRepository();
+            var storyService = mockery.StrictMock<IStoryService>();
 
-					var projectId = 3;
-					var storyId = 4;
-					var id = 5;
-					var initials = "nn/gz";
-					var description = "Doin work";
-					var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId };
+            using (mockery.Record())
+            using (mockery.Ordered()) {
+                Expect.Call(storyService.GetTask(projectId, storyId, id)).Return(task);
+                storyService.SaveTask(task);
+            }
 
-					var storyService = mockery.StrictMock<IStoryService>();
-
-					using (mockery.Record())
-					using (mockery.Ordered()) {
-						Expect.Call(storyService.GetTask(projectId, storyId, id)).Return(task);
-						storyService.SaveTask(task);
-					}
-
-					using (mockery.Playback()) {
-						var controller = new TaskController(storyService);
-						var result = controller.SignUp(id, storyId, projectId, initials);
-						var viewResult = result as PartialViewResult;
-						Assert.NotNull(viewResult);
-						Assert.AreEqual("TaskDetails", viewResult.ViewName);
-						Assert.IsInstanceOf<Task>(viewResult.Model);
-						var modelTask = viewResult.Model as Task;
-						Assert.AreEqual(projectId, modelTask.ProjectId);
-						Assert.AreEqual(storyId, modelTask.ParentStoryId);
-						Assert.AreEqual(id, modelTask.Id);
-						Assert.AreEqual(string.Format("{0} ({1})", description, initials.ToUpper()), modelTask.Description);
-					}
-				}
+            using (mockery.Playback()) {
+                var controller = new TaskController(storyService);
+                var result = controller.SignUp(id, storyId, projectId, initials);
+                var viewResult = result as PartialViewResult;
+                Assert.NotNull(viewResult);
+                Assert.AreEqual("TaskDetails", viewResult.ViewName);
+                Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
+                var modelTask = viewResult.Model as TaskViewModel;
+                Assert.AreEqual(projectId, modelTask.ProjectId);
+                Assert.AreEqual(storyId, modelTask.ParentStoryId);
+                Assert.AreEqual(id, modelTask.Id);
+                Assert.AreEqual(string.Format("{0} ({1})", description, initials.ToUpper()), modelTask.Description);
+            }
+        }
 
         [Test]
         public void SignUp_Already_Has_Initials() {
-            var mockery = new MockRepository();
-
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -125,8 +131,8 @@ namespace PivotalExtension.TaskManager.Tests {
                 var viewResult = result as PartialViewResult;
                 Assert.NotNull(viewResult);
                 Assert.AreEqual("TaskDetails", viewResult.ViewName);
-                Assert.IsInstanceOf<Task>(viewResult.Model);
-                var modelTask = viewResult.Model as Task;
+                Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
+                var modelTask = viewResult.Model as TaskViewModel;
                 Assert.AreEqual(projectId, modelTask.ProjectId);
                 Assert.AreEqual(storyId, modelTask.ParentStoryId);
                 Assert.AreEqual(id, modelTask.Id);
@@ -136,8 +142,6 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void SignUp_Already_Has_Initials_NoParentheses() {
-            var mockery = new MockRepository();
-
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -159,8 +163,8 @@ namespace PivotalExtension.TaskManager.Tests {
                 var viewResult = result as PartialViewResult;
                 Assert.NotNull(viewResult);
                 Assert.AreEqual("TaskDetails", viewResult.ViewName);
-                Assert.IsInstanceOf<Task>(viewResult.Model);
-                var modelTask = viewResult.Model as Task;
+                Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
+                var modelTask = viewResult.Model as TaskViewModel;
                 Assert.AreEqual(projectId, modelTask.ProjectId);
                 Assert.AreEqual(storyId, modelTask.ParentStoryId);
                 Assert.AreEqual(id, modelTask.Id);
@@ -170,8 +174,6 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void SignUp_No_Initials_Clears_Existing() {
-            var mockery = new MockRepository();
-
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -193,8 +195,8 @@ namespace PivotalExtension.TaskManager.Tests {
                 var viewResult = result as PartialViewResult;
                 Assert.NotNull(viewResult);
                 Assert.AreEqual("TaskDetails", viewResult.ViewName);
-                Assert.IsInstanceOf<Task>(viewResult.Model);
-                var modelTask = viewResult.Model as Task;
+                Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
+                var modelTask = viewResult.Model as TaskViewModel;
                 Assert.AreEqual(projectId, modelTask.ProjectId);
                 Assert.AreEqual(storyId, modelTask.ParentStoryId);
                 Assert.AreEqual(id, modelTask.Id);
@@ -204,8 +206,6 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void Complete() {
-            var mockery = new MockRepository();
-
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -227,8 +227,8 @@ namespace PivotalExtension.TaskManager.Tests {
                 var viewResult = result as PartialViewResult;
                 Assert.NotNull(viewResult);
                 Assert.AreEqual("TaskDetails", viewResult.ViewName);
-                Assert.IsInstanceOf<Task>(viewResult.Model);
-                var modelTask = viewResult.Model as Task;
+                Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
+                var modelTask = viewResult.Model as TaskViewModel;
                 Assert.AreEqual(projectId, modelTask.ProjectId);
                 Assert.AreEqual(storyId, modelTask.ParentStoryId);
                 Assert.AreEqual(id, modelTask.Id);
@@ -238,8 +238,6 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void Complete_Doesnt_Save_Task_If_No_Change() {
-            var mockery = new MockRepository();
-
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -260,8 +258,8 @@ namespace PivotalExtension.TaskManager.Tests {
                 var viewResult = result as PartialViewResult;
                 Assert.NotNull(viewResult);
                 Assert.AreEqual("TaskDetails", viewResult.ViewName);
-                Assert.IsInstanceOf<Task>(viewResult.Model);
-                Assert.AreEqual(task, viewResult.Model);
+                Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
+                Assert.AreEqual(task, (viewResult.Model as TaskViewModel).Task);
             }
         }
     }

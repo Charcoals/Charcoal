@@ -11,7 +11,7 @@
             </td>
             <td>
                 @foreach (var task in item.Tasks) {
-                    @Html.Partial("TaskDetails", task)
+                    @Html.Partial("TaskDetails", new PivotalExtension.TaskManager.Models.TaskViewModel(task))
                 }
             </td>
         </tr>

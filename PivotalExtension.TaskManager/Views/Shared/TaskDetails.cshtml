@@ -1,12 +1,12 @@
-﻿@model PivotalTrackerDotNet.Domain.Task           
+﻿@model PivotalExtension.TaskManager.Models.TaskViewModel      
 @using PivotalExtension.TaskManager
 @using PivotalTrackerDotNet.Domain;
 
 <!-- TODO: Get rid of passthroughs of auth token -->
 
-<div class="@Model.GetStyle((AuthenticationToken)Session["token"])" id="@string.Format("{0}-{1}-{2}", Model.ProjectId, Model.ParentStoryId, Model.Id)">
+<div class="@Model.GetStyle()" id="@Model.DisplayId">
     <h3>Task</h3>
     <p>@Html.Raw(Html.FormatLinksInPlace(Model.GetDescriptionWithoutOwners()))</p>
-    <p><strong>@string.Join("/", Model.GetOwners((AuthenticationToken)Session["token"]).Select(o => o.Initials))</strong></p>
-    <p><a href="#" onclick="Complete('@string.Format("{0}-{1}-{2}", Model.ProjectId, Model.ParentStoryId, Model.Id)', @(Model.Complete ? "false" : "true")); return false">@(Model.Complete ? "Reopen" : "Complete")</a></p>
+    <p><strong>@string.Join("/", Model.GetOwners().Select(o => o.Initials))</strong></p>
+    <p><a href="#" onclick="Complete('@Model.DisplayId', @(Model.Complete ? "false" : "true")); return false">@(Model.Complete ? "Reopen" : "Complete")</a></p>
 </div>

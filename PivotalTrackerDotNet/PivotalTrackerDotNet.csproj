@@ -54,9 +54,10 @@
     <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\Story.cs" />
     <Compile Include="Domain\Task.cs" />
+    <Compile Include="IMembershipService.cs" />
     <Compile Include="IProjectService.cs" />
     <Compile Include="IStoryService.cs" />
-    <Compile Include="MemberShipService.cs" />
+    <Compile Include="MembershipService.cs" />
     <Compile Include="PivotalTrackerRestEndpoint.cs" />
     <Compile Include="ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

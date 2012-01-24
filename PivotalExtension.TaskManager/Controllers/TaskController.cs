@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
+using PivotalExtension.TaskManager.Models;
 
 namespace PivotalExtension.TaskManager.Controllers {
     public class TaskController : BaseController {
@@ -23,15 +24,15 @@ namespace PivotalExtension.TaskManager.Controllers {
         }
 
         public ActionResult Details(int id, int storyId, int projectId) {
-            return PartialView("TaskDetails", Service.GetTask(projectId, storyId, id));
+            return PartialView("TaskDetails", new TaskViewModel(Service.GetTask(projectId, storyId, id)));
         }
 
         [HttpPost]
         public ActionResult SignUp(int id, int storyId, int projectId, string initials) {
             var task = Service.GetTask(projectId, storyId, id);
-            task.Description = task.GetDescriptionWithoutOwners() + (string.IsNullOrEmpty(initials) ? "" : (" (" + initials.ToUpper() + ")"));
+            task.Description = new TaskViewModel(task).GetDescriptionWithoutOwners() + (string.IsNullOrEmpty(initials) ? "" : (" (" + initials.ToUpper() + ")"));
             Service.SaveTask(task);
-            return PartialView("TaskDetails", task);
+            return PartialView("TaskDetails", new TaskViewModel(task));
         }
 
         [HttpPost]
@@ -41,7 +42,7 @@ namespace PivotalExtension.TaskManager.Controllers {
                 task.Complete = completed;
                 Service.SaveTask(task);
             }
-            return PartialView("TaskDetails", task);
+            return PartialView("TaskDetails", new TaskViewModel(task));
         }
     }
 }

@@ -45,6 +45,15 @@ namespace PivotalExtension.TaskManager.Controllers {
             return View(model);
         }
 
+        //
+        // GET: /Account/LogOff
+
+        public ActionResult LogOff() {
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus) {
             // See http://go.microsoft.com/fwlink/?LinkID=177550 for
