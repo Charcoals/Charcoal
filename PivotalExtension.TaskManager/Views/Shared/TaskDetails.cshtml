@@ -2,8 +2,6 @@
 @using PivotalExtension.TaskManager
 @using PivotalTrackerDotNet.Domain;
 
-<!-- TODO: Get rid of passthroughs of auth token -->
-
 <div class="@Model.GetStyle()" id="@Model.DisplayId">
     <h3>Task</h3>
     <p>@Html.Raw(Html.FormatLinksInPlace(Model.GetDescriptionWithoutOwners()))</p>

@@ -368,30 +368,28 @@ div#title
 }
 
 /* Custom */
-table.mainTable
+
+table.story-table 
 {
-    font-family: Verdana;
-    border-spacing: 0;
     border-collapse: collapse;
-    width: 100%;
 }
 
-table.mainTable tr
+tr.story-row 
 {
     vertical-align: top;
 }
 
-tr.story td
+td.story-column 
 {
-    border-bottom: 2px solid #444444;
-    border-right: 1px solid #888888;
-    width: 200px;
-    padding: 10px;
+    width: 360px;   
+    background-color: #EFEFEF;   
+    border-bottom: 1px solid #999999;
 }
 
-tr.story td.storyCol
+td.task-column 
 {
-    width: 20%;
+    width: 100%;
+    border-bottom: 1px solid #999999;
 }
 
 div.task
@@ -401,8 +399,29 @@ div.task
     border: 1px solid #444444;
     padding: 3px 5px 5px 5px;
     margin: 5px;
+    width: 340px;
+    height: 220px;
+    clip: auto;
+    overflow: auto;
+    line-height: 15px;
+    color: #555555;
     float: left;
-    width: 380px;
+}
+
+div.task h3
+{
+    text-align: center;
+    color: #555555;
+}
+
+div.story-details
+{
+    background-image: url('blank-index-card.png');
+    color: #111111;
+    border: 1px solid #444444;
+    padding: 3px 5px 5px 5px;
+    margin: 5px;
+    width: 340px;
     height: 220px;
     clip: auto;
     overflow: auto;
@@ -410,7 +429,7 @@ div.task
     color: #555555;
 }
 
-div.task h3
+div.story-details h3
 {
     text-align: center;
     color: #555555;
@@ -467,5 +486,3 @@ div.top-right a:hover
     color: Green;
     text-decoration: none;
 }
-
-

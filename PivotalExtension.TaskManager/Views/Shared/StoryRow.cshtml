@@ -1,0 +1,10 @@
+﻿@model PivotalExtension.TaskManager.Models.StoryRowViewModel
+           
+<tr class="story-row">
+    <td class="story-column">@Html.Partial("StoryDetails", new PivotalExtension.TaskManager.Models.StoryViewModel(Model.Story))</div></td>
+    <td class="task-column">
+        @foreach (var task in Model.Story.Tasks) {
+            @Html.Partial("TaskDetails", new PivotalExtension.TaskManager.Models.TaskViewModel(task))
+        }
+    </td>
+</tr>

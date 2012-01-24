@@ -4,19 +4,13 @@
 }
 <h2>Current Iteration</h2>
 <p><input type="checkbox" onclick="ToggleCompletedTasks()" id="hideCompleted" /> Hide completed tasks</p>
-<table class="mainTable">
-    @foreach (var item in Model) {
-        <tr class="story">
-            <td class="storyCol">@item.Name
-            </td>
-            <td>
-                @foreach (var task in item.Tasks) {
-                    @Html.Partial("TaskDetails", new PivotalExtension.TaskManager.Models.TaskViewModel(task))
-                }
-            </td>
-        </tr>
+
+<table>
+    @foreach (var story in Model) {
+        @Html.Partial("StoryRow", new PivotalExtension.TaskManager.Models.StoryRowViewModel(story))
     }
 </table>
+
 <br />
 <div class="top-right"><a href="#" onclick="SignUp(); return false;">SIGN UP FOR SELECTED</a></div>
 <script type="text/javascript">
