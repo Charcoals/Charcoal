@@ -15,8 +15,6 @@ namespace PivotalExtension.TaskManager.Models {
 
         public Task Task { get; set; }
 
-
-
         static Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?$", RegexOptions.Compiled);
 
         public string GetDescriptionWithoutOwners() {
