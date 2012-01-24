@@ -1,6 +1,6 @@
 ﻿@model PivotalExtension.TaskManager.Models.StoryViewModel
            
-<div class="story-details">
+<div class="@Model.GetStyle()">
     <h3>Story</h3>
     <p>@Model.Story.Name</p>
 </div>

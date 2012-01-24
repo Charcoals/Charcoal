@@ -418,7 +418,7 @@ div.story-details
 {
     background-image: url('blank-index-card.png');
     color: #111111;
-    border: 1px solid #444444;
+    border: 5px solid #EFEFEF;
     padding: 3px 5px 5px 5px;
     margin: 5px;
     width: 340px;
@@ -433,6 +433,26 @@ div.story-details h3
 {
     text-align: center;
     color: #555555;
+}
+
+div.started 
+{
+    border: 5px solid #E6D600;
+}
+
+div.finished, div.delivered
+{
+    border: 5px solid #0F67F5;
+}
+
+div.accepted 
+{
+    border: 5px solid #1F8705;
+}
+
+div.rejected 
+{
+    border: 5px solid #D41900;
 }
 
 div.complete
