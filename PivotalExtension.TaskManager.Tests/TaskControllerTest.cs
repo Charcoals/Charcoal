@@ -6,6 +6,7 @@ using PivotalTrackerDotNet.Domain;
 using Rhino.Mocks;
 using System.Collections.Generic;
 using PivotalExtension.TaskManager.Models;
+using Rhino.Mocks.Constraints;
 
 namespace PivotalExtension.TaskManager.Tests {
     [TestFixture]
@@ -246,7 +247,7 @@ namespace PivotalExtension.TaskManager.Tests {
             var projectId = 3;
             var storyId = 4;
             var id = 5;
-            var initials = true;
+            var completed = true;
             var description = "Doin work";
             var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId, Complete = true };
 
@@ -259,7 +260,7 @@ namespace PivotalExtension.TaskManager.Tests {
 
             using (mockery.Playback()) {
                 var controller = new TaskController(storyService);
-                var result = controller.Complete(id, storyId, projectId, initials);
+                var result = controller.Complete(id, storyId, projectId, completed);
                 var viewResult = result as PartialViewResult;
                 Assert.NotNull(viewResult);
                 Assert.AreEqual("TaskDetails", viewResult.ViewName);
@@ -267,5 +268,37 @@ namespace PivotalExtension.TaskManager.Tests {
                 Assert.AreEqual(task, (viewResult.Model as TaskViewModel).Task);
             }
         }
+
+    		[Test]
+    		public void Add() {
+					var mockery = new MockRepository();
+
+					var projectId = 3;
+					var storyId = 4;
+					var initials = "TT/FF";
+					var description = "Doin work";
+
+					var storyService = mockery.StrictMock<IStoryService>();
+
+					using (mockery.Record())
+					using (mockery.Ordered()) {
+						storyService.SaveTask(null);
+						LastCall.IgnoreArguments();
+					}
+
+					using (mockery.Playback()) {
+						var controller = new TaskController(storyService);
+						var result = controller.Add(storyId, projectId, description, initials);
+						var viewResult = result as PartialViewResult;
+						Assert.NotNull(viewResult);
+						Assert.AreEqual("TaskDetails", viewResult.ViewName);
+						Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
+						var task = (viewResult.Model as TaskViewModel);
+						Assert.AreEqual(false, task.Complete);
+						Assert.AreEqual(projectId, task.ProjectId);
+						Assert.AreEqual(storyId, task.ParentStoryId);
+						Assert.AreEqual(description + " (" + initials + ")", task.Description); 
+					}
+    	  }
     }
 }
