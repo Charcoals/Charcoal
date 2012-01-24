@@ -6,9 +6,9 @@ namespace PivotalConsole {
 		static void Main(string[] args) {
 			var token = AuthenticationService.Authenticate("v5core", "changeme");
 			var service = new StoryService(token);
-			var stories = service.GetStories(424921);
+			var stories = service.GetCurrentStories(424921);
 
-			//var stories = Pivotal.Instance.GetStories();
+			//var stories = Pivotal.Instance.GetCurrentStories();
 			//foreach (var story in stories) {
 			//  Console.WriteLine(story.Name);
 			//  Console.WriteLine("---------------------------------");

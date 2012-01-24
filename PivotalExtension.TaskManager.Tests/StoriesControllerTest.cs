@@ -17,7 +17,7 @@ namespace PivotalExtension.TaskManager.Tests {
             var storyService = mockery.StrictMock<IStoryService>();
 
             using (mockery.Record()) {
-                Expect.Call(storyService.GetStories(projectId)).Return(new List<Story>());
+                Expect.Call(storyService.GetCurrentStories(projectId)).Return(new List<Story>());
             }
 
             using (mockery.Playback()) {
