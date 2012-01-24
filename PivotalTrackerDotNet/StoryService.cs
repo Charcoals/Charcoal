@@ -71,17 +71,6 @@ namespace PivotalTrackerDotNet {
             return story;
         }
 
-        public Note AddStoryNote(int projectId, int storyId, Note note)
-        {
-            var request = BuildPostRequest();
-            request.RequestFormat = DataFormat.Xml;
-            var ser=request.XmlSerializer.Serialize(note);
-            request.AddBody(ser);
-            var response = RestClient.Execute(request);
-            return null;
-            //return response.Data;
-        }
-
         public void SaveTask(Task task) {
             var request = BuildPutRequest();
             request.Resource = string.Format(TaskEndpoint + "/{2}?task[description]={3}&task[complete]={4}", task.ProjectId, task.ParentStoryId, task.Id, HttpUtility.UrlEncode(task.Description), task.Complete.ToString().ToLower());
