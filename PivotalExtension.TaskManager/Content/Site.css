@@ -586,7 +586,6 @@ div.estimate
 {
     color: black;
     text-align: right;
-    font-family: cursive;
     font-style: italic;
-    text-decoration: underline;
+    float: right;
 }
