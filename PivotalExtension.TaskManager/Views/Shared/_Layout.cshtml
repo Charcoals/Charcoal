@@ -21,11 +21,13 @@
                 @Html.Partial("_LogOnPartial")
             </div>
             <nav>
+                <div id="menu_wrapper" class="black">
                 <ul id="menu">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("My Projects", "Index", "Projects")</li>
                 </ul>
+                </div>
             </nav>
         </header>
         <section id="main">
