@@ -9,13 +9,7 @@ namespace PivotalExtension.TaskManager.Controllers {
     public class StoriesController : BaseController {
         IStoryService service;
         IStoryService Service {
-            get {
-                if (service == null) {
-                    //session data not available in ctor
-                    service = new StoryService(Token);
-                }
-                return service;
-            }
+            get { return service ?? (service = new StoryService(Token)); }
         }
         public StoriesController() : this(null) { }
 

@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityServiceTest.cs" />
     <Compile Include="AuthenticationServiceTest.cs" />
     <Compile Include="MemberShipServiceTest.cs" />
     <Compile Include="ProjectServiceTest.cs" />

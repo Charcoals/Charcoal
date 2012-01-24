@@ -9,13 +9,7 @@ namespace PivotalExtension.TaskManager.Controllers {
     public class ProjectsController : BaseController {
         IProjectService service;
         IProjectService Service {
-            get {
-                if (service == null) {
-                    //session data not available in ctor
-                    service = new ProjectService(Token);
-                }
-                return service;
-            }
+            get { return service ?? (service = new ProjectService(Token)); }
         }
         public ProjectsController() : this(null) { }
 
