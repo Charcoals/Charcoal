@@ -42,7 +42,6 @@ namespace PivotalExtension.TaskManager.Models {
             return matches[0].Value.Split('/').ToList();
         }
 
-        //TODO: Remove passthrough of token
         public string GetStyle() {
             if (this.Complete) {
                 return "task complete";
