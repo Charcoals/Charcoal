@@ -1,21 +1,31 @@
 ﻿using System.Collections.Generic;
 using PivotalTrackerDotNet.Domain;
+using RestSharp;
 using RestSharp.Contrib;
 
 namespace PivotalTrackerDotNet {
     public class StoryService : AAuthenticatedService, IStoryService {
-        private const string StoryEndpoint = "projects/{0}/iterations/current";
-        private const string SingleStoryEndpoint = "projects/{0}/stories/{1}";
+        const string StoryIterationEndpoint = "projects/{0}/iterations/{1}";
+        const string SingleStoryEndpoint = "projects/{0}/stories/{1}";
+        private const string AllStoriesEndpoint = "projects/{0}/stories";
         const string TaskEndpoint = "projects/{0}/stories/{1}/tasks";
         const string SaveStoryEndpoint = "projects/{0}/stories?story[name]={1}&story[requested_by]={2}&story[description]={3}&story[story_type]={4}";
         const string SaveTaskEndpoint = "projects/{0}/stories/{1}/tasks?task[description]={2}";
         const string SingleTaskEndpoint = "projects/{0}/stories/{1}/tasks/{2}";//projects/$PROJECT_ID/stories/$STORY_ID/tasks/$TASK_ID
+        const string StoryNotesEndpoint = "projects/{0}/stories/{1}/notes";
 
         public List<Story> CachedStories { get; private set; }
 
         public StoryService(AuthenticationToken token)
             : base(token) {
             CachedStories = new List<Story>();
+        }
+
+        public List<Story> GetAllStories(int projectId) {
+            var request = BuildGetRequest();
+            request.Resource = string.Format(AllStoriesEndpoint, projectId);
+
+            return GetStories(projectId, request);
         }
 
         public Story GetStory(int projectId, int storyId) {
@@ -28,16 +38,17 @@ namespace PivotalTrackerDotNet {
             return GetStoryWithTasks(projectId, story);
         }
 
-        public List<Story> GetStories(int projectId) {
-            var request = BuildGetRequest();
-            request.Resource = string.Format(StoryEndpoint, projectId);
+        public List<Story> GetCurrentStories(int projectId) {
 
-            var response = RestClient.Execute<List<Story>>(request);
-            var stories = response.Data;
-            foreach (var story in stories) {
-                GetStoryWithTasks(projectId, story);
-            }
-            return stories;
+            return GetStoriesByIterationType(projectId, "current");
+        }
+
+        public List<Story> GetDoneStories(int projectId) {
+            return GetStoriesByIterationType(projectId, "done");
+        }
+
+        public List<Story> GetBacklogStories(int projectId) {
+            return GetStoriesByIterationType(projectId, "backlog");
         }
 
         public Story RemoveStory(int projectId, int storyId) {
@@ -91,6 +102,22 @@ namespace PivotalTrackerDotNet {
             output.ParentStoryId = storyId;
             output.ProjectId = projectId;
             return output;
+        }
+
+        List<Story> GetStoriesByIterationType(int projectId, string iterationType) {
+            var request = BuildGetRequest();
+            request.Resource = string.Format(StoryIterationEndpoint, projectId, iterationType);
+
+            return GetStories(projectId, request);
+        }
+
+        private List<Story> GetStories(int projectId, RestRequest request) {
+            var response = RestClient.Execute<List<Story>>(request);
+            var stories = response.Data;
+            foreach (var story in stories) {
+                GetStoryWithTasks(projectId, story);
+            }
+            return stories;
         }
 
         Story GetStoryWithTasks(int projectId, Story story) {

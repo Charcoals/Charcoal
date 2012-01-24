@@ -6,6 +6,7 @@ namespace PivotalTrackerDotNet.Tests {
 	[TestFixture]
 	public class StoryServiceTest {
 		private StoryService storyService = null;
+        const int projectId = 456301;
 
 		[TestFixtureSetUp]
 		public void TestFixtureSetUp() {
@@ -14,7 +15,6 @@ namespace PivotalTrackerDotNet.Tests {
 
 		[Test]
 		public void CanRetrieveSingleStory() {
-			const int projectId = 456301;
 			const int storyId = 23590427;
 			var story = storyService.GetStory(projectId, storyId);
 			Assert.NotNull(story);
@@ -30,15 +30,13 @@ namespace PivotalTrackerDotNet.Tests {
 
 		[Test]
 		public void CanRettrieveMultipleStories() {
-			const int projectId = 456301;
-			var stories = storyService.GetStories(projectId);
+			var stories = storyService.GetCurrentStories(projectId);
 			Assert.NotNull(stories);
 			Assert.AreEqual(2, stories.Count);
 		}
 		
 		[Test]
 		public void CanAddAndDeleteStores(){
-			const int projectId = 456301;
 			var story = new Story{Name="Nouvelle histoire", RequestedBy="pivotaltrackerdotnet",StoryType="feature", 
 				Description="bla bla bla and more bla", ProjectId=projectId};
 		    
@@ -61,25 +59,23 @@ namespace PivotalTrackerDotNet.Tests {
 
 		[Test]
 		public void CanSaveTask() {
-			const int projectId = 456301;
 			const int storyId = 23590427;
 
 			var guid = Guid.NewGuid().ToString();
 
-			var stories = storyService.GetStories(456301);
+			var stories = storyService.GetCurrentStories(projectId);
 			var task = stories[0].Tasks[0];
 			task.Description = guid;
 
 			storyService.SaveTask(task);
 
-			stories = storyService.GetStories(456301);
+			stories = storyService.GetCurrentStories(projectId);
 
 			Assert.AreEqual(guid, stories[0].Tasks[0].Description);
 		}
 		
 		[Test]
 		public void CanAddGetAndDeleteNewTasks(){
-			const int projectId = 456301;
 			var story = new Story{Name="Nouvelle histoire", RequestedBy="pivotaltrackerdotnet",StoryType="feature", 
 				Description="bla bla bla and more bla", ProjectId=projectId};
 		    

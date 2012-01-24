@@ -25,7 +25,7 @@ namespace PivotalExtension.TaskManager.Controllers {
         }
 
         public ActionResult CurrentIteration(int projectId) {
-            return View(Service.GetStories(projectId));
+            return View(Service.GetCurrentStories(projectId));
         }
 
     }

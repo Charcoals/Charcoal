@@ -1,9 +1,13 @@
-﻿using PivotalTrackerDotNet.Domain;
+﻿using System.Collections.Generic;
+using PivotalTrackerDotNet.Domain;
 
 namespace PivotalTrackerDotNet {
     public interface IStoryService {
         Story AddNewStory(int projectId, Story toBeSaved);
-        System.Collections.Generic.List<Story> GetStories(int projectId);
+        List<Story> GetCurrentStories(int projectId);
+        List<Story> GetDoneStories(int projectId);
+        List<Story> GetBacklogStories(int projectId);
+        List<Story> GetAllStories(int projectId);
         Story GetStory(int projectId, int storyId);
         Story RemoveStory(int projectId, int storyId);
         Task GetTask(int projectId, int storyId, int taskId);
