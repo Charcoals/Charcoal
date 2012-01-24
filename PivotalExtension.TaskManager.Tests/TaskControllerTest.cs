@@ -10,20 +10,11 @@ using PivotalExtension.TaskManager.Models;
 namespace PivotalExtension.TaskManager.Tests {
     [TestFixture]
     public class TaskControllerTest {
-        MockRepository mockery;
-        [SetUp]
-        public void SetUp() {
-            mockery = new MockRepository();
-            var membershipService = mockery.StrictMock<IMembershipService>();
-            using(mockery.Record()){
-                SetupResult.For(membershipService.GetMembers(1)).IgnoreArguments().Return(new List<Person>());
-            }
-            TaskViewModel.service = membershipService;
-            //mockery.BackToRecord();
-        }
 
         [Test]
         public void Details() {
+            var mockery = new MockRepository();
+
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -46,6 +37,8 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void SignUp() {
+            var mockery = new MockRepository();
+
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -78,6 +71,8 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void SignUp_Lowercase_Initials() {
+            var mockery = new MockRepository();
+
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -110,6 +105,8 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void SignUp_Already_Has_Initials() {
+            var mockery = new MockRepository();
+
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -142,6 +139,8 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void SignUp_Already_Has_Initials_NoParentheses() {
+            var mockery = new MockRepository();
+
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -174,6 +173,8 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void SignUp_No_Initials_Clears_Existing() {
+            var mockery = new MockRepository();
+
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -206,6 +207,8 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void Complete() {
+            var mockery = new MockRepository();
+
             var projectId = 3;
             var storyId = 4;
             var id = 5;
@@ -238,6 +241,8 @@ namespace PivotalExtension.TaskManager.Tests {
 
         [Test]
         public void Complete_Doesnt_Save_Task_If_No_Change() {
+            var mockery = new MockRepository();
+
             var projectId = 3;
             var storyId = 4;
             var id = 5;

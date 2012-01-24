@@ -8,27 +8,14 @@ using PivotalTrackerDotNet;
 
 namespace PivotalExtension.TaskManager.Models {
     public class TaskViewModel {
-        public static IMembershipService service;//ugh
-        IMembershipService Service {
-            get {
-                if (service == null){
-                    service = new MembershipService((AuthenticationToken)HttpContext.Current.Session["token"]);
-                }
-                return service;
-            }
-        }
 
         public TaskViewModel(Task task) {
             Task = task;
         }
 
-        public TaskViewModel(Task task, IMembershipService service) : this(task) {
-            TaskViewModel.service = service;
-        }
-
         public Task Task { get; set; }
 
-        protected static List<Person> Members;
+
 
         static Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?$", RegexOptions.Compiled);
 
@@ -48,31 +35,11 @@ namespace PivotalExtension.TaskManager.Models {
             }
         }
 
-        void PopulateMembers() {
-            Members = Service.GetMembers(Task.ProjectId);
-        }
-
-        public List<Person> GetOwners() {
-            if (Members == null) {
-                PopulateMembers();
-            }
-
-            var owners = new List<Person>();
-
+        public List<string> GetOwners() {
             var regex = new Regex(@"[A-Z]{2,3}(\/[A-Z]{2,3})+");
             var matches = regex.Matches(Task.Description);
-
-            if (matches.Count > 0) {
-                var membersLookup = Members.ToDictionary(m => m.Initials);
-                var initials = matches[0].Value.Split('/');
-                foreach (var owner in initials) {
-                    if (membersLookup.ContainsKey(owner)) {
-                        owners.Add(membersLookup[owner]);
-                    }
-                }
-            }
-
-            return owners;
+            if (matches.Count == 0) return new List<string>();
+            return matches[0].Value.Split('/').ToList();
         }
 
         //TODO: Remove passthrough of token
