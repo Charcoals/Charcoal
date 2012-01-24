@@ -5,7 +5,7 @@
 <h2>Current Iteration</h2>
 <p><input type="checkbox" onclick="ToggleCompletedTasks()" id="hideCompleted" /> Hide completed tasks</p>
 
-<table>
+<table class="story-table">
     @foreach (var story in Model) {
         @Html.Partial("StoryRow", new PivotalExtension.TaskManager.Models.StoryRowViewModel(story))
     }
@@ -15,7 +15,7 @@
 <div class="top-right"><a href="#" onclick="SignUp(); return false;">SIGN UP FOR SELECTED</a></div>
 <script type="text/javascript">
 $(function () {
-    $('.mainTable').selectable({
+    $('.story-table').selectable({
         filter: 'div.task:not(.complete)',
     });
 });
