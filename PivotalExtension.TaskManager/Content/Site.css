@@ -5,7 +5,7 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body
 {
-    background-color: #5c87b2;
+    background-color: #D8CEC0;
     font-size: .85em;
     font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;
     margin: 0;
@@ -138,7 +138,82 @@ footer, #footer
 
 /* TAB MENU   
 ----------------------------------------------------------*/
-ul#menu
+#menu
+{
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 50px 0;
+    padding: 0;
+    list-style-type: none;
+    background-color: #eee;
+    font-size: 13px;
+    height: 40px;
+    border-top: 2px solid #eee;
+    border-bottom: 2px solid #ccc;
+}
+#menu li
+{
+    float: left;
+    margin: 0;
+}
+#menu li a
+{
+    text-decoration: none;
+    display: block;
+    padding: 0 20px;
+    line-height: 40px;
+    color: #666;
+}
+#menu li a:hover, #menu li.active a
+{
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #DDD;
+    color: #999;
+}
+#menu_wrapper ul
+{
+    margin-left: 12px;
+}
+#menu_wrapper
+{
+    padding: 0 16px 0 0;
+    background: url(grey.png) no-repeat right;
+}
+#menu_wrapper div
+{
+    float: left;
+    height: 44px;
+    width: 12px;
+    background: url(grey.png) no-repeat left;
+}
+
+#menu_wrapper.black ul
+{
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #000;
+    background: #333;
+}
+#menu_wrapper.black a
+{
+    color: #CCC;
+}
+#menu_wrapper.black li a:hover, #menu_wrapper.black li.active a
+{
+    color: #999;
+    background: #555;
+    border-bottom: 2px solid #444;
+}
+#menu_wrapper.black
+{
+    background: url(blackmenu.png) no-repeat right;
+}
+#menu_wrapper.black div
+{
+    background: url(blackmenu.png) no-repeat left;
+}
+
+/*ul#menu
 {
     border-bottom: 1px #5C87B2 solid;
     padding: 0 0 2px;
@@ -151,7 +226,7 @@ ul#menu li
 {
     display: inline;
     list-style: none;
-}
+}*/
 
 ul#menu li#greeting
 {
@@ -161,7 +236,7 @@ ul#menu li#greeting
     line-height: 2.8em;
     color: #fff;
 }
-
+/*
 ul#menu li a
 {
     padding: 10px 20px;
@@ -192,7 +267,7 @@ ul#menu li.selected a
     background-color: #fff;
     color: #000;
 }
-
+*/
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
@@ -369,24 +444,24 @@ div#title
 
 /* Custom */
 
-table.story-table 
+table.story-table
 {
     border-collapse: collapse;
 }
 
-tr.story-row 
+tr.story-row
 {
     vertical-align: top;
 }
 
-td.story-column 
+td.story-column
 {
-    width: 360px;   
-    background-color: #EFEFEF;   
+    width: 360px;
+    background-color: #EFEFEF;
     border-bottom: 1px solid #999999;
 }
 
-td.task-column 
+td.task-column
 {
     width: 100%;
     border-bottom: 1px solid #999999;
@@ -435,7 +510,7 @@ div.story-details h3
     color: #555555;
 }
 
-div.started 
+div.started
 {
     border: 5px solid #E6D600;
 }
@@ -445,12 +520,12 @@ div.finished, div.delivered
     border: 5px solid #0F67F5;
 }
 
-div.accepted 
+div.accepted
 {
     border: 5px solid #1F8705;
 }
 
-div.rejected 
+div.rejected
 {
     border: 5px solid #D41900;
 }
@@ -505,4 +580,13 @@ div.top-right a:hover
 {
     color: Green;
     text-decoration: none;
+}
+
+div.estimate
+{
+    color: black;
+    text-align: right;
+    font-family: cursive;
+    font-style: italic;
+    text-decoration: underline;
 }

@@ -6,3 +6,4 @@ obj
 *.suo
 user.config
 */test-results/*
+*.csproj.user*
