@@ -369,24 +369,24 @@ div#title
 
 /* Custom */
 
-table.story-table 
+table.story-table
 {
     border-collapse: collapse;
 }
 
-tr.story-row 
+tr.story-row
 {
     vertical-align: top;
 }
 
-td.story-column 
+td.story-column
 {
-    width: 360px;   
-    background-color: #EFEFEF;   
+    width: 360px;
+    background-color: #EFEFEF;
     border-bottom: 1px solid #999999;
 }
 
-td.task-column 
+td.task-column
 {
     width: 100%;
     border-bottom: 1px solid #999999;
@@ -435,7 +435,7 @@ div.story-details h3
     color: #555555;
 }
 
-div.started 
+div.started
 {
     border: 5px solid #E6D600;
 }
@@ -445,12 +445,12 @@ div.finished, div.delivered
     border: 5px solid #0F67F5;
 }
 
-div.accepted 
+div.accepted
 {
     border: 5px solid #1F8705;
 }
 
-div.rejected 
+div.rejected
 {
     border: 5px solid #D41900;
 }
@@ -505,4 +505,13 @@ div.top-right a:hover
 {
     color: Green;
     text-decoration: none;
+}
+
+div.estimate
+{
+    color: black;
+    text-align: right;
+    font-family: cursive;
+    font-style: italic;
+    text-decoration:underline;
 }
