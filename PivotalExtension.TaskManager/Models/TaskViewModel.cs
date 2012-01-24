@@ -75,7 +75,6 @@ namespace PivotalExtension.TaskManager.Models {
             return owners;
         }
 
-        //TODO: Remove passthrough of token
         public string GetStyle() {
             if (this.Complete) {
                 return "task complete";
