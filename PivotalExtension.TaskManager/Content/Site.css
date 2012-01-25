@@ -450,6 +450,7 @@ div#title
 table.story-table
 {
     border-collapse: collapse;
+    border: 0px;
 }
 
 tr.story-row
@@ -460,8 +461,8 @@ tr.story-row
 td.story-column
 {
     width: 360px;
-    background-color: #EFEFEF;
     border-bottom: 1px solid #999999;
+    border-right: 2px solid #555555;
 }
 
 td.task-column
@@ -476,7 +477,7 @@ div.task
     color: #111111;
     border: 1px solid #444444;
     padding: 3px 5px 5px 5px;
-    margin: 5px;
+    margin: 9px 5px 5px 5px;
     width: 340px;
     height: 220px;
     clip: auto;

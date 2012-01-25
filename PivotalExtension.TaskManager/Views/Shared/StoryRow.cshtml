@@ -1,6 +1,6 @@
 ﻿@model PivotalExtension.TaskManager.Models.StoryRowViewModel
            
-<tr class="story-row @Model.Story.CurrentState">
+<tr class="story-row @Model.Story.CurrentState @Model.Story.StoryType">
     <td class="story-column">@Html.Partial("StoryDetails", new PivotalExtension.TaskManager.Models.StoryViewModel(Model.Story))</td>
     <td class="task-column">
         @foreach (var task in Model.Story.Tasks) {
