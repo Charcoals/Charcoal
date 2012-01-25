@@ -7,3 +7,5 @@ obj
 user.config
 */test-results/*
 *.csproj.user*
+*.user
+*.Publish.xml
