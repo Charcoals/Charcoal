@@ -115,7 +115,7 @@ header h1, #header h1
 
 #main
 {
-    padding: 30px 30px 15px 30px;
+    padding: 10px 30px 15px 30px;
     background-color: #fff;
     border-radius: 4px 0 0 0;
     -webkit-border-radius: 4px 0 0 0;
@@ -143,7 +143,6 @@ footer, #footer
     font-family: Arial, sans-serif;
     font-weight: bold;
     text-transform: uppercase;
-    margin: 50px 0;
     padding: 0;
     list-style-type: none;
     background-color: #eee;
@@ -157,6 +156,17 @@ footer, #footer
     float: left;
     margin: 0;
 }
+#sitename
+{
+    float: left;
+    margin: 0;
+    line-height: 40px;
+    color: #D8CEC0;
+    padding-left: 25px;
+    width: 600px;
+    font-size: 20px;
+}
+
 #menu li a
 {
     text-decoration: none;
@@ -213,21 +223,6 @@ footer, #footer
     background: url(blackmenu.png) no-repeat left;
 }
 
-/*ul#menu
-{
-    border-bottom: 1px #5C87B2 solid;
-    padding: 0 0 2px;
-    position: relative;
-    margin: 0;
-    text-align: right;
-}
-
-ul#menu li
-{
-    display: inline;
-    list-style: none;
-}*/
-
 ul#menu li#greeting
 {
     padding: 10px 20px;
@@ -236,38 +231,7 @@ ul#menu li#greeting
     line-height: 2.8em;
     color: #fff;
 }
-/*
-ul#menu li a
-{
-    padding: 10px 20px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
-    border-radius: 4px 4px 0 0;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-}
 
-ul#menu li a:hover
-{
-    background-color: #fff;
-    text-decoration: none;
-}
-
-ul#menu li a:active
-{
-    background-color: #a6e2a6;
-    text-decoration: none;
-}
-
-ul#menu li.selected a
-{
-    background-color: #fff;
-    color: #000;
-}
-*/
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
