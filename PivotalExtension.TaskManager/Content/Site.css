@@ -126,12 +126,13 @@ header h1, #header h1
 
 #main
 {
-    background: url(paper.png) repeat;
+    background-color: #fff;
+    /* background: url(paper.png) repeat; */
     border-radius: 4px 0 0 0;
     -webkit-border-radius: 4px 0 0 0;
     -moz-border-radius: 4px 0 0 0;
     
-    background: url(paper.png) repeat;
+    /* background: url(paper.png) repeat; */
     padding: 10px 30px 15px 30px;
 }
 

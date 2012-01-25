@@ -6,8 +6,8 @@
     <h2 style="display:inline;margin-right:40px;">Current Iteration</h2>
     <input type="checkbox" onclick="ToggleCompletedStories()" id="hideCompletedStories" /><span style="margin-right:50px">Hide completed stories</span>
     <input type="checkbox" onclick="ToggleCompletedTasks()" id="hideCompleted" /><span style="margin-right:50px">Hide completed tasks</span>
-    <input type="checkbox" onclick="ToggleBugs()" id="hideBugs" checked="checked" /><span style="margin-right:50px">Bugs</span>
-    <input type="checkbox" onclick="ToggleStories()" id="hideStories" checked="checked" /><span style="margin-right:50px">Stories</span>
+    <input type="checkbox" onclick="ToggleBugs()" id="hideBugs" /><span style="margin-right:50px">Hide bugs</span>
+    <input type="checkbox" onclick="ToggleStories()" id="hideStories" /><span style="margin-right:50px">Hide stories</span>
 </p>
 
 <table class="story-table">
@@ -81,7 +81,7 @@ function ToggleStories() {
     show = $('#hideStories').attr('checked') != 'checked';
     
     $('tr.story-row.feature').each(function() {
-        $(this).toggle(!show);
+        $(this).toggle(show);
     });
 }
 
@@ -89,7 +89,7 @@ function ToggleBugs() {
     show = $('#hideBugs').attr('checked') != 'checked';
 
     $('tr.story-row.bug').each(function() {
-        $(this).toggle(!show);
+        $(this).toggle(show);
     });
 }
 </script>
