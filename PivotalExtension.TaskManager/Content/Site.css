@@ -6,6 +6,7 @@ to use a different color start by replacing all instances of
 body
 {
     background-color: #D8CEC0;
+    background: url(Bg_Texture___wood_by_nortago.jpg) repeat;
     font-size: .85em;
     font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;
     margin: 0;
@@ -116,7 +117,8 @@ header h1, #header h1
 #main
 {
     padding: 30px 30px 15px 30px;
-    background-color: #fff;
+    /*background-color: #fff;*/
+    background: url(paper.png) repeat;
     border-radius: 4px 0 0 0;
     -webkit-border-radius: 4px 0 0 0;
     -moz-border-radius: 4px 0 0 0;
@@ -124,7 +126,7 @@ header h1, #header h1
 
 footer, #footer
 {
-    background-color: #fff;
+    /*background-color: #fff;*/
     color: #999;
     padding: 10px 0;
     text-align: center;
