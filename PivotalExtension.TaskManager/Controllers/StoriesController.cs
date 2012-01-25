@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PivotalTrackerDotNet;
+using PivotalExtension.TaskManager.Models;
 
 namespace PivotalExtension.TaskManager.Controllers {
     public class StoriesController : BaseController {
@@ -22,5 +23,11 @@ namespace PivotalExtension.TaskManager.Controllers {
             return View(Service.GetCurrentStories(projectId));
         }
 
+        [HttpPost]
+        public ActionResult RefreshStory(int projectId, int storyId)
+        {
+            var story = Service.GetStory(projectId, storyId);
+            return PartialView("StoryRow", new StoryRowViewModel(story));
+        }
     }
 }

@@ -80,6 +80,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ajax-loader.gif" />
     <Content Include="Content\Bg_Texture___wood_by_nortago.jpg" />
     <Content Include="Content\blackmenu.png" />
     <Content Include="Content\blank-index-card.png" />

@@ -126,13 +126,10 @@ header h1, #header h1
 
 #main
 {
-    background-color: #fff;
-    /* background: url(paper.png) repeat; */
+    background-color: #fff; /* background: url(paper.png) repeat; */
     border-radius: 4px 0 0 0;
     -webkit-border-radius: 4px 0 0 0;
-    -moz-border-radius: 4px 0 0 0;
-    
-    /* background: url(paper.png) repeat; */
+    -moz-border-radius: 4px 0 0 0; /* background: url(paper.png) repeat; */
     padding: 10px 30px 15px 30px;
 }
 
@@ -581,7 +578,6 @@ div.top-right
     font-weight: bold;
     font-size: 20px;
     text-align: center;
-    top: 200px;
     right: 10px;
 }
 
@@ -597,6 +593,22 @@ div.top-right a:hover
     text-decoration: none;
 }
 
+div.sign-up
+{
+    top: 180px;
+}
+
+div.loading-spinner 
+{
+    float: right;
+    display: none;
+}
+
+div.refresh
+{
+    top: 250px;
+}
+
 div.estimate
 {
     color: black;
@@ -605,21 +617,22 @@ div.estimate
     float: right;
 }
 
-.activity 
+.activity
 {
     background-color: white;
     color: black;
     border-style: solid;
-    border-width:2px;
+    border-width: 2px;
     border-color: #E7CDC1;
     font-style: italic;
 }
 
-.activity#author {
+.activity#author
+{
     font-weight: bold;
 }
 
-.activity#description 
+.activity#description
 {
     font-family: fantasy;
     font-style: italic;
