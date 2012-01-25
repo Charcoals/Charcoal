@@ -12,7 +12,6 @@ namespace PivotalTrackerDotNet.Domain {
         public string Author { get; set; }
         public int ProjectId { get; set; }
         public string Description { get; set; }
-
     //<?xml version="1.0" encoding="UTF-8"?>
     //<activities type="array">
     //  <activity>

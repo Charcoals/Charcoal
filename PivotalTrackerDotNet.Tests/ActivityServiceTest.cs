@@ -17,12 +17,11 @@ namespace PivotalTrackerDotNet.Tests {
         }
 
         [Test]
-        public void CanRetrieveActivities()
-        {
+        public void CanRetrieveActivities() {
             var activities = activityService.GetRecentActivity(projectId);
             Assert.NotNull(activities);
             Assert.IsNotEmpty(activities);
-            Assert.Greater(activities.Count,1);
+            Assert.Greater(activities.Count, 1);
         }
     }
 }
