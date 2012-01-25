@@ -101,6 +101,16 @@ header, #header
     color: #000;
     padding: 0;
 }
+#sitename
+{
+    float: left;
+    margin: 0;
+    line-height: 40px;
+    color: #D8CEC0;
+    padding-left: 25px;
+    width: 600px;
+    font-size: 20px;
+}
 
 header h1, #header h1
 {
