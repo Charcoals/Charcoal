@@ -591,3 +591,23 @@ div.estimate
     font-style: italic;
     float: right;
 }
+
+.activity 
+{
+    background-color: white;
+    color: black;
+    border-style: solid;
+    border-width:2px;
+    border-color: #E7CDC1;
+    font-style: italic;
+}
+
+.activity#author {
+    font-weight: bold;
+}
+
+.activity#description 
+{
+    font-family: fantasy;
+    font-style: italic;
+}

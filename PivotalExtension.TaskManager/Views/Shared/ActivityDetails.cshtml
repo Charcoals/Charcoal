@@ -1,0 +1,7 @@
+﻿@model PivotalExtension.TaskManager.Models.ActivityViewModel
+
+<div class="activity">
+    <div align="right"> @Html.Raw(Model.GetIcon())</div>
+    Description: <div id="description">@Model.Activity.Description</div><br/>
+    Author: <div id="author">@Model.Activity.Author</div>
+</div>

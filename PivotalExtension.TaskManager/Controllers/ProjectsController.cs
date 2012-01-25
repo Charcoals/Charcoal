@@ -6,22 +6,37 @@ using System.Web.Mvc;
 using PivotalTrackerDotNet;
 
 namespace PivotalExtension.TaskManager.Controllers {
-    public class ProjectsController : BaseController {
-        IProjectService service;
-        IProjectService Service {
-            get { return service ?? (service = new ProjectService(Token)); }
-        }
-        public ProjectsController() : this(null) { }
+    public class ProjectsController : BaseController
+    {
+        private IActivityService activityService;
 
-        public ProjectsController(IProjectService service = null)
-            : base() {
-            this.service = service;
+        IProjectService projectService;
+        IProjectService ProjectService {
+            get { return projectService ?? (projectService = new ProjectService(Token)); }
+        }
+
+        public IActivityService ActivityService
+        {
+            get { return activityService??(activityService=new ActivityService(Token)); }
+        }
+
+        public ProjectsController() : this(null,null) { }
+
+        public ProjectsController(IProjectService projectService = null, IActivityService activityService=null)
+            : base()
+        {
+            this.activityService = activityService;
+            this.projectService = projectService;
         }
 
         public ActionResult Index() {
-            var projects = Service.GetProjects();
+            var projects = ProjectService.GetProjects();
             return View(projects);
         }
+
+        public ActionResult RecentActivities(int projectId) {
+            return View(ActivityService.GetRecentActivity(projectId));
+        } 
 
     }
 }
