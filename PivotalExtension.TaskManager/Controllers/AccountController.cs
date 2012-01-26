@@ -16,6 +16,7 @@ namespace PivotalExtension.TaskManager.Controllers {
         // GET: /Account/LogOn
 
         public ActionResult LogOn() {
+            Response.StatusCode = 999;
             return View();
         }
 
@@ -50,7 +51,7 @@ namespace PivotalExtension.TaskManager.Controllers {
 
         public ActionResult LogOff() {
             FormsAuthentication.SignOut();
-
+            Token = null;
             return RedirectToAction("Index", "Home");
         }
 
