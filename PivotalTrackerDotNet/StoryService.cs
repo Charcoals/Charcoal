@@ -14,7 +14,7 @@ namespace PivotalTrackerDotNet {
 		const string SaveTaskEndpoint = "projects/{0}/stories/{1}/tasks?task[description]={2}";
 		const string SingleTaskEndpoint = "projects/{0}/stories/{1}/tasks/{2}";//projects/$PROJECT_ID/stories/$STORY_ID/tasks/$TASK_ID
 		const string IceBoxEndpoint = "projects/{0}/stories?filter=current_state:unscheduled";
-		const string FinishStoryEndpoint = "projects/{0}/stories/{1}?story[current_state]=finished";
+		const string StoryStateEndpoint = "projects/{0}/stories/{1}?story[current_state]={2}";
 
 		public StoryService(AuthenticationToken token)
 			: base(token) {
@@ -29,7 +29,17 @@ namespace PivotalTrackerDotNet {
 
 		public Story FinishStory(int projectId, int storyId) {
 			var request = BuildPutRequest();
-			request.Resource = string.Format(FinishStoryEndpoint, projectId, storyId);
+			request.Resource = string.Format(StoryStateEndpoint, projectId, storyId, "finished");
+
+			var response = RestClient.Execute<Story>(request);
+			var story = response.Data;
+
+			return story;
+		}
+
+		public Story StartStory(int projectId, int storyId) {
+			var request = BuildPutRequest();
+			request.Resource = string.Format(StoryStateEndpoint, projectId, storyId, "started");
 
 			var response = RestClient.Execute<Story>(request);
 			var story = response.Data;
