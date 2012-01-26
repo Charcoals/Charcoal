@@ -38,10 +38,7 @@ function SignUp() {
                 data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&initials=' + initials,
                 success : function(html) {
                             $('#' + id).replaceWith(html);
-                         },
-                error : function (xhr, ajaxOptions, thrownError){
-                            alert(thrownError);
-                        }   
+                         }
             });
         }
     });
@@ -57,10 +54,7 @@ function RefreshAll() {
             data: 'projectId=' + items[0] + '&storyId=' + items[1],
             success: function(html) {
                         $('#' + id).replaceWith(html);
-                     },
-            error: function(xhr, ajaxOptions, thrownError) {
-                        alert(thrownError);
-                   }
+                     }
         });
     });
 }
@@ -73,10 +67,7 @@ function Complete(id, completed) {
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&completed=' + completed,
         success : function(html) {
                 $('#' + id).replaceWith(html);
-            },
-        error : function (xhr, ajaxOptions, thrownError){
-                alert(thrownError);
-            }  
+            } 
     });
 }
 
