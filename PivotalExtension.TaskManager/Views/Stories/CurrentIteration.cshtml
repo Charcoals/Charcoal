@@ -4,10 +4,10 @@
 }
 <p>
     <h2 style="display:inline;margin-right:40px;">Current Iteration</h2>
-    <input type="checkbox" onclick="ToggleCompletedStories()" id="hideCompletedStories" /><span style="margin-right:50px">Hide completed stories</span>
-    <input type="checkbox" onclick="ToggleCompletedTasks()" id="hideCompleted" /><span style="margin-right:50px">Hide completed tasks</span>
-    <input type="checkbox" onclick="ToggleBugs()" id="hideBugs" /><span style="margin-right:50px">Hide bugs</span>
-    <input type="checkbox" onclick="ToggleStories()" id="hideStories" /><span style="margin-right:50px">Hide stories</span>
+    <input type="checkbox" onclick="Toggle(this, 'tr.story-row.accepted');" id="hideCompletedStories" /><span style="margin-right:50px">Hide completed stories</span>
+    <input type="checkbox" onclick="Toggle(this, 'div.task.complete');" id="hideCompletedTasks" /><span style="margin-right:50px">Hide completed tasks</span>
+    <input type="checkbox" onclick="Toggle(this, 'tr.story-row.bug');" id="hideBugs" /><span style="margin-right:50px">Hide bugs</span>
+    <input type="checkbox" onclick="Toggle(this, 'tr.story-row.feature');" id="hideStories" /><span style="margin-right:50px">Hide stories</span>
 </p>
 
 <table class="story-table">
@@ -80,35 +80,10 @@ function Complete(id, completed) {
     });
 }
 
-function ToggleCompletedTasks() {
-    showCompleted = $('#hideCompleted').attr('checked') != 'checked';
-
-    $('div.task.complete').each(function() {
+function Toggle(elem, selector) {
+    $(selector).each(function () {
+        var showCompleted = !elem.checked //this should eventually be checked = show
         $(this).toggle(showCompleted);
-    });
-}
-
-function ToggleCompletedStories() {
-    showCompleted = $('#hideCompletedStories').attr('checked') != 'checked';
-
-    $('tr.story-row.accepted').each(function() {
-        $(this).toggle(showCompleted);
-    });
-}
-
-function ToggleStories() {
-    show = $('#hideStories').attr('checked') != 'checked';
-    
-    $('tr.story-row.feature').each(function() {
-        $(this).toggle(show);
-    });
-}
-
-function ToggleBugs() {
-    show = $('#hideBugs').attr('checked') != 'checked';
-
-    $('tr.story-row.bug').each(function() {
-        $(this).toggle(show);
     });
 }
 </script>
