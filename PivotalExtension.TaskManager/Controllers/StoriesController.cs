@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using PivotalTrackerDotNet;
 using PivotalExtension.TaskManager.Models;
 
@@ -19,12 +15,13 @@ namespace PivotalExtension.TaskManager.Controllers {
             this.service = service;
         }
 
+        [HttpGet]
         public ActionResult CurrentIteration(int projectId) {
             return View(Service.GetCurrentStories(projectId));
         }
 
-        [HttpPost]
-        public ActionResult RefreshStory(int projectId, int storyId)
+        [HttpGet]
+        public ActionResult Get(int projectId, int storyId)
         {
             var story = Service.GetStory(projectId, storyId);
             return PartialView("StoryRow", new StoryRowViewModel(story));

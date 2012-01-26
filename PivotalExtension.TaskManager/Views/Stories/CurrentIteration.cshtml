@@ -52,8 +52,8 @@ function RefreshAll() {
         var id = $(this).attr('id');
         var items = id.split('-');
         $.ajax({
-            type: 'POST',
-            url: '/Stories/RefreshStory',
+            type: 'GET',
+            url: '/Stories/Get',
             data: 'projectId=' + items[0] + '&storyId=' + items[1],
             success: function(html) {
                         $('#' + id).replaceWith(html);
