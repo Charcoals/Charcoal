@@ -1,0 +1,9 @@
+﻿@model IEnumerable<PivotalTrackerDotNet.Domain.Story>
+@{
+    ViewBag.Title = "BackLogStories";
+}
+<table class="story-table">
+    @foreach (var story in Model) {
+        @Html.Partial("StoryRow", new PivotalExtension.TaskManager.Models.StoryRowViewModel(story))
+    }
+</table>
