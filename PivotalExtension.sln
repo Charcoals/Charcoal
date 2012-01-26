@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotalConsole", "PivotalConsole\PivotalConsole.csproj", "{CD417566-E84C-4B16-82C9-016D5B21FA65}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotalTrackerDotNet", "PivotalTrackerDotNet\PivotalTrackerDotNet.csproj", "{579B9125-0944-4C30-A31F-6C70A0DDE1C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotalTrackerDotNet.Tests", "PivotalTrackerDotNet.Tests\PivotalTrackerDotNet.Tests.csproj", "{F8BBC90D-76F0-4787-9041-A13398BF5331}"
@@ -21,16 +19,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CD417566-E84C-4B16-82C9-016D5B21FA65}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{CD417566-E84C-4B16-82C9-016D5B21FA65}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{CD417566-E84C-4B16-82C9-016D5B21FA65}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{CD417566-E84C-4B16-82C9-016D5B21FA65}.Debug|x86.ActiveCfg = Debug|x86
-		{CD417566-E84C-4B16-82C9-016D5B21FA65}.Debug|x86.Build.0 = Debug|x86
-		{CD417566-E84C-4B16-82C9-016D5B21FA65}.Release|Any CPU.ActiveCfg = Release|x86
-		{CD417566-E84C-4B16-82C9-016D5B21FA65}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{CD417566-E84C-4B16-82C9-016D5B21FA65}.Release|Mixed Platforms.Build.0 = Release|x86
-		{CD417566-E84C-4B16-82C9-016D5B21FA65}.Release|x86.ActiveCfg = Release|x86
-		{CD417566-E84C-4B16-82C9-016D5B21FA65}.Release|x86.Build.0 = Release|x86
 		{579B9125-0944-4C30-A31F-6C70A0DDE1C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{579B9125-0944-4C30-A31F-6C70A0DDE1C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{579B9125-0944-4C30-A31F-6C70A0DDE1C8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
