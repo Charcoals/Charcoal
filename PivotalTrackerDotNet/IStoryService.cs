@@ -6,6 +6,7 @@ namespace PivotalTrackerDotNet {
 		Story AddNewStory(int projectId, Story toBeSaved);
 		List<Story> GetCurrentStories(int projectId);
 		List<Story> GetDoneStories(int projectId);
+		List<Story> GetIceboxStories(int projectId);
 		List<Story> GetBacklogStories(int projectId);
 		List<Story> GetAllStories(int projectId);
 		Story GetStory(int projectId, int storyId);

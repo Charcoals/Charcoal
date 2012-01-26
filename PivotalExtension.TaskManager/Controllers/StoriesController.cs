@@ -30,5 +30,10 @@ namespace PivotalExtension.TaskManager.Controllers {
 		public ActionResult BackLogStories(int projectId) {
 			return View(Service.GetBacklogStories(projectId));
 		}
+
+		[HttpGet]
+		public ActionResult IceboxStories(int projectId) {
+			return View(Service.GetIceboxStories(projectId));
+		}
 	}
 }

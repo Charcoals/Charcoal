@@ -16,6 +16,7 @@
         <th>Recent Activities</th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -34,6 +35,9 @@
         </td>
         <td>
             @Html.ActionLink("Backlog Tasks By Story", "BackLogStories", "Stories", new { projectId = item.Id }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Icebox Tasks By Story", "IceboxStories", "Stories", new { projectId = item.Id }, null)
         </td>
     </tr>
 }

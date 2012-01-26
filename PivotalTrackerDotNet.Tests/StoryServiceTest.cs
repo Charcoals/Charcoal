@@ -34,6 +34,13 @@ namespace PivotalTrackerDotNet.Tests {
 			Assert.NotNull(stories);
 			Assert.AreEqual(2, stories.Count);
 		}
+
+		[Test]
+		public void CanRetrieveIceBoxStories() {
+			var stories = storyService.GetIceboxStories(projectId);
+			Assert.NotNull(stories);
+			Assert.AreEqual(2, stories.Count);
+		}
 		
 		[Test]
 		public void CanAddAndDeleteStores(){

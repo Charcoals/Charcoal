@@ -50,6 +50,26 @@ namespace PivotalExtension.TaskManager.Tests {
 					}
     	}
 
+			[Test]
+			public void IceboxStories() {
+				var mockery = new MockRepository();
+
+				var projectId = 3;
+				var storyService = mockery.StrictMock<IStoryService>();
+
+				using (mockery.Record()) {
+					Expect.Call(storyService.GetIceboxStories(projectId)).Return(new List<Story>());
+				}
+
+				using (mockery.Playback()) {
+					var controller = new StoriesController(storyService);
+					var result = controller.IceboxStories(projectId);
+					var viewResult = result as ViewResult;
+					Assert.NotNull(viewResult);
+					Assert.IsInstanceOf<List<Story>>(viewResult.Model);
+				}
+			}
+
         [Test]
         public void Get () {
             var mockery = new MockRepository ();
