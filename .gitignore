@@ -9,3 +9,4 @@ user.config
 *.csproj.user*
 *.user
 *.Publish.xml
+PivotalExtension.TaskManager/Content/combined_*
