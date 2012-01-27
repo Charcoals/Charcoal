@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using PivotalTrackerDotNet;
 using PivotalExtension.TaskManager.Models;
+using PivotalTrackerDotNet.Domain;
 
 namespace PivotalExtension.TaskManager.Controllers {
     public class StoriesController : BaseController {
@@ -47,6 +48,13 @@ namespace PivotalExtension.TaskManager.Controllers {
         public ActionResult Finish(int projectId, int storyId) {
             var finishedStory = Service.FinishStory(projectId, storyId);
             return PartialView("StoryRow", new StoryRowViewModel(finishedStory));
+        }
+
+        [HttpPost]
+        public ActionResult AddTask(int projectId, int storyId, string details)
+        {
+            Service.AddNewTask(new Task {Description = details, ParentStoryId = storyId, ProjectId = projectId});
+            return Redirect(Request.UrlReferrer.AbsoluteUri);
         }
     }
 }

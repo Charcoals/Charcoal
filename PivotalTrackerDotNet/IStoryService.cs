@@ -4,6 +4,7 @@ using PivotalTrackerDotNet.Domain;
 namespace PivotalTrackerDotNet {
 	public interface IStoryService {
 		Story AddNewStory(int projectId, Story toBeSaved);
+	    Task AddNewTask(Task task);
 		List<Story> GetCurrentStories(int projectId);
 		List<Story> GetDoneStories(int projectId);
 		List<Story> GetIceboxStories(int projectId);
