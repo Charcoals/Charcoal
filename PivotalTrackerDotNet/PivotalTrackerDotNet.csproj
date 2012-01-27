@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="AAuthenticatedService.cs" />
     <Compile Include="AuthenticationService.cs" />
-    <Compile Include="ActivityService.cs" />
     <Compile Include="Domain\Activity.cs" />
     <Compile Include="Domain\AuthenticationToken.cs" />
     <Compile Include="Domain\Membership.cs" />
@@ -56,7 +55,6 @@
     <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\Story.cs" />
     <Compile Include="Domain\Task.cs" />
-    <Compile Include="IActivityService.cs" />
     <Compile Include="IMembershipService.cs" />
     <Compile Include="IProjectService.cs" />
     <Compile Include="IStoryService.cs" />
