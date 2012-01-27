@@ -39,7 +39,7 @@ namespace PivotalExtension.TaskManager.Models {
         }
 
         public string AdvanceAction() {
-            if (Story.CurrentState == "unstarted") {
+            if (Story.CurrentState == "unstarted" || Story.CurrentState == "finished") {
                 return "start";
             }
             if (Story.CurrentState == "started") {

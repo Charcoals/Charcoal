@@ -25,8 +25,6 @@ function AddTask(id) {
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&details=' + details,
         success: RefreshAll()
     });
-
-
 }
 
 function RemoveTask(id) {
@@ -37,8 +35,18 @@ function RemoveTask(id) {
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&taskId=' + items[2],
         success: RefreshAll()
     });
+}
 
-
+function CompleteTask(id, completed) {
+    var items = id.split('-');
+    $.ajax({
+        type: 'POST',
+        url: '/Task/Complete',
+        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&completed=' + completed,
+        success: function (html) {
+            $('#' + id).replaceWith(html);
+        }
+    });
 }
 
 function RefreshAll() {
@@ -46,8 +54,8 @@ function RefreshAll() {
         var id = $(this).attr('id');
         var items = id.split('-');
         $.ajax({
-            type: 'POST',
-            url: '/Stories/Start',
+            type: 'GET',
+            url: '/Stories/Get',
             data: 'projectId=' + items[0] + '&storyId=' + items[1],
             success: function (html) {
                 $('#' + id).replaceWith(html);
@@ -68,24 +76,12 @@ function StartStory(id) {
     });
 }
 
-function StartStory(id) {
+function FinishStory(id) {
     var items = id.split('-');
     $.ajax({
         type: 'POST',
         url: '/Stories/Finish',
         data: 'projectId=' + items[0] + '&storyId=' + items[1],
-        success: function (html) {
-            $('#' + id).replaceWith(html);
-        }
-    });
-}
-
-function FinishStory(id, completed) {
-    var items = id.split('-');
-    $.ajax({
-        type: 'POST',
-        url: '/Task/Complete',
-        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&completed=' + completed,
         success: function (html) {
             $('#' + id).replaceWith(html);
         }

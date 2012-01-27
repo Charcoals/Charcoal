@@ -7,13 +7,13 @@
     <p>@Model.Story.Name</p>
     @{
        if(Model.AdvanceAction() == "start") {
-         @Html.Raw("<a href=\"#\" onclick=\"StartStory('" + Model.FormattedId + "')" + (char)59 + "return false;" + (char)59 + "\">Start Story</a>");
+         <a href="#" onclick="StartStory('@Model.FormattedId');return false;">Start Story</a>
        }
 
        if (Model.AdvanceAction() == "finish") {
-         @Html.Raw("<a href=\"#\" onclick=\"FinishStory('" + Model.FormattedId + "')" + (char)59 + "return false;" + (char)59 + "\">Finish Story</a>");
+         <a href="#" onclick="FinishStory('@Model.FormattedId');return false;">Finish Story</a>
+         <div><a href="#" onclick="AddTask('@Model.FormattedId'); return false;">Add Task</a></div>
        }
     }
-    <div><a href="#" onclick="AddTask('@Model.FormattedId'); return false;">Add Task</a></div>
 </div>
     

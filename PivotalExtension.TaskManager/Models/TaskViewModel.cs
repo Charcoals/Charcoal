@@ -18,8 +18,10 @@ namespace PivotalExtension.TaskManager.Models {
         static Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?$", RegexOptions.Compiled);
 
         public string GetDescriptionWithoutOwners() {
+            var placeholder = "(Placeholder)";
+            if (Task.Description == null) return placeholder;
             var descriptionWithoutOwners = FullOwnerRegex.Replace(Task.Description, "");
-            return descriptionWithoutOwners.Length == 0 ? "(Placeholder)" : descriptionWithoutOwners.TrimEnd();
+            return descriptionWithoutOwners.Length == 0 ? placeholder : descriptionWithoutOwners.TrimEnd();
         }
 
         public void SetOwners(List<Person> owners) {
