@@ -6,8 +6,7 @@
     <h2 style="display:inline;margin-right:40px;">Current Iteration</h2>
     <input type="checkbox" onclick="Toggle(this, 'tr.story-row.accepted');" id="hideCompletedStories" /><span style="margin-right:50px">Hide completed stories</span>
     <input type="checkbox" onclick="Toggle(this, 'div.task.complete');" id="hideCompletedTasks" /><span style="margin-right:50px">Hide completed tasks</span>
-    <input type="checkbox" onclick="Toggle(this, 'tr.story-row.bug');" id="hideBugs" /><span style="margin-right:50px">Hide bugs</span>
-    <input type="checkbox" onclick="Toggle(this, 'tr.story-row.feature');" id="hideStories" /><span style="margin-right:50px">Hide stories</span>
+    @Html.Partial("BugStoryTogglerPartial")
 </p>
 
 <table class="story-table">

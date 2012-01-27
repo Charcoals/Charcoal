@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "BackLogStories";
 }
+<p>
+    <h2 style="display:inline;margin-right:40px;">Backlog</h2>
+    @Html.Partial("BugStoryTogglerPartial")
+</p>
 <table class="story-table">
     @foreach (var story in Model) {
         @Html.Partial("StoryRow", new PivotalExtension.TaskManager.Models.StoryRowViewModel(story))
