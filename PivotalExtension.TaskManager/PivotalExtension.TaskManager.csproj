@@ -184,7 +184,7 @@
     <Content Include="Views\Stories\IceboxStories.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\BugStoryTogglerPartial.cshtml" />
+    <Content Include="Views\Shared\StoryFilter.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -4,9 +4,8 @@
 }
 <p>
     <h2 style="display:inline;margin-right:40px;">Current Iteration</h2>
-    <input type="checkbox" onclick="Toggle(this, 'tr.story-row.accepted');" id="hideCompletedStories" /><span style="margin-right:50px">Hide completed stories</span>
-    <input type="checkbox" onclick="Toggle(this, 'div.task.complete');" id="hideCompletedTasks" /><span style="margin-right:50px">Hide completed tasks</span>
-    @Html.Partial("BugStoryTogglerPartial")
+    @Html.Partial("TaskFilter")
+    @Html.Partial("StoryFilter")
 </p>
 
 <table class="story-table">
