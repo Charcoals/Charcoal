@@ -23,9 +23,7 @@ function AddTask(id) {
         type: 'POST',
         url: '/Stories/AddTask',
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&details=' + details,
-        success: function (html) {
-            $('#' + id).replaceWith(html);
-        }
+        success: RefreshAll()
     });
 
 
