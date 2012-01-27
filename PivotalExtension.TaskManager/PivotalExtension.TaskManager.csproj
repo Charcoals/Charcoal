@@ -120,6 +120,7 @@
     <Content Include="Content\orange-index-card.png" />
     <Content Include="Content\paper.png" />
     <Content Include="Content\PaperBackground_CloaskofDeviantArt.png" />
+    <Content Include="Content\plus.png" />
     <Content Include="Content\yellow-index-card.png" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />

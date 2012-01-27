@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Globalization;
 using PivotalTrackerDotNet.Domain;
 
 namespace PivotalExtension.TaskManager.Models {
@@ -11,6 +8,11 @@ namespace PivotalExtension.TaskManager.Models {
 		}
 
         public Activity Activity { get; private set; }
+
+        public string PublicationDate
+        {
+            get { return Activity.OccurredAt; }
+        }
 
         public string GetStyle()
         {

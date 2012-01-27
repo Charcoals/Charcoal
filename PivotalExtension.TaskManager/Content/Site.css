@@ -637,3 +637,10 @@ div.estimate
     font-family: fantasy;
     font-style: italic;
 }
+
+.activity#icon {
+    float: right;
+}
+.activity#date {
+    float: left;
+}

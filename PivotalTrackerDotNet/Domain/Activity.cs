@@ -8,7 +8,7 @@ namespace PivotalTrackerDotNet.Domain {
         public int Id { get; set; }
         public int Version { get; set; }
         public string EventType { get; set; }
-        public DateTime OccuredAt { get; set; }
+        public string OccurredAt { get; set; }
         public string Author { get; set; }
         public int ProjectId { get; set; }
         public string Description { get; set; }
