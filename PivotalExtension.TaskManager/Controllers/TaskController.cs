@@ -47,8 +47,14 @@ namespace PivotalExtension.TaskManager.Controllers {
 		public ActionResult Add(int storyId, int projectId, string description, string initials) {
 			var task = new Task { ParentStoryId = storyId, ProjectId = projectId, Complete = false, Description = description };
 			task.Description = AddInitialsToDescription(task, initials);
-			service.SaveTask(task);
+			Service.SaveTask(task);
 			return PartialView("TaskDetails", new TaskViewModel(task));
+		}
+
+		[HttpPost]
+		public ActionResult DeleteTask(int storyId, int projectId, int taskId) {
+			Service.RemoveTask(storyId, projectId, taskId);
+			return Redirect(Request.UrlReferrer.AbsoluteUri);
 		}
 	}
 }

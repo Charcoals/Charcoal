@@ -29,6 +29,18 @@ function AddTask(id) {
 
 }
 
+function RemoveTask(id) {
+    var items = id.split('-');
+    $.ajax({
+        type: 'POST',
+        url: '/Task/DeleteTask',
+        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&taskId=' + items[2],
+        success: RefreshAll()
+    });
+
+
+}
+
 function RefreshAll() {
     $('tr.story-row').each(function () {
         var id = $(this).attr('id');
