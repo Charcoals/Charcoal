@@ -11,86 +11,110 @@ namespace PivotalExtension.TaskManager.Tests {
     [TestFixture]
     public class StoriesControllerTest {
         [Test]
-        public void CurrentIteration () {
-            var mockery = new MockRepository ();
+        public void CurrentIteration() {
+            var mockery = new MockRepository();
 
             var projectId = 3;
-            var storyService = mockery.StrictMock<IStoryService> ();
+            var storyService = mockery.StrictMock<IStoryService>();
 
-            using (mockery.Record ()) {
-                Expect.Call (storyService.GetCurrentStories (projectId)).Return (new List<Story> ());
+            using (mockery.Record()) {
+                Expect.Call(storyService.GetCurrentStories(projectId)).Return(new List<Story>());
             }
 
-            using (mockery.Playback ()) {
-                var controller = new StoriesController (storyService);
-                var result = controller.CurrentIteration (projectId);
+            using (mockery.Playback()) {
+                var controller = new StoriesController(storyService);
+                var result = controller.CurrentIteration(projectId);
                 var viewResult = result as ViewResult;
-                Assert.NotNull (viewResult);
-                Assert.IsInstanceOf<List<Story>> (viewResult.Model);
+                Assert.NotNull(viewResult);
+                Assert.IsInstanceOf<List<Story>>(viewResult.Model);
             }
         }
 
-    	[Test]
-    	public void BacklogStories() {
-					var mockery = new MockRepository();
+        [Test]
+        public void BacklogStories() {
+            var mockery = new MockRepository();
 
-					var projectId = 3;
-					var storyService = mockery.StrictMock<IStoryService>();
+            var projectId = 3;
+            var storyService = mockery.StrictMock<IStoryService>();
 
-					using (mockery.Record()) {
-						Expect.Call(storyService.GetBacklogStories(projectId)).Return(new List<Story>());
-					}
+            using (mockery.Record()) {
+                Expect.Call(storyService.GetBacklogStories(projectId)).Return(new List<Story>());
+            }
 
-					using (mockery.Playback()) {
-						var controller = new StoriesController(storyService);
-						var result = controller.BackLogStories(projectId);
-						var viewResult = result as ViewResult;
-						Assert.NotNull(viewResult);
-						Assert.IsInstanceOf<List<Story>>(viewResult.Model);
-					}
-    	}
-
-			[Test]
-			public void IceboxStories() {
-				var mockery = new MockRepository();
-
-				var projectId = 3;
-				var storyService = mockery.StrictMock<IStoryService>();
-
-				using (mockery.Record()) {
-					Expect.Call(storyService.GetIceboxStories(projectId)).Return(new List<Story>());
-				}
-
-				using (mockery.Playback()) {
-					var controller = new StoriesController(storyService);
-					var result = controller.IceboxStories(projectId);
-					var viewResult = result as ViewResult;
-					Assert.NotNull(viewResult);
-					Assert.IsInstanceOf<List<Story>>(viewResult.Model);
-				}
-			}
+            using (mockery.Playback()) {
+                var controller = new StoriesController(storyService);
+                var result = controller.BackLogStories(projectId);
+                var viewResult = result as ViewResult;
+                Assert.NotNull(viewResult);
+                Assert.IsInstanceOf<List<Story>>(viewResult.Model);
+            }
+        }
 
         [Test]
-        public void Get () {
-            var mockery = new MockRepository ();
-            var storyService = mockery.StrictMock<IStoryService> ();
+        public void IceboxStories() {
+            var mockery = new MockRepository();
+
+            var projectId = 3;
+            var storyService = mockery.StrictMock<IStoryService>();
+
+            using (mockery.Record()) {
+                Expect.Call(storyService.GetIceboxStories(projectId)).Return(new List<Story>());
+            }
+
+            using (mockery.Playback()) {
+                var controller = new StoriesController(storyService);
+                var result = controller.IceboxStories(projectId);
+                var viewResult = result as ViewResult;
+                Assert.NotNull(viewResult);
+                Assert.IsInstanceOf<List<Story>>(viewResult.Model);
+            }
+        }
+
+        [Test]
+        public void Get() {
+            var mockery = new MockRepository();
+            var storyService = mockery.StrictMock<IStoryService>();
 
             var storyId = 1;
             var projectId = 3;
 
-            var story = new Story ();
+            var story = new Story();
 
-            using (mockery.Record ()) {
-                Expect.Call (storyService.GetStory (projectId, storyId)).Return (story);
+            using (mockery.Record()) {
+                Expect.Call(storyService.GetStory(projectId, storyId)).Return(story);
             }
 
-            using (mockery.Playback ()) {
-                var controller = new StoriesController (storyService);
-                var result = controller.Get (projectId, storyId);
+            using (mockery.Playback()) {
+                var controller = new StoriesController(storyService);
+                var result = controller.Get(projectId, storyId);
                 var viewResult = result as PartialViewResult;
-                Assert.NotNull (viewResult);
-                Assert.IsInstanceOf<StoryRowViewModel> (viewResult.Model);
-                Assert.AreEqual (((StoryRowViewModel)viewResult.Model).Story, story);
+                Assert.NotNull(viewResult);
+                Assert.IsInstanceOf<StoryRowViewModel>(viewResult.Model);
+                Assert.AreEqual(((StoryRowViewModel)viewResult.Model).Story, story);
+            }
+        }
+
+        [Test]
+        public void Start() {
+            var mockery = new MockRepository();
+            var storyService = mockery.StrictMock<IStoryService>();
+
+            var storyId = 1;
+            var projectId = 3;
+
+            var story = new Story();
+            var anotherStory = new Story() {CurrentState = "started"};
+            using (mockery.Record()) {
+                Expect.Call(storyService.StartStory(projectId, storyId)).Return(anotherStory);
+            }
+
+            using (mockery.Playback()) {
+                var controller = new StoriesController(storyService);
+                var result = controller.Start(projectId, storyId);
+                var viewResult = result as PartialViewResult;
+                Assert.NotNull(viewResult);
+                Assert.IsInstanceOf<StoryRowViewModel>(viewResult.Model);
+                Assert.AreEqual(((StoryRowViewModel)viewResult.Model).Story, anotherStory);
             }
         }
     }
