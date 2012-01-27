@@ -21,8 +21,8 @@ function RefreshAll() {
         var id = $(this).attr('id');
         var items = id.split('-');
         $.ajax({
-            type: 'GET',
-            url: '/Stories/Get',
+            type: 'POST',
+            url: '/Stories/Start',
             data: 'projectId=' + items[0] + '&storyId=' + items[1],
             success: function (html) {
                 $('#' + id).replaceWith(html);
@@ -31,7 +31,31 @@ function RefreshAll() {
     });
 }
 
-function Complete(id, completed) {
+function StartStory(id) {
+    var items = id.split('-');
+    $.ajax({
+        type: 'POST',
+        url: '/Stories/Start',
+        data: 'projectId=' + items[0] + '&storyId=' + items[1],
+        success: function (html) {
+            $('#' + id).replaceWith(html);
+        }
+    });
+}
+
+function StartStory(id) {
+    var items = id.split('-');
+    $.ajax({
+        type: 'POST',
+        url: '/Stories/Finish',
+        data: 'projectId=' + items[0] + '&storyId=' + items[1],
+        success: function (html) {
+            $('#' + id).replaceWith(html);
+        }
+    });
+}
+
+function FinishStory(id, completed) {
     var items = id.split('-');
     $.ajax({
         type: 'POST',

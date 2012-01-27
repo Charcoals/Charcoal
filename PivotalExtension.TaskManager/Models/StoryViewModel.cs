@@ -1,36 +1,51 @@
-﻿using PivotalTrackerDotNet.Domain;
+﻿using System.Web.Mvc;
+using PivotalTrackerDotNet.Domain;
 
 namespace PivotalExtension.TaskManager.Models {
-	public class StoryViewModel {
+    public class StoryViewModel {
 
-		public StoryViewModel(Story story) {
-			Story = story;
-		}
+        public StoryViewModel(Story story) {
+            Story = story;
+        }
 
-		public Story Story { get; set; }
+        public Story Story { get; set; }
 
-		public string GetStyle() {
-			return "story-details " + Story.CurrentState;
-		}
+        public string GetStyle() {
+            return "story-details " + Story.CurrentState;
+        }
 
-		public string GetHeader() {
-			if (Story.StoryType == "bug") {
-				return "Bug";
-			}
+        public string GetHeader() {
+            if (Story.StoryType == "bug") {
+                return "Bug";
+            }
 
-			if (Story.StoryType == "chore") {
-				return "Spike / Misc";
-			}
+            if (Story.StoryType == "chore") {
+                return "Spike / Misc";
+            }
 
-			return "Story";
-		}
+            return "Story";
+        }
 
-		public string GetEstimate() {
-			if(Story.Estimate > 0) {
-				return Story.Estimate + " points";
-			}
+        public string GetEstimate() {
+            if (Story.Estimate > 0) {
+                return Story.Estimate + " points";
+            }
 
-			return string.Empty;
-		}
-	}
+            return string.Empty;
+        }
+
+        public string FormattedId {
+            get { return Story.ProjectId + "-" + Story.Id; }
+        }
+
+        public string AdvanceAction() {
+            if (Story.CurrentState == "unstarted") {
+                return "start";
+            }
+            if (Story.CurrentState == "started") {
+                return "finish";
+            }
+            return string.Empty;
+        }
+    }
 }
