@@ -42,5 +42,11 @@ namespace PivotalExtension.TaskManager.Controllers {
             var startedStory = Service.StartStory(projectId, storyId);
             return PartialView("StoryRow", new StoryRowViewModel(startedStory));
         }
+
+        [HttpPost]
+        public ActionResult Finish(int projectId, int storyId) {
+            var finishedStory = Service.FinishStory(projectId, storyId);
+            return PartialView("StoryRow", new StoryRowViewModel(finishedStory));
+        }
     }
 }

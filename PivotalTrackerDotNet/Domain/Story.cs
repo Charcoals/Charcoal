@@ -9,7 +9,8 @@ namespace PivotalTrackerDotNet.Domain {
 		public int ProjectId { get; set; }
 		public string StoryType { get; set; }
 		public int Estimate { get; set; }
-		public string CurrentState { get; set; }
+		//not yet scheduled, not yet started, started, finished, delivered, accepted, rejected
+        public string CurrentState { get; set; }
 		public string Description { get; set; }
 		public string Name { get; set; }
         public string RequestedBy { get; set; }

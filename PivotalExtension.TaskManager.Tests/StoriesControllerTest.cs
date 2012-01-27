@@ -102,8 +102,7 @@ namespace PivotalExtension.TaskManager.Tests {
             var storyId = 1;
             var projectId = 3;
 
-            var story = new Story();
-            var anotherStory = new Story() {CurrentState = "started"};
+            var anotherStory = new Story() { CurrentState = "started" };
             using (mockery.Record()) {
                 Expect.Call(storyService.StartStory(projectId, storyId)).Return(anotherStory);
             }
@@ -111,6 +110,29 @@ namespace PivotalExtension.TaskManager.Tests {
             using (mockery.Playback()) {
                 var controller = new StoriesController(storyService);
                 var result = controller.Start(projectId, storyId);
+                var viewResult = result as PartialViewResult;
+                Assert.NotNull(viewResult);
+                Assert.IsInstanceOf<StoryRowViewModel>(viewResult.Model);
+                Assert.AreEqual(((StoryRowViewModel)viewResult.Model).Story, anotherStory);
+            }
+        }
+
+        [Test]
+        public void Finish() {
+            var mockery = new MockRepository();
+            var storyService = mockery.StrictMock<IStoryService>();
+
+            var storyId = 1;
+            var projectId = 3;
+
+            var anotherStory = new Story() { CurrentState = "finished" };
+            using (mockery.Record()) {
+                Expect.Call(storyService.FinishStory(projectId, storyId)).Return(anotherStory);
+            }
+
+            using (mockery.Playback()) {
+                var controller = new StoriesController(storyService);
+                var result = controller.Finish(projectId, storyId);
                 var viewResult = result as PartialViewResult;
                 Assert.NotNull(viewResult);
                 Assert.IsInstanceOf<StoryRowViewModel>(viewResult.Model);
