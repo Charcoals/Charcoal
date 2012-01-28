@@ -1,4 +1,4 @@
-﻿function SignUp() {
+﻿function SignUpForTask() {
     initials = prompt('Enter your initials in AA/BB format (an empty string will clear existing assignment):', '');
     $('div.ui-selected').each(function () {
         if (initials != null) {
@@ -53,7 +53,7 @@ function CompleteTask(id, completed) {
     });
 }
 
-function RefreshAll() {
+function RefreshStories() {
     $('tr.story-row').each(function () {
         var id = $(this).attr('id');
         var items = id.split('-');
