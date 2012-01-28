@@ -7,5 +7,5 @@
     <p>@Html.Raw(Html.FormatLinksInPlace(Model.GetDescriptionWithoutOwners()))</p>
     <p><strong>@string.Join("/", Model.GetOwners())</strong></p>
     <p><a href="#" onclick="CompleteTask('@Model.DisplayId', @(Model.Complete ? "false" : "true")); return false">@(Model.Complete ? "Reopen" : "Complete")</a></p>
-    @*<p><a href="#" onclick="RemoveTask('@Model.DisplayId'); return false">Remove</a></p>*@
+    <p><a href="#" onclick="RemoveTask('@Model.DisplayId'); return false">Remove</a></p>
 </div>

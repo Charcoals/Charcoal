@@ -23,7 +23,9 @@ function AddTask(id) {
         type: 'POST',
         url: '/Stories/AddTask',
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&details=' + details,
-        success: RefreshAll()
+        success: function (html) {
+            $('#' + id).replaceWith(html);
+        }
     });
 }
 
@@ -31,9 +33,11 @@ function RemoveTask(id) {
     var items = id.split('-');
     $.ajax({
         type: 'POST',
-        url: '/Task/DeleteTask',
+        url: '/Stories/DeleteTask',
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&taskId=' + items[2],
-        success: RefreshAll()
+       success: function (html) {
+           $('#' + items[0] + '-' + items[1]).replaceWith(html);
+        }
     });
 }
 

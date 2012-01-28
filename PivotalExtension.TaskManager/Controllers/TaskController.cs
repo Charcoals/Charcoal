@@ -50,11 +50,5 @@ namespace PivotalExtension.TaskManager.Controllers {
 			Service.SaveTask(task);
 			return PartialView("TaskDetails", new TaskViewModel(task));
 		}
-
-		[HttpPost]
-		public ActionResult DeleteTask(int storyId, int projectId, int taskId) {
-			Service.RemoveTask(storyId, projectId, taskId);
-			return Redirect(Request.UrlReferrer.AbsoluteUri);
-		}
 	}
 }

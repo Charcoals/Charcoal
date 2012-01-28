@@ -1,5 +1,4 @@
 ﻿@model PivotalExtension.TaskManager.Models.StoryRowViewModel
-           
 <tr class="story-row @Model.Story.CurrentState @Model.Story.StoryType" id="@Model.Story.ProjectId-@Model.Story.Id">
     <td class="story-column">@Html.Partial("StoryDetails", new PivotalExtension.TaskManager.Models.StoryViewModel(Model.Story))</td>
     <td class="task-column">

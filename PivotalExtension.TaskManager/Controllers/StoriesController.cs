@@ -24,8 +24,7 @@ namespace PivotalExtension.TaskManager.Controllers {
 
         [HttpGet]
         public ActionResult Get(int projectId, int storyId) {
-            var story = Service.GetStory(projectId, storyId);
-            return PartialView("StoryRow", new StoryRowViewModel(story));
+            return GetStory(storyId, projectId);
         }
 
         [HttpGet]
@@ -51,10 +50,22 @@ namespace PivotalExtension.TaskManager.Controllers {
         }
 
         [HttpPost]
-        public ActionResult AddTask(int projectId, int storyId, string details)
+        public ActionResult AddTask(int projectId, int storyId, string details) {
+            Service.AddNewTask(new Task { Description = details, ParentStoryId = storyId, ProjectId = projectId });
+            return GetStory(storyId, projectId);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteTask(int storyId, int projectId, int taskId)
         {
-            Service.AddNewTask(new Task {Description = details, ParentStoryId = storyId, ProjectId = projectId});
-            return Redirect(Request.UrlReferrer.AbsoluteUri);
+            Service.RemoveTask(projectId, storyId, taskId);
+            return GetStory(storyId, projectId);
+        }
+
+        private ActionResult GetStory(int storyId, int projectId)
+        {
+            var story = Service.GetStory(projectId, storyId);
+            return PartialView("StoryRow", new StoryRowViewModel(story));
         }
     }
 }
