@@ -10,6 +10,9 @@ namespace PivotalTrackerDotNet.Domain {
         public int IterationLength { get; set; }
         public DayOfWeek WeekStartDay { get; set; }
         public List<Membership> Memberships { get; set; }
+        public string VelocityScheme { get; set; }
+        public int CurrentVelocity { get; set; }
+        public string LastActivityAt { get; set; }
         //        <project>
         //  <id>1</id>
         //  <name>Sample Project</name>
