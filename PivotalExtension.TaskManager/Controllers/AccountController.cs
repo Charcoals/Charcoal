@@ -16,6 +16,7 @@ namespace PivotalExtension.TaskManager.Controllers {
         // GET: /Account/LogOn
 
         public ActionResult LogOn() {
+            Response.TrySkipIisCustomErrors = true;
             Response.StatusCode = 999;
             return View();
         }
