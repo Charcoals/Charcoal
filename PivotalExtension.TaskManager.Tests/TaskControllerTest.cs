@@ -64,7 +64,7 @@ namespace PivotalExtension.TaskManager.Tests {
                 Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
                 var modelTask = viewResult.Model as TaskViewModel;
                 Assert.AreEqual(projectId, modelTask.ProjectId);
-                Assert.AreEqual(storyId, modelTask.ParentStoryId);
+                Assert.AreEqual(storyId, modelTask.StoryId);
                 Assert.AreEqual(id, modelTask.Id);
                 Assert.AreEqual(string.Format("{0} ({1})", description, initials), modelTask.Description);
             }
@@ -98,7 +98,7 @@ namespace PivotalExtension.TaskManager.Tests {
                 Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
                 var modelTask = viewResult.Model as TaskViewModel;
                 Assert.AreEqual(projectId, modelTask.ProjectId);
-                Assert.AreEqual(storyId, modelTask.ParentStoryId);
+                Assert.AreEqual(storyId, modelTask.StoryId);
                 Assert.AreEqual(id, modelTask.Id);
                 Assert.AreEqual(string.Format("{0} ({1})", description, initials.ToUpper()), modelTask.Description);
             }
@@ -132,7 +132,7 @@ namespace PivotalExtension.TaskManager.Tests {
                 Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
                 var modelTask = viewResult.Model as TaskViewModel;
                 Assert.AreEqual(projectId, modelTask.ProjectId);
-                Assert.AreEqual(storyId, modelTask.ParentStoryId);
+                Assert.AreEqual(storyId, modelTask.StoryId);
                 Assert.AreEqual(id, modelTask.Id);
                 Assert.AreEqual(string.Format("{0} ({1})", description.Replace(" (AA/FF)", ""), initials), modelTask.Description);
             }
@@ -166,7 +166,7 @@ namespace PivotalExtension.TaskManager.Tests {
                 Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
                 var modelTask = viewResult.Model as TaskViewModel;
                 Assert.AreEqual(projectId, modelTask.ProjectId);
-                Assert.AreEqual(storyId, modelTask.ParentStoryId);
+                Assert.AreEqual(storyId, modelTask.StoryId);
                 Assert.AreEqual(id, modelTask.Id);
                 Assert.AreEqual(string.Format("{0} ({1})", description.Replace(" AA/FF", ""), initials), modelTask.Description);
             }
@@ -200,7 +200,7 @@ namespace PivotalExtension.TaskManager.Tests {
                 Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
                 var modelTask = viewResult.Model as TaskViewModel;
                 Assert.AreEqual(projectId, modelTask.ProjectId);
-                Assert.AreEqual(storyId, modelTask.ParentStoryId);
+                Assert.AreEqual(storyId, modelTask.StoryId);
                 Assert.AreEqual(id, modelTask.Id);
                 Assert.AreEqual(string.Format("{0}", description.Replace(" (AA/FF)", "")), modelTask.Description);
             }
@@ -234,7 +234,7 @@ namespace PivotalExtension.TaskManager.Tests {
                 Assert.IsInstanceOf<TaskViewModel>(viewResult.Model);
                 var modelTask = viewResult.Model as TaskViewModel;
                 Assert.AreEqual(projectId, modelTask.ProjectId);
-                Assert.AreEqual(storyId, modelTask.ParentStoryId);
+                Assert.AreEqual(storyId, modelTask.StoryId);
                 Assert.AreEqual(id, modelTask.Id);
                 Assert.IsTrue(modelTask.Complete);
             }
@@ -282,8 +282,7 @@ namespace PivotalExtension.TaskManager.Tests {
 
 					using (mockery.Record())
 					using (mockery.Ordered()) {
-						storyService.SaveTask(null);
-						LastCall.IgnoreArguments();
+                        Expect.Call(storyService.AddNewTask(null)).IgnoreArguments().Return(new Task { ProjectId = projectId, ParentStoryId = storyId, Description = description });
 					}
 
 					using (mockery.Playback()) {
@@ -296,8 +295,8 @@ namespace PivotalExtension.TaskManager.Tests {
 						var task = (viewResult.Model as TaskViewModel);
 						Assert.AreEqual(false, task.Complete);
 						Assert.AreEqual(projectId, task.ProjectId);
-						Assert.AreEqual(storyId, task.ParentStoryId);
-						Assert.AreEqual(description + " (" + initials + ")", task.Description); 
+						Assert.AreEqual(storyId, task.StoryId);
+						Assert.AreEqual(description, task.Description); 
 					}
     	  }
     }

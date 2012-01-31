@@ -1,0 +1,17 @@
+﻿@model PivotalExtension.TaskManager.Models.TaskViewModel
+@using (Html.BeginForm("Add", "Task", FormMethod.Post)) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Add Task:</legend>
+        @Html.HiddenFor(model => model.ProjectId)
+        @Html.HiddenFor(model => model.StoryId, new { name = "storyId" })
+        <p>@Html.EditorFor(model => model.Description)</p>
+        <p>@Html.TextBox("initials")</p>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
