@@ -1,11 +1,12 @@
-﻿@model IEnumerable<PivotalTrackerDotNet.Domain.Project>
+﻿@using PivotalExtension.TaskManager.Models
+@model IEnumerable<PivotalTrackerDotNet.Domain.Project>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Projects";
 }
 
 <h2>My Projects</h2>
-<table>
+@*<table>
     <tr>
         <th>
             Name
@@ -17,10 +18,11 @@
         <th></th>
         <th></th>
         <th></th>
-    </tr>
+    </tr>*@
 
 @foreach (var item in Model) {
-    <tr>
+    @Html.Partial("ProjectControl", new ProjectViewModel(item));
+    @*<tr>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
@@ -39,7 +41,7 @@
         <td>
             @Html.ActionLink("Icebox Tasks By Story", "IceboxStories", "Stories", new { projectId = item.Id }, null)
         </td>
-    </tr>
+    </tr>*@
 }
 
-</table>
+@*</table>*@

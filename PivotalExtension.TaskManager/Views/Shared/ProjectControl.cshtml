@@ -1,7 +1,38 @@
-﻿@model PivotalExtension.TaskManager.Models.ProjectViewModel
-<div class="project">
-    <div id="name">@Model.Name</div>
-    <div id="velocity">@Model.Velocity</div>
-    <div>@Model.StartDate</div>
-    <div>@Model.LatestEvent</div>
-</div>
+﻿@using PivotalExtension.TaskManager
+@model PivotalExtension.TaskManager.Models.ProjectViewModel
+<table class="projectTable">
+    <tr>
+        <td>
+            <div id="velocity">@Model.Velocity</div>
+        </td>
+        <td>
+            <div id="name">@Model.Name</div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Model.StartDate
+        </td>
+    </tr>
+    <tr>
+        <td>@Model.LatestEvent
+        </td>
+        <td>
+            @Html.ActionImage("RecentActivities", "Projects", new { projectId = @Model.Id }, "~/Content/activities.gif", "Activities")
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Stories by Task:
+        </td>
+        <td>
+            @Html.ActionLink("Current", "CurrentIteration", "Stories", new { projectId = @Model.Id }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Backlog", "BackLogStories", "Stories", new { projectId = @Model.Id }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Icebox", "IceboxStories", "Stories", new { projectId = @Model.Id }, null)
+        </td>
+    </tr>
+</table>

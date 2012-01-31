@@ -323,28 +323,6 @@ input[type="submit"]
     padding: 5px;
 }
 
-/* TABLE
-----------------------------------------------------------*/
-
-table
-{
-    border: solid 1px #e8eef4;
-    border-collapse: collapse;
-}
-
-table td
-{
-    padding: 5px;
-    border: solid 1px #e8eef4;
-}
-
-table th
-{
-    padding: 6px 5px;
-    text-align: left;
-    background-color: #e8eef4;
-    border: solid 1px #e8eef4;
-}
 
 /* MISC  
 ----------------------------------------------------------*/
@@ -598,7 +576,7 @@ div.sign-up
     top: 180px;
 }
 
-div.loading-spinner 
+div.loading-spinner
 {
     float: right;
     display: none;
@@ -638,9 +616,70 @@ div.estimate
     font-style: italic;
 }
 
-.activity#icon {
+.activity#icon
+{
     float: right;
 }
-.activity#date {
+.activity#date
+{
     float: left;
+}
+
+table.projectTable
+{
+    background: blanchedalmond;
+    font-family: "Times New Roman", Georgia, Serif;
+    color: #080C16;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+table.projectTable.padding {
+    padding-top: 1cm;
+}
+
+#name
+{
+    font-size: 1.5em;
+    font-style: italic;
+}
+
+#velocity
+{
+    font-size: 1.0em;
+    font-weight: bold;
+    color: #253765;
+}
+
+table.projectTable:hover
+{
+    
+    background: #F7F3F5;
+}
+
+table.projectTable td
+{
+    border: 0;
+}
+
+/* TABLE
+----------------------------------------------------------*/
+
+table
+{
+    border: solid 1px #e8eef4;
+    border-collapse: collapse;
+}
+
+table td
+{
+    padding: 5px;
+    border: solid 1px #e8eef4;
+}
+
+table th
+{
+    padding: 6px 5px;
+    text-align: left;
+    background-color: #e8eef4;
+    border: solid 1px #e8eef4;
 }

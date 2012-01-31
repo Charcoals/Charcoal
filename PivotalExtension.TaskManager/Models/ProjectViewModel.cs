@@ -13,11 +13,11 @@ namespace PivotalExtension.TaskManager.Models {
         }
 
         public string StartDate {
-            get { return string.Format("{0} every {1} week.", Project.WeekStartDay, Project.IterationLength); }
+            get { return string.Format("Starts every {0} week on {1}.", Project.IterationLength, Project.WeekStartDay); }
         }
 
         public string Velocity {
-            get { return string.Format("Velocity of {0} points", Project.CurrentVelocity); }
+            get { return string.Format("{0} points", Project.CurrentVelocity); }
         }
 
         public string VelocityScheme {
@@ -29,7 +29,12 @@ namespace PivotalExtension.TaskManager.Models {
         }
 
         public string LatestEvent {
-            get { return Project.LastActivityAt; }
+            get { return "Last updated on " + Project.LastActivityAt; }
+        }
+
+        public int Id
+        {
+            get { return Project.Id; }
         }
     }
 }
