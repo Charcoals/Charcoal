@@ -6,23 +6,36 @@
     @Html.Partial("ContentBundle")
 </head>
 <body>
-    <div class="page">
-        <header>
-            <nav>
-                <div id="menu_wrapper" class="black">
-                <ul id="menu">
-                    <li id="sitename">Pivotal Task Manager</li>
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("My Projects", "Index", "Projects")</li>
-                    <li>@Html.Partial("_LogOnPartial")</li>
-                </ul>
+    <div class="container-fluid">
+        <div class="topbar">
+            <div class="fill">
+                <div class="container">
+                    <a class="brand" href="#">Pivotal Task Manager</a>
+                    <ul class="nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("My Projects", "Index", "Projects")</li>
+                        <li>@Html.Partial("_LogOnPartial")</li>
+                    </ul>
                 </div>
-            </nav>
-        </header>
-        <section id="main">
-            @RenderBody()
-        </section>
+            </div>
+        </div>
+        <div class="content">
+            @*            <header>
+                <nav>
+                    <div id="menu_wrapper" class="black">
+                        <ul id="menu">
+                           
+                        </ul>
+                    </div>
+                </nav>
+            </header>*@
+            <div class="row">
+                <div class="span20">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
         <footer>
         </footer>
     </div>
@@ -33,7 +46,7 @@
                     // custom code signaling Redirect the to the login page.
                     location.href = "/Account/LogOn";
                 },
-            error: function (xhr, ajaxOptions, thrownError) {
+                error: function (xhr, ajaxOptions, thrownError) {
                     //whatever we do here, need to ignore status code 999's
                 }
             }
