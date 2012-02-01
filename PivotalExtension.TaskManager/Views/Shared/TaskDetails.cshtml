@@ -6,6 +6,6 @@
     <h3>Task</h3>
     <p>@Html.Raw(Html.FormatLinksInPlace(Model.GetDescriptionWithoutOwners()))</p>
     <p><strong>@string.Join("/", Model.GetOwners())</strong></p>
-    <p><a href="#" onclick="CompleteTask('@Model.DisplayId', @(Model.Complete ? "false" : "true")); return false">@(Model.Complete ? "Reopen" : "Complete")</a></p>
-    <p><a href="#" onclick="RemoveTask('@Model.DisplayId'); return false">Remove</a></p>
+    <p><button class="btn info"onclick="CompleteTask('@Model.DisplayId', @(Model.Complete ? "false" : "true")); return false">@(Model.Complete ? "Reopen" : "Complete")</button></p>
+    <p><button class="btn danger" onclick="RemoveTask('@Model.DisplayId'); return false">Remove</button></p>
 </div>
