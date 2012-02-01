@@ -449,13 +449,16 @@ div.task
     border: 1px solid #444444;
     padding: 3px 5px 5px 5px;
     margin: 9px 5px 5px 5px;
-    width: 340px;
-    height: 220px;
+    width: 300px;
+    height: 190px;
     clip: auto;
     overflow: auto;
     line-height: 15px;
     color: #555555;
     float: left;
+    -moz-box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
+    -webkit-box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
+    box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
 }
 
 div.task h3
@@ -471,12 +474,15 @@ div.story-details
     border: 5px solid #EFEFEF;
     padding: 3px 5px 5px 5px;
     margin: 5px;
-    width: 340px;
-    height: 220px;
+    width: 300px;
+    height: 190px;
     clip: auto;
     overflow: auto;
     line-height: 15px;
     color: #555555;
+    -moz-box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
+    -webkit-box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
+    box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
 }
 
 div.story-details h3
@@ -487,22 +493,22 @@ div.story-details h3
 
 div.started
 {
-    border: 5px solid #E6D600;
+    border: 5px solid rgba(230, 214, 0, 0.4);
 }
 
 div.finished, div.delivered
 {
-    border: 5px solid #0F67F5;
+    border: 5px solid rgba(15, 103, 245, 0.4);
 }
 
 div.accepted
 {
-    border: 5px solid #1F8705;
+    border: 5px solid rgba(31, 135, 5, 0.4);
 }
 
 div.rejected
 {
-    border: 5px solid #D41900;
+    border: 5px solid rgba(212, 25, 0, 0.4);
 }
 
 div.complete
@@ -578,6 +584,39 @@ div.estimate
     text-align: right;
     font-style: italic;
     float: right;
+}
+
+div.top-actions 
+{
+    float: right;
+    padding:10px 10px 11px;
+    line-height:19px;
+    text-decoration:none;
+    position: fixed;
+    width: 300px;
+    vertical-align: middle;
+    right: 10px;
+}
+
+div.top-actions a 
+{
+    background-color: rgba(150,150,150,0.6);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 4px;
+    padding: 2px 5px;
+    margin-left: 10px;
+    color: white;
+    font-size: 12px;
+    -moz-box-shadow:rgba(200,200,200,0.5) 0px 0px 2px;
+    -webkit-box-shadow:rgba(200,200,200,0.5) 0px 0px 2px;
+    box-shadow:rgba(200,200,200,0.5) 0px 0px 2px;
+}
+
+div.top-actions a:hover
+{
+    background-color: rgba(131,222,145,0.6);
+    text-decoration: none;
 }
 
 .activity

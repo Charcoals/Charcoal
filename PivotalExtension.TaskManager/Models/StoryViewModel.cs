@@ -11,7 +11,7 @@ namespace PivotalExtension.TaskManager.Models {
         public Story Story { get; set; }
 
         public string GetStyle() {
-            return "story-details " + Story.CurrentState;
+            return "story-details " + Story.CurrentState.ToString().ToLower();
         }
 
         public string GetHeader() {
