@@ -65,5 +65,7 @@ namespace PivotalExtension.TaskManager.Models {
         public string Description { get { return Task.Description; } }
 
         public object DisplayId { get { return string.Format("{0}-{1}-{2}", ProjectId, StoryId, Id); } }
+
+        public string DisplayStoryId { get { return string.Format("{0}-{1}", ProjectId, StoryId); } }
     }
 }

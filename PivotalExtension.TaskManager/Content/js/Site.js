@@ -98,3 +98,33 @@ function Toggle(elem, selector) {
         $(this).toggle(showCompleted);
     });
 }
+
+//facebox stuff
+//requires jquery.form.js and facebox
+var updateTargetId;
+
+function BindFaceboxLinks(unbind) {
+    //$.live() doesn't work w/ facebox, need to re-bind when content is reloaded
+    if (unbind) {
+        $('a.facebox').unbind();
+    }
+    $('a.facebox').bind('click', function () {
+        updateTargetId = this.rel;
+    }).facebox();
+
+    //on reveal, need to bind new async forms and cancellation links
+    $(document).bind('reveal.facebox', function () {
+        $('.async-form').ajaxForm(function (responseText) {
+            $('#' + updateTargetId).replaceWith(responseText);
+            $.facebox.close();
+            BindFaceboxLinks(true);
+            updateTargetId = null;
+        });
+
+        $('.facebox-cancel').bind('click', function () {
+            $.facebox.close();
+            updateTargetId = null;
+            return false;
+        });
+    });
+}

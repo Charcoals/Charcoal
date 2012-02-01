@@ -27,16 +27,21 @@
         </footer>
     </div>
     <script type="text/javascript">
-        $.ajaxSetup({
-            statusCode: {
-                999: function () {
-                    // custom code signaling Redirect the to the login page.
-                    location.href = "/Account/LogOn";
-                },
-            error: function (xhr, ajaxOptions, thrownError) {
-                    //whatever we do here, need to ignore status code 999's
+        $(document).ready(function () {
+            $.facebox.settings.closeImage = '/Content/facebox/closelabel.png';
+            $.facebox.settings.loadingImage = '/Content/facebox/loading.gif';
+            BindFaceboxLinks(false);
+            $.ajaxSetup({
+                statusCode: {
+                    999: function () {
+                        // custom code signaling Redirect the to the login page.
+                        location.href = "/Account/LogOn";
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        //whatever we do here, need to ignore status code 999's
+                    }
                 }
-            }
+            });
         });
     </script>
 </body>

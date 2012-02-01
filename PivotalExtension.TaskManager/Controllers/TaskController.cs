@@ -43,17 +43,9 @@ namespace PivotalExtension.TaskManager.Controllers {
 			return PartialView("TaskDetails", new TaskViewModel(task));
 		}
 
-		[HttpPost]
-		public ActionResult Add(int storyId, int projectId, string description, string initials) {
-			var task = new Task { ParentStoryId = storyId, ProjectId = projectId, Complete = false, Description = description };
-			task.Description = AddInitialsToDescription(task, initials);
-            var savedTask = Service.AddNewTask(task);
-            return PartialView("TaskDetails", new TaskViewModel(savedTask));
-		}
-
         [HttpGet]
         public ActionResult Add(int storyId, int projectId) {
-            return View(new TaskViewModel(new Task { ParentStoryId = storyId, ProjectId = projectId }));
+            return PartialView(new TaskViewModel(new Task { ParentStoryId = storyId, ProjectId = projectId }));
         }
 	}
 }

@@ -13,6 +13,7 @@
        if (Model.AdvanceAction() == "finish") {
          <a href="#" onclick="FinishStory('@Model.FormattedId');return false;">Finish Story</a>
          <div><a href="#" onclick="AddTask('@Model.FormattedId'); return false;">Add Task</a></div>
+        @Html.ActionLink("Real Add task", "Add", "Task", new { projectId = @Model.Story.ProjectId, storyId = @Model.Story.Id }, new { @class = "facebox", rel=@Model.FormattedId })
        }
     }
 </div>

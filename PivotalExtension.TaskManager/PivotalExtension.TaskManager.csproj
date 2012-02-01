@@ -109,11 +109,16 @@
     <Content Include="Content\delete.gif" />
     <Content Include="Content\DURON.jpg" />
     <Content Include="Content\edit.png" />
+    <Content Include="Content\facebox\closelabel.png" />
+    <Content Include="Content\facebox\facebox.css" />
+    <Content Include="Content\facebox\facebox.js" />
+    <Content Include="Content\facebox\loading.gif" />
     <Content Include="Content\green-index-card.png" />
     <Content Include="Content\grey.png" />
     <Content Include="Content\HONDURAN_ROSEWOOD.jpg" />
     <Content Include="Content\js\jquery-1.7.1.min.js" />
     <Content Include="Content\js\jquery-ui-1.8.17.custom.min.js" />
+    <Content Include="Content\js\jquery.form.js" />
     <Content Include="Content\js\jquery.validate.min.js" />
     <Content Include="Content\js\jquery.validate.unobtrusive.min.js" />
     <Content Include="Content\js\modernizr-1.7.min.js" />
