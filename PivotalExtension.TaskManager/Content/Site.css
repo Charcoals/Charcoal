@@ -610,22 +610,22 @@ div.estimate
     float: left;
 }
 
-table.projectTable
+#projectdetail
 {
-    background: blanchedalmond;
-    font-family: "Times New Roman", Georgia, Serif;
-    color: #080C16;
+    border: solid;
+    border-width:1px;
     box-shadow: 10px 10px 5px #888888;
+    margin-top: 10px;
 }
 
-table.projectTable.padding {
-    padding-top: 1cm;
+#projectdetail.padding {
+    padding-top: 10px;
 }
 
-#name
+#projectname
 {
     font-size: 1.5em;
-    font-style: italic;
+    color: #A87600;
 }
 
 #velocity
@@ -633,9 +633,10 @@ table.projectTable.padding {
     font-size: 1.0em;
     font-weight: bold;
     color: #253765;
+    margin-top: 4px;
 }
 
-table.projectTable:hover
+#projectdetail:hover
 {
     
     background: #F7F3F5;
