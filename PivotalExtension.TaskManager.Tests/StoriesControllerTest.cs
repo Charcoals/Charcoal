@@ -102,7 +102,7 @@ namespace PivotalExtension.TaskManager.Tests {
             var storyId = 1;
             var projectId = 3;
 
-            var anotherStory = new Story() { CurrentState = "started" };
+            var anotherStory = new Story() { CurrentState = StoryStatus.Started };
             using (mockery.Record()) {
                 Expect.Call(storyService.StartStory(projectId, storyId)).Return(anotherStory);
             }
@@ -125,7 +125,7 @@ namespace PivotalExtension.TaskManager.Tests {
             var storyId = 1;
             var projectId = 3;
 
-            var anotherStory = new Story() { CurrentState = "finished" };
+            var anotherStory = new Story() { CurrentState = StoryStatus.Finished };
             using (mockery.Record()) {
                 Expect.Call(storyService.FinishStory(projectId, storyId)).Return(anotherStory);
             }
