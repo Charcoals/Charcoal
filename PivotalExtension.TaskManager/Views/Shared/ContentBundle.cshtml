@@ -1,7 +1,7 @@
 ﻿@using SquishIt.Framework
 @Html.Raw(
     Bundle.JavaScript()
-        .Add("~/Content/js/jquery-1.7.1.min.js")
+        .Add("~/Content/js/jquery-1.4.2.min.js")
         .Add("~/Content/js/jquery-ui-1.8.17.custom.min.js")
         .Add("~/Content/js/modernizr-1.7.min.js")
         .Add("~/Content/js/jquery.validate.min.js")
@@ -20,4 +20,4 @@
 @*IIRC, these don't bundle well*@
 <script type="text/javascript" src="/Content/facebox/facebox.js"></script>
 <script type="text/javascript" src="/Content/js/jquery.form.js"></script>
-<link type="text/css" href="/Content/facebox/facebox.css" />
+<link rel="stylesheet" type="text/css" href="/Content/facebox/facebox.css" />

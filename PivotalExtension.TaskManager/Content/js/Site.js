@@ -16,19 +16,6 @@
     });
 }
 
-function AddTask(id) {
-    details = prompt('Enter new task detail:', '');
-    var items = id.split('-');
-    $.ajax({
-        type: 'POST',
-        url: '/Stories/AddTask',
-        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&details=' + details,
-        success: function (html) {
-            $('#' + id).replaceWith(html);
-        }
-    });
-}
-
 function RemoveTask(id) {
     var items = id.split('-');
     $.ajax({

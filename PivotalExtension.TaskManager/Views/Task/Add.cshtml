@@ -1,6 +1,6 @@
 ﻿@model PivotalExtension.TaskManager.Models.TaskViewModel
-@using(Html.BeginForm ("Stories", "AddTask", FormMethod.Post, new { @class = "async-form" })) {
-    <a href="#" class="facebox-cancel"><img src="../../Content/facebox/closelabel.png" alt="Cancel" /></a>
+@using(Html.BeginForm ("AddTask", "Stories", FormMethod.Post, new { @class = "async-form" })) {
+    <a href="#" class="facebox-cancel"><img src="../../Content/facebox/closelabel.gif" alt="Cancel" /></a>
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Add Task:</legend>
@@ -19,6 +19,3 @@
         </p>
     </fieldset>
 }
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

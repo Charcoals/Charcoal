@@ -50,9 +50,16 @@ namespace PivotalExtension.TaskManager.Controllers {
         }
 
         [HttpPost]
-        public ActionResult AddTask (int projectId, int storyId, string details) {
-            Service.AddNewTask (new Task { Description = details, ParentStoryId = storyId, ProjectId = projectId });
+        public ActionResult AddTask (int projectId, int storyId, string description, string initials) {
+            var task = new Task { Description = description, ParentStoryId = storyId, ProjectId = projectId };
+            task.Description = AddInitialsToDescription(task, initials);
+            Service.AddNewTask (task);
             return GetStory (storyId, projectId);
+        }
+
+        //TODO: this is duplicated from task controller, put somewhere better
+        private string AddInitialsToDescription(Task task, string initials) {
+            return new TaskViewModel(task).GetDescriptionWithoutOwners() + (string.IsNullOrEmpty(initials) ? "" : (" (" + initials.ToUpper() + ")"));
         }
 
         [HttpPost]
