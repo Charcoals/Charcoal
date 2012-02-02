@@ -9,13 +9,14 @@ namespace PivotalTrackerDotNet.Domain {
 		public int ProjectId { get; set; }
 		public string StoryType { get; set; }
 		public int Estimate { get; set; }
-		//not yet scheduled, not yet started, started, finished, delivered, accepted, rejected
-        public string CurrentState { get; set; }
+		public StoryStatus CurrentState { get; set; }
 		public string Description { get; set; }
 		public string Name { get; set; }
-        public string RequestedBy { get; set; }
+		public string RequestedBy { get; set; }
 		public List<Task> Tasks { get; set; }
 	}
+
+	public enum StoryStatus { UnScheduled, UnStarted, Started, Finished, Delivered, Accepted, Rejected }
 
 	//  <story>
 	//  <id type="integer">$STORY_ID</id>

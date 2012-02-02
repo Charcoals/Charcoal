@@ -28,7 +28,7 @@
           <AlwaysStartWebServerOnDebug>True</AlwaysStartWebServerOnDebug>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2811</DevelopmentServerPort>
+          <DevelopmentServerPort>9784</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/PivotalExtension.TaskManager</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
