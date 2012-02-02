@@ -7,12 +7,12 @@
     <p>@Model.Story.Name</p>
     @{
        if(Model.AdvanceAction() == "start") {
-         <a href="#" onclick="StartStory('@Model.FormattedId');return false;">Start Story</a>
+         <button class="btn" onclick="StartStory('@Model.FormattedId');return false;">Start Story</button>
        }
 
        if (Model.AdvanceAction() == "finish") {
-         <a href="#" onclick="FinishStory('@Model.FormattedId');return false;">Finish Story</a>
-         <div><a href="#" onclick="AddTask('@Model.FormattedId'); return false;">Add Task</a></div>
+        <button class="btn" onclick="FinishStory('@Model.FormattedId');return false;">Finish Story</button>
+         <button class="btn success" onclick="AddTask('@Model.FormattedId'); return false;">Add Task</button>
         @Html.ActionLink("Real Add task", "Add", "Task", new { projectId = @Model.Story.ProjectId, storyId = @Model.Story.Id }, new { @class = "facebox", rel=@Model.FormattedId })
        }
     }

@@ -5,15 +5,16 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body
 {
-    background-color: #D8CEC0;
+    /*background-color: #D8CEC0;
     background: url(Bg_Texture___wood_by_nortago.jpg) repeat;
     font-size: .85em;
     font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
-    color: #696969;
+    color: #696969;*/
+    padding-top: 60px;
 }
-
+/*
 a:link
 {
     color: #034af3;
@@ -45,11 +46,11 @@ p, ul
 header, footer, nav, section
 {
     display: block;
-}
+}*/
 
 /* HEADINGS   
 ----------------------------------------------------------*/
-h1, h2, h3, h4, h5, h6
+/*h1, h2, h3, h4, h5, h6
 {
     font-size: 1.5em;
     color: #000;
@@ -87,7 +88,7 @@ h5, h6
 
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
-.page
+/*.page
 {
     width: 90%;
     margin-left: auto;
@@ -123,19 +124,18 @@ header h1, #header h1
     font-size: 32px !important;
     text-shadow: 1px 1px 2px #111;
 }
-
+*//*
 #main
 {
-    background-color: #fff; /* background: url(paper.png) repeat; */
+    background-color: #fff; 
     border-radius: 4px 0 0 0;
     -webkit-border-radius: 4px 0 0 0;
-    -moz-border-radius: 4px 0 0 0; /* background: url(paper.png) repeat; */
+    -moz-border-radius: 4px 0 0 0; 
     padding: 10px 30px 15px 30px;
 }
 
 footer, #footer
 {
-    /*background-color: #fff;*/
     color: #999;
     padding: 10px 0;
     text-align: center;
@@ -149,6 +149,7 @@ footer, #footer
 
 /* TAB MENU   
 ----------------------------------------------------------*/
+/*
 #menu
 {
     font-family: Arial, sans-serif;
@@ -224,21 +225,6 @@ footer, #footer
     background: url(blackmenu.png) no-repeat left;
 }
 
-/*ul#menu
-{
-    border-bottom: 1px #5C87B2 solid;
-    padding: 0 0 2px;
-    position: relative;
-    margin: 0;
-    text-align: right;
-}
-
-ul#menu li
-{
-    display: inline;
-    list-style: none;
-}*/
-
 ul#menu li#greeting
 {
     padding: 10px 20px;
@@ -281,7 +267,7 @@ ul#menu li.selected a
 */
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
-
+/*
 fieldset
 {
     border: 1px solid #ddd;
@@ -326,6 +312,7 @@ input[type="submit"]
 
 /* MISC  
 ----------------------------------------------------------*/
+/*
 .clear
 {
     clear: both;
@@ -375,37 +362,11 @@ div#title
     text-decoration: none;
 }
 
-/* Styles for validation helpers
------------------------------------------------------------*/
-.field-validation-error
-{
-    color: #ff0000;
-}
 
-.field-validation-valid
-{
-    display: none;
-}
-
-.input-validation-error
-{
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
-}
-
-.validation-summary-errors
-{
-    font-weight: bold;
-    color: #ff0000;
-}
-
-.validation-summary-valid
-{
-    display: none;
-}
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
+/*
 .display-label, .editor-label
 {
     margin: 1em 0 0 0;
@@ -430,6 +391,30 @@ div#title
 {
     width: 6em;
 }
+
+/* TABLE
+----------------------------------------------------------*/
+/*
+table
+{
+    border: solid 1px #e8eef4;
+    border-collapse: collapse;
+}
+
+table td
+{
+    padding: 5px;
+    border: solid 1px #e8eef4;
+}
+
+table th
+{
+    padding: 6px 5px;
+    text-align: left;
+    background-color: #e8eef4;
+    border: solid 1px #e8eef4;
+}
+
 
 /* Custom */
 
@@ -625,22 +610,22 @@ div.estimate
     float: left;
 }
 
-table.projectTable
+#projectdetail
 {
-    background: blanchedalmond;
-    font-family: "Times New Roman", Georgia, Serif;
-    color: #080C16;
+    border: solid;
+    border-width:1px;
     box-shadow: 10px 10px 5px #888888;
+    margin-top: 10px;
 }
 
-table.projectTable.padding {
-    padding-top: 1cm;
+#projectdetail.padding {
+    padding-top: 10px;
 }
 
-#name
+#projectname
 {
     font-size: 1.5em;
-    font-style: italic;
+    color: #A87600;
 }
 
 #velocity
@@ -648,9 +633,10 @@ table.projectTable.padding {
     font-size: 1.0em;
     font-weight: bold;
     color: #253765;
+    margin-top: 4px;
 }
 
-table.projectTable:hover
+#projectdetail:hover
 {
     
     background: #F7F3F5;
@@ -661,25 +647,37 @@ table.projectTable td
     border: 0;
 }
 
-/* TABLE
-----------------------------------------------------------*/
-
-table
+.error
 {
-    border: solid 1px #e8eef4;
-    border-collapse: collapse;
+    color: Red;
 }
 
-table td
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+
+.field-validation-error
 {
-    padding: 5px;
-    border: solid 1px #e8eef4;
+    color: #ff0000;
 }
 
-table th
+.field-validation-valid
 {
-    padding: 6px 5px;
-    text-align: left;
-    background-color: #e8eef4;
-    border: solid 1px #e8eef4;
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
 }
