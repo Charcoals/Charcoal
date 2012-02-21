@@ -39,7 +39,9 @@ namespace PivotalExtension.TaskManager.Models {
         }
 
         public string AdvanceAction() {
-            if (Story.CurrentState == StoryStatus.UnStarted || Story.CurrentState == StoryStatus.Finished) {
+            if (Story.CurrentState == StoryStatus.UnStarted 
+                || Story.CurrentState == StoryStatus.Finished 
+                || Story.CurrentState == StoryStatus.Rejected) {
                 return "start";
             }
             if (Story.CurrentState == StoryStatus.Started) {
