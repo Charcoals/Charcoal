@@ -7,7 +7,7 @@ namespace PivotalTrackerDotNet.Domain {
 	public class Story {
 		public int Id { get; set; }
 		public int ProjectId { get; set; }
-		public string StoryType { get; set; }
+		public StoryType StoryType { get; set; }
 		public int Estimate { get; set; }
 		public StoryStatus CurrentState { get; set; }
 		public string Description { get; set; }
@@ -17,7 +17,7 @@ namespace PivotalTrackerDotNet.Domain {
 	}
 
 	public enum StoryStatus { UnScheduled, UnStarted, Started, Finished, Delivered, Accepted, Rejected }
-
+    public enum StoryType{Bug, Chore, Feature}
 	//  <story>
 	//  <id type="integer">$STORY_ID</id>
 	//  <project_id type="integer">$PROJECT_ID</project_id>

@@ -27,9 +27,14 @@ namespace PivotalTrackerDotNet {
 			return GetStories(projectId, request);
 		}
 
-		public Story FinishStory(int projectId, int storyId) {
+		public Story FinishStory(int projectId, int storyId)
+		{
+
+		    var originalStory = GetStory(projectId, storyId);
+            string finished = originalStory.StoryType == StoryType.Chore? "accepted": "finished";
+
 			var request = BuildPutRequest();
-			request.Resource = string.Format(StoryStateEndpoint, projectId, storyId, "finished");
+		    request.Resource = string.Format(StoryStateEndpoint, projectId, storyId, finished);
 
 			var response = RestClient.Execute<Story>(request);
 			var story = response.Data;

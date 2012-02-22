@@ -15,11 +15,11 @@ namespace PivotalExtension.TaskManager.Models {
         }
 
         public string GetHeader() {
-            if (Story.StoryType == "bug") {
+            if (Story.StoryType == StoryType.Bug) {
                 return "Bug";
             }
 
-            if (Story.StoryType == "chore") {
+            if (Story.StoryType == StoryType.Chore) {
                 return "Spike / Misc";
             }
 

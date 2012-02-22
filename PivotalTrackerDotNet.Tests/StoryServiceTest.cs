@@ -44,7 +44,7 @@ namespace PivotalTrackerDotNet.Tests {
 		
 		[Test]
 		public void CanAddAndDeleteStores(){
-			var story = new Story{Name="Nouvelle histoire", RequestedBy="pivotaltrackerdotnet",StoryType="feature", 
+			var story = new Story{Name="Nouvelle histoire", RequestedBy="pivotaltrackerdotnet",StoryType= StoryType.Feature , 
 				Description="bla bla bla and more bla", ProjectId=projectId};
 		    
 			var savedStory = storyService.AddNewStory(projectId,story);
@@ -83,7 +83,7 @@ namespace PivotalTrackerDotNet.Tests {
 		
 		[Test]
 		public void CanAddGetAndDeleteNewTasks(){
-			var story = new Story{Name="Nouvelle histoire", RequestedBy="pivotaltrackerdotnet",StoryType="feature", 
+			var story = new Story{Name="Nouvelle histoire", RequestedBy="pivotaltrackerdotnet",StoryType=StoryType.Feature, 
 				Description="bla bla bla and more bla", ProjectId=projectId};
 		    
 			var savedStory = storyService.AddNewStory(projectId,story);
