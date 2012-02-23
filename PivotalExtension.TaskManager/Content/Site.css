@@ -527,6 +527,7 @@ div.card-notes
 {
     clip: auto;
     overflow: auto;
+    overflow-x: hidden;
     height: 156px;
 }
 
