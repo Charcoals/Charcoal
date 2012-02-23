@@ -18,8 +18,8 @@
                         <li>@Html.Partial("_LogOnPartial")</li>
                     </ul>
                     <div class="top-actions">
-                        <a href="#" onclick="SignUpForTask(); return false;">Sign Up For Selected</a>
-                        <a href="#" onclick="RefreshStories(); return false;">Refresh</a>
+                        <a href="#" onclick="SignUpForTask(); return false;">Sign Up For Selected</a> <a
+                            href="#" onclick="RefreshStories(); return false;">Refresh</a>
                     </div>
                 </div>
             </div>
@@ -37,6 +37,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
+            $('.flippable').quickFlip();
             BindFaceboxLinks(false);
             $.ajaxSetup({
                 statusCode: {

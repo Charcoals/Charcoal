@@ -1,19 +1,60 @@
 ﻿@model PivotalExtension.TaskManager.Models.StoryViewModel
-           
-<div class="@Model.GetStyle()">
-   
-    <div class="estimate">@Model.GetEstimate()</div>
-    <h3>@Model.GetHeader()</h3>
-    <p>@Model.Story.Name</p>
-    @{
-       if(Model.AdvanceAction() == "start") {
-         <button class="btn" onclick="StartStory('@Model.FormattedId');return false;">Start Story</button>
-       }
+@{
+    var hasComments = Model.Story.Notes.Any();
+}
+<div class="@Model.GetCardStyle()">
+    <div>
+        <div class="story-details">
+            <div class="estimate">@Model.GetEstimate()</div>
+            <h3>@Model.GetHeader()</h3>
+            <div class="story-text">
+                <p>@Model.Story.Name</p>
+            </div>
+            <div class="card-buttons">
+                @{
+                    if (Model.AdvanceAction() == "start") {
 
-       if (Model.AdvanceAction() == "finish") {
-        <button class="btn" onclick="FinishStory('@Model.FormattedId');return false;">Finish Story</button>
-        @Html.ActionLink("Add task", "Add", "Task", new { projectId = @Model.Story.ProjectId, storyId = @Model.Story.Id }, new { @class = "facebox btn success", rel=@Model.FormattedId })
-       }
+                    <button class="btn" onclick="StartStory('@Model.FormattedId');return false;">
+                        Start Story</button>
+                    }
+
+                    if (Model.AdvanceAction() == "finish") {
+
+                    <button class="btn" onclick="FinishStory('@Model.FormattedId');return false;">
+                        Finish Story</button>
+                    @Html.ActionLink("Add task", "Add", "Task", new { projectId = @Model.Story.ProjectId, storyId = @Model.Story.Id }, new { @class = "facebox btn success", rel = @Model.FormattedId })
+                    }
+
+                    if (hasComments) {
+                    <button class="btn quickFlipCta">
+                        View Comments</button>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    @{
+        if (hasComments) {
+        <div>
+            <div class="story-details card-back">
+                <div class="card-notes">
+                    @if (Model.Story.Notes.Any()) {  
+                        <ul>
+                            @foreach (var note in Model.Story.Notes) {
+                                <li>
+                                    <div class="note-header">@note.Author - @note.Timestamp.Value.ToString("g")</div>
+                                    <p>@note.Text</p>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+                <div class="card-buttons">
+                    <button class="btn quickFlipCta">
+                        View Card</button>
+                </div>
+            </div>
+        </div>
+        }
     }
 </div>
-    

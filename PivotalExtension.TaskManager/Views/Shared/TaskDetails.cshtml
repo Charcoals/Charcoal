@@ -1,11 +1,13 @@
 ﻿@model PivotalExtension.TaskManager.Models.TaskViewModel      
 @using PivotalExtension.TaskManager
 @using PivotalTrackerDotNet.Domain;
-
 <div class="@Model.GetStyle()" id="@Model.DisplayId">
     <h3>Task</h3>
     <p>@Html.Raw(Html.FormatLinksInPlace(Model.GetDescriptionWithoutOwners()))</p>
     <p><strong>@string.Join("/", Model.GetOwners())</strong></p>
-    <p><button class="btn info"onclick="CompleteTask('@Model.DisplayId', @(Model.Complete ? "false" : "true")); return false">@(Model.Complete ? "Reopen" : "Complete")</button>
-       <button class="btn danger" onclick="RemoveTask('@Model.DisplayId'); return false">Remove</button></p>
+    <div class="card-buttons">
+        <button class="btn info"onclick="CompleteTask('@Model.DisplayId', @(Model.Complete ? "false" : "true")); return false">@(Model.Complete ? "Reopen" : "Complete")</button>
+        <button class="btn danger" onclick="RemoveTask('@Model.DisplayId'); return false">
+            Remove</button>
+    </div>
 </div>

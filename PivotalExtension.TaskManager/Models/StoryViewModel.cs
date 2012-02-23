@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Linq;
 using PivotalTrackerDotNet.Domain;
 
 namespace PivotalExtension.TaskManager.Models {
@@ -10,8 +11,8 @@ namespace PivotalExtension.TaskManager.Models {
 
         public Story Story { get; set; }
 
-        public string GetStyle() {
-            return "story-details " + Story.CurrentState.ToString().ToLower();
+        public string GetCardStyle() {
+            return (Story.Notes.Any() ? "flippable " : "" ) + "story-card " + Story.CurrentState.ToString().ToLower();
         }
 
         public string GetHeader() {

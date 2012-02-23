@@ -5,13 +5,7 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body
 {
-    /*background-color: #D8CEC0;
-    background: url(Bg_Texture___wood_by_nortago.jpg) repeat;
-    font-size: .85em;
-    font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;
-    margin: 0;
-    padding: 0;
-    color: #696969;*/
+    /*background-color: #D8CEC0;     background: url(Bg_Texture___wood_by_nortago.jpg) repeat;     font-size: .85em;     font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;     margin: 0;     padding: 0;     color: #696969;*/
     padding-top: 60px;
 }
 /*
@@ -455,9 +449,9 @@ div.task
     line-height: 15px;
     color: #555555;
     float: left;
-    -moz-box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
-    -webkit-box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
-    box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+    box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
     position: relative;
 }
 
@@ -467,23 +461,91 @@ div.task h3
     color: #555555;
 }
 
-div.story-details
+div.story-card
 {
     background-image: url('blank-index-card.png');
-    color: #111111;
     border: 5px solid #EFEFEF;
-    padding: 3px 5px 5px 5px;
     margin: 5px;
     width: 300px;
     height: 190px;
-    clip: auto;
-    overflow: auto;
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+    box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
+    position: relative;
+}
+
+div.story-details
+{
+    padding: 3px 8px 5px 5px;
+    height: 182px;
+    width: auto;
     line-height: 15px;
     color: #555555;
-    -moz-box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
-    -webkit-box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
-    box-shadow:rgba(0,0,0,0.5) 0px 0px 10px;
     position: relative;
+}
+
+div.story-text
+{
+    clip: auto;
+    overflow: auto;
+}
+
+div.card-back
+{
+    background-image: none;
+    background-color: #FCFBED;
+    height: 182px;
+    width: auto;
+    padding: 0px 0px 4px 0px;
+}
+
+div.card-back ul
+{
+    list-style-type: none;
+    margin: 4px 2px 4px 4px;
+}
+
+div.card-back li
+{
+    background-color: rgba(165, 230, 250, 0.6);
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.25);
+    margin-bottom: 5px;
+    padding: 0px;
+}
+
+div.card-back li p 
+{    
+    padding: 0px 4px 2px 4px;
+}
+
+div.card-notes 
+{
+    clip: auto;
+    overflow: auto;
+    height: 156px;
+}
+
+div.note-header 
+{
+    margin: 4px 0px 2px 0px;
+    background-color: rgba(50, 50, 50, 0.6);
+    color: #DDDDDD;
+    padding: 1px 4px 1px 4px;
+    border-radius: 5px 5px 0px 0px;
+    -moz-border-radius: 5px 5px 0px 0px;
+    -webkit-border-radius: 5px 5px 0px 0px;
+}
+
+div.card-buttons
+{
+    position: absolute;
+    bottom: 7px;
+    right: 4px;
 }
 
 div.story-details h3
@@ -584,22 +646,23 @@ div.estimate
     color: black;
     text-align: right;
     font-style: italic;
-    float: right;
+    position: absolute;
+    right: 8px;
 }
 
-div.top-actions 
+div.top-actions
 {
     float: right;
-    padding:10px 10px 11px;
-    line-height:19px;
-    text-decoration:none;
+    padding: 10px 10px 11px;
+    line-height: 19px;
+    text-decoration: none;
     position: fixed;
     width: 300px;
     vertical-align: middle;
     right: 10px;
 }
 
-div.top-actions a 
+div.top-actions a
 {
     background-color: rgba(150,150,150,0.6);
     -moz-border-radius: 10px;
@@ -609,9 +672,9 @@ div.top-actions a
     margin-left: 10px;
     color: white;
     font-size: 12px;
-    -moz-box-shadow:rgba(200,200,200,0.5) 0px 0px 2px;
-    -webkit-box-shadow:rgba(200,200,200,0.5) 0px 0px 2px;
-    box-shadow:rgba(200,200,200,0.5) 0px 0px 2px;
+    -moz-box-shadow: rgba(200,200,200,0.5) 0px 0px 2px;
+    -webkit-box-shadow: rgba(200,200,200,0.5) 0px 0px 2px;
+    box-shadow: rgba(200,200,200,0.5) 0px 0px 2px;
 }
 
 div.top-actions a:hover
@@ -623,11 +686,41 @@ div.top-actions a:hover
 div.card-actions
 {
     position: absolute;
-    bottom: 16px;   
+    bottom: 16px;
     right: 5px;
 }
 
-a.link-button 
+div.notes-pane
+{
+    background-image: none;
+    display: none;
+}
+
+button.expand
+{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background: url('up-arrow.png') no-repeat;
+}
+
+button.collapse
+{
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background: url('down-arrow.png') no-repeat;
+}
+
+a.link-button
 {
     background-color: rgba(100,100,100,0.6);
     -moz-border-radius: 10px;
@@ -636,19 +729,19 @@ a.link-button
     padding: 2px 5px;
     color: white;
     font-size: 12px;
-    -moz-box-shadow:rgba(0,0,0,0.5) 0px 0px 2px;
-    -webkit-box-shadow:rgba(0,0,0,0.5) 0px 0px 2px;
-    box-shadow:rgba(0,0,0,0.5) 0px 0px 2px;    
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 0px 2px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 0px 2px;
+    box-shadow: rgba(0,0,0,0.5) 0px 0px 2px;
 }
 
 a.link-button.green
 {
-    background-color: rgba(45,179,47,0.6);    
+    background-color: rgba(45,179,47,0.6);
 }
 
 a.link-button.red
 {
-    background-color: rgba(189,57,40,0.6);    
+    background-color: rgba(189,57,40,0.6);
 }
 
 a.link-button:hover
@@ -656,9 +749,9 @@ a.link-button:hover
     background-color: rgba(245,237,135,0.6);
     text-decoration: none;
     color: #666666;
-    -moz-box-shadow:rgba(0,0,0,0.5) 0px 0px 5px;
-    -webkit-box-shadow:rgba(0,0,0,0.5) 0px 0px 5px;
-    box-shadow:rgba(0,0,0,0.5) 0px 0px 5px;   
+    -moz-box-shadow: rgba(0,0,0,0.5) 0px 0px 5px;
+    -webkit-box-shadow: rgba(0,0,0,0.5) 0px 0px 5px;
+    box-shadow: rgba(0,0,0,0.5) 0px 0px 5px;
 }
 
 .activity
@@ -686,21 +779,29 @@ a.link-button:hover
 {
     float: right;
 }
+
 .activity#date
 {
     float: left;
 }
 
+div.card-buttons .btn
+{
+    padding: 2px;
+    font-size: 10px;
+}
+
 #projectdetail
 {
     border: solid;
-    border-width:1px;
+    border-width: 1px;
     -moz-box-shadow: 10px 10px 5px #888888;
     box-shadow: 10px 10px 5px #888888;
     margin-top: 10px;
 }
 
-#projectdetail.padding {
+#projectdetail.padding
+{
     padding-top: 10px;
 }
 
@@ -720,7 +821,6 @@ a.link-button:hover
 
 #projectdetail:hover
 {
-    
     background: #F7F3F5;
 }
 
@@ -766,5 +866,4 @@ table.projectTable td
 
 .facebox-cancel
 {
-    
 }
