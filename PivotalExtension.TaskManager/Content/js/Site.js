@@ -22,8 +22,8 @@ function RemoveTask(id) {
         type: 'POST',
         url: '/Stories/DeleteTask',
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&taskId=' + items[2],
-       success: function (html) {
-           $('#' + items[0] + '-' + items[1]).replaceWith(html);
+        success: function (html) {
+            $('#' + items[0] + '-' + items[1]).replaceWith(html);
         }
     });
 }
@@ -115,3 +115,13 @@ function BindFaceboxLinks(unbind) {
         });
     });
 }
+
+function ExpandNotes(id) {
+    var $button = $('#link-' + id);
+    if ($button.hasClass("expand")) {
+        $button.switchClass("expand", "collapse", 200);
+    } else {
+        $button.switchClass("collapse", "expand", 200);
+    }
+    $('#' + id).toggle("blind", null, 400);
+};

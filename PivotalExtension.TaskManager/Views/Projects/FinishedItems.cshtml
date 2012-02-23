@@ -1,0 +1,11 @@
+﻿@model IEnumerable<PivotalTrackerDotNet.Domain.Activity>
+@{
+    ViewBag.Title = "Finished Items";
+}
+@foreach (var activity in Model) {
+    @Html.Partial("ActivityDetails", new PivotalExtension.TaskManager.Models.ActivityViewModel(activity))
+}
+
+<p>
+    @Html.ActionLink("Back to Project List", "Index")
+</p>

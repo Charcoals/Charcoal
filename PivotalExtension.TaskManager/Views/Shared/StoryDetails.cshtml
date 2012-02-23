@@ -1,19 +1,33 @@
 ﻿@model PivotalExtension.TaskManager.Models.StoryViewModel
-           
 <div class="@Model.GetStyle()">
-   
     <div class="estimate">@Model.GetEstimate()</div>
     <h3>@Model.GetHeader()</h3>
     <p>@Model.Story.Name</p>
     @{
-       if(Model.AdvanceAction() == "start") {
-         <button class="btn" onclick="StartStory('@Model.FormattedId');return false;">Start Story</button>
-       }
+        if (Model.AdvanceAction() == "start") {
 
-       if (Model.AdvanceAction() == "finish") {
-        <button class="btn" onclick="FinishStory('@Model.FormattedId');return false;">Finish Story</button>
-        @Html.ActionLink("Add task", "Add", "Task", new { projectId = @Model.Story.ProjectId, storyId = @Model.Story.Id }, new { @class = "facebox btn success", rel=@Model.FormattedId })
-       }
+        <button class="btn" onclick="StartStory('@Model.FormattedId');return false;">
+            Start Story</button>
+        }
+
+        if (Model.AdvanceAction() == "finish") {
+
+        <button class="btn" onclick="FinishStory('@Model.FormattedId');return false;">
+            Finish Story</button>
+ @Html.ActionLink("Add task", "Add", "Task", new { projectId = @Model.Story.ProjectId, storyId = @Model.Story.Id }, new { @class = "facebox btn success", rel = @Model.FormattedId })
+        }
+
+        if (Model.Story.Notes.Any()) { 
+        <button id="link-notes-@Model.FormattedId" class="expand" onclick="ExpandNotes('notes-@Model.FormattedId')" />
+        }
     }
 </div>
-    
+@if (Model.Story.Notes.Any()) {    
+    <div id="notes-@Model.FormattedId" class="@Model.GetStyle() notes-pane">
+        <ul>
+            @foreach (var note in Model.Story.Notes) {
+                <li>@note.Text</li>
+            }
+        </ul>
+    </div>
+}
