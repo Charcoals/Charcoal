@@ -461,23 +461,48 @@ div.task h3
     color: #555555;
 }
 
-div.story-details
+div.story-card
 {
     background-image: url('blank-index-card.png');
-    color: #111111;
     border: 5px solid #EFEFEF;
-    padding: 3px 5px 5px 5px;
     margin: 5px;
     width: 300px;
     height: 190px;
-    clip: auto;
-    overflow: auto;
-    line-height: 15px;
-    color: #555555;
     -moz-box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
     -webkit-box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
     box-shadow: rgba(0,0,0,0.5) 0px 0px 10px;
     position: relative;
+}
+
+div.story-details
+{
+    padding: 3px 8px 5px 5px;
+    height: 182px;
+    width: auto;
+    line-height: 15px;
+    color: #555555;
+    position: relative;
+}
+
+div.story-text
+{
+    clip: auto;
+    overflow: auto;
+}
+
+div.card-back
+{
+    background-image: none;
+    background-color: #FCFBED;
+    height: 182px;
+    width: auto;
+}
+
+div.card-buttons
+{
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
 }
 
 div.story-details h3
@@ -578,7 +603,8 @@ div.estimate
     color: black;
     text-align: right;
     font-style: italic;
-    float: right;
+    position: absolute;
+    right: 8px;
 }
 
 div.top-actions
@@ -624,13 +650,6 @@ div.card-actions
 div.notes-pane
 {
     background-image: none;
-    background-color: rgba(255, 253, 148, 0.4);
-    width: 285px;
-    height: auto;
-    border-top: 0px;
-    position: relative;
-    top: -5px;
-    left: 10px;
     display: none;
 }
 

@@ -108,6 +108,7 @@
     <Content Include="Content\css\ui-lightness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\css\ui-lightness\jquery-ui-1.8.17.custom.css" />
     <Content Include="Content\delete.gif" />
+    <Content Include="Content\down-arrow.png" />
     <Content Include="Content\DURON.jpg" />
     <Content Include="Content\edit.png" />
     <Content Include="Content\facebox\b.png" />
@@ -126,16 +127,17 @@
     <Content Include="Content\js\jquery-1.4.2.min.js" />
     <Content Include="Content\js\jquery-ui-1.8.17.custom.min.js" />
     <Content Include="Content\js\jquery.form.js" />
+    <Content Include="Content\js\jquery.quickflip.min.js" />
     <Content Include="Content\js\jquery.validate.min.js" />
     <Content Include="Content\js\jquery.validate.unobtrusive.min.js" />
     <Content Include="Content\js\modernizr-1.7.min.js" />
     <Content Include="Content\js\Site.js" />
     <Content Include="Content\new.jpg" />
     <Content Include="Content\orange-index-card.png" />
-    <Content Include="Content\paper_texture.jpg" />
     <Content Include="Content\paper.png" />
     <Content Include="Content\PaperBackground_CloaskofDeviantArt.png" />
     <Content Include="Content\plus.png" />
+    <Content Include="Content\up-arrow.png" />
     <Content Include="Content\yellow-index-card.png" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
