@@ -10,6 +10,7 @@
                 data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&initials=' + initials,
                 success: function (html) {
                     $('#' + id).replaceWith(html);
+                    $('.flippable').quickFlip();
                 }
             });
         }
@@ -24,6 +25,7 @@ function RemoveTask(id) {
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&taskId=' + items[2],
         success: function (html) {
             $('#' + items[0] + '-' + items[1]).replaceWith(html);
+            $('.flippable').quickFlip();
         }
     });
 }
@@ -36,6 +38,7 @@ function CompleteTask(id, completed) {
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&completed=' + completed,
         success: function (html) {
             $('#' + id).replaceWith(html);
+            $('.flippable').quickFlip();
         }
     });
 }
@@ -50,6 +53,7 @@ function RefreshStories() {
             data: 'projectId=' + items[0] + '&storyId=' + items[1],
             success: function (html) {
                 $('#' + id).replaceWith(html);
+                $('.flippable').quickFlip();
             }
         });
     });
@@ -63,6 +67,7 @@ function StartStory(id) {
         data: 'projectId=' + items[0] + '&storyId=' + items[1],
         success: function (html) {
             $('#' + id).replaceWith(html);
+            $('.flippable').quickFlip();
         }
     });
 }
@@ -75,6 +80,7 @@ function FinishStory(id) {
         data: 'projectId=' + items[0] + '&storyId=' + items[1],
         success: function (html) {
             $('#' + id).replaceWith(html);
+            $('.flippable').quickFlip();
         }
     });
 }
@@ -103,6 +109,7 @@ function BindFaceboxLinks(unbind) {
     $(document).bind('reveal.facebox', function () {
         $('.async-form').ajaxForm(function (responseText) {
             $('#' + updateTargetId).replaceWith(responseText);
+            $('.flippable').quickFlip();
             $.facebox.close();
             BindFaceboxLinks(true);
             updateTargetId = null;
