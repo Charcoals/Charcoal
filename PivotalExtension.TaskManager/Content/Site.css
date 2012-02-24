@@ -549,7 +549,7 @@ div.card-buttons
     right: 4px;
 }
 
-div.story-details h3
+div.story-card h3
 {
     text-align: center;
     color: #555555;
@@ -867,4 +867,9 @@ table.projectTable td
 
 .facebox-cancel
 {
+}
+
+.transparent
+{
+    background-color: transparent;
 }

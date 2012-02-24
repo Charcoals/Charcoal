@@ -1,21 +1,25 @@
 ﻿@model PivotalExtension.TaskManager.Models.TaskViewModel
-@using(Html.BeginForm ("AddTask", "Stories", FormMethod.Post, new { @class = "async-form" })) {
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Add Task:</legend>
+<div class="task">
+    <h3>Add Task:</h3>
+    @using (Html.BeginForm("AddTask", "Stories", FormMethod.Post, new { @class = "async-form" })) {
+        @Html.ValidationSummary(true) 
         @Html.HiddenFor(model => model.ProjectId)
         @Html.HiddenFor(model => model.StoryId, new { name = "storyId" })
-        <p>
-            <label>Description:</label>
-            @Html.EditorFor(model => model.Description)
-        </p>
-        <p>
-            <label>Initials:</label>
-            @Html.TextBox("initials")
-        </p>
-        <p>
+
+        <div>
+            <p style="padding-left:10px;width:80%">
+                Description:
+                @Html.TextAreaFor(model => model.Description, new { @class = "transparent" })
+            </p>
+            
+            <p style="padding-left:10px;width:80%">
+                Initials: @Html.TextBox("initials", null, new { @class = "transparent", style="width:auto;" })
+            </p>
+        </div>
+        <div class="card-buttons">
             <input type="submit" class="btn success" value="Save" />
-            <button class="btn danger facebox-cancel">Cancel</button>
-        </p>
-    </fieldset>
-}
+            <button class="btn danger facebox-cancel">
+                Cancel</button>
+        </div>
+    }
+</div>

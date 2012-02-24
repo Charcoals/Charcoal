@@ -5,7 +5,8 @@
 #facebox .content 
 {
 	max-height:500px;
-	overflow:auto;
+	/*overflow:auto;*/
+	overflow:hidden;
 }
 
 #facebox .tl {
@@ -48,9 +49,9 @@
 }
 
 #facebox .body {
-  padding: 10px;
+  /*padding: 10px;*/
   background: #fff;
-  width: 400px;
+  /*width: 400px;*/
 }
 
 #facebox .loading {
