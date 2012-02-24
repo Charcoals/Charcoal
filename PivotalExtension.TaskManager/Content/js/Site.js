@@ -83,8 +83,7 @@ function FinishStory(id) {
 
 function Toggle(elem, selector) {
     $(selector).each(function () {
-        var showCompleted = !elem.checked //this should eventually be checked = show
-        $(this).toggle(showCompleted);
+        $(this).toggle(elem.checked);
     });
 }
 

@@ -142,7 +142,7 @@ namespace PivotalTrackerDotNet {
 
         private List<Story> GetStories(int projectId, RestRequest request) {
             var response = RestClient.Execute<List<Story>>(request);
-            var stories = response.Data;
+            var stories = response.Data ?? new List<Story>();
             foreach (var story in stories) {
                 GetStoryWithTasks(projectId, story);
             }
