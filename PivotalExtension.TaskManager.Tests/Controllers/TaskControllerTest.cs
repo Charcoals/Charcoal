@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using PivotalExtension.TaskManager.Models;
 using Rhino.Mocks.Constraints;
 
-namespace PivotalExtension.TaskManager.Tests {
+namespace PivotalExtension.TaskManager.Tests.Controllers {
     [TestFixture]
     public class TaskControllerTest {
 

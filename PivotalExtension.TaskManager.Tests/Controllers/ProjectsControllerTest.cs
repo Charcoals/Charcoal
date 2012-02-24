@@ -9,7 +9,7 @@ using PivotalTrackerDotNet.Domain;
 using PivotalExtension.TaskManager.Controllers;
 using System.Web.Mvc;
 
-namespace PivotalExtension.TaskManager.Tests {
+namespace PivotalExtension.TaskManager.Tests.Controllers {
     [TestFixture]
     public class ProjectsControllerTest {
         [Test]

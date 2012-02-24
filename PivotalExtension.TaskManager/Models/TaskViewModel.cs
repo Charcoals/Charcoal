@@ -35,11 +35,14 @@ namespace PivotalExtension.TaskManager.Models {
             }
         }
 
+        static Regex regex = new Regex(@"\([A-Z]{2,3}(\/[A-Z]{2,3})*\)", RegexOptions.Singleline | RegexOptions.Compiled);
+
         public List<string> GetOwners() {
-            var regex = new Regex(@"[A-Z]{2,3}(\/[A-Z]{2,3})+");
             var matches = regex.Matches(Task.Description);
             if (matches.Count == 0) return new List<string>();
-            return matches[0].Value.Split('/').ToList();
+            return matches[0].Value
+                .TrimStart('(').TrimEnd(')')
+                .Split('/').ToList();
         }
 
         public string GetStyle() {
