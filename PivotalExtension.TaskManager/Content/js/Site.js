@@ -1,8 +1,9 @@
 ﻿function buildReplaceCallback(id, additionalFunction) {
     return function (html) {
-        $('#' + id).replaceWith(html);
-        $('.flippable').quickFlip();
-        $('.task-column').selectable({
+        var rootSelector = '#' + id;
+        $(rootSelector).replaceWith(html);
+        $(rootSelector + ' .flippable').quickFlip();
+        $(rootSelector + ' .task-column').selectable({
             filter: 'div.task:not(.complete)'
         });
         if (additionalFunction != undefined) {
