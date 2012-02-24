@@ -42,8 +42,7 @@
                         <ul>
                             @foreach (var note in Model.Story.Notes) {
                                 <li>
-                                    <div class="note-header">@note.Author - @note.Timestamp.Value.ToString("g")</div>
-                                    <p>@note.Text</p>
+                                    <p><strong>@note.Author - </strong>@note.Text <strong>(@note.Timestamp.Value.ToShortDateString())</strong></p>
                                 </li>
                             }
                         </ul>

@@ -507,7 +507,7 @@ div.card-back ul
 
 div.card-back li
 {
-    background-color: rgba(165, 230, 250, 0.6);
+    /* background-color: rgba(165, 230, 250, 0.6); */
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -529,17 +529,6 @@ div.card-notes
     overflow: auto;
     overflow-x: hidden;
     height: 156px;
-}
-
-div.note-header 
-{
-    margin: 4px 0px 2px 0px;
-    background-color: rgba(50, 50, 50, 0.6);
-    color: #DDDDDD;
-    padding: 1px 4px 1px 4px;
-    border-radius: 5px 5px 0px 0px;
-    -moz-border-radius: 5px 5px 0px 0px;
-    -webkit-border-radius: 5px 5px 0px 0px;
 }
 
 div.card-buttons
