@@ -1,4 +1,18 @@
-﻿function SignUpForTask() {
+﻿function buildReplaceCallback(id, additionalFunction) {
+    return function (html) {
+        $('#' + id).replaceWith(html);
+        $('.flippable').quickFlip();
+        $('.task-column').selectable({
+            filter: 'div.task:not(.complete)'
+        });
+        if (additionalFunction != undefined) {
+            additionalFunction();
+        }
+        BindFaceboxLinks(true);
+    };
+}
+
+function SignUpForTask() {
     initials = prompt('Enter your initials in AA/BB format (an empty string will clear existing assignment):', '');
     $('div.ui-selected').each(function () {
         if (initials != null) {
@@ -8,10 +22,7 @@
                 type: 'POST',
                 url: '/Task/SignUp',
                 data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&initials=' + initials,
-                success: function (html) {
-                    $('#' + id).replaceWith(html);
-                    $('.flippable').quickFlip();
-                }
+                success: buildReplaceCallback(id)
             });
         }
     });
@@ -23,10 +34,7 @@ function RemoveTask(id) {
         type: 'POST',
         url: '/Stories/DeleteTask',
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&taskId=' + items[2],
-        success: function (html) {
-            $('#' + items[0] + '-' + items[1]).replaceWith(html);
-            $('.flippable').quickFlip();
-        }
+        success: buildReplaceCallback(items[0] + '-' + items[1])
     });
 }
 
@@ -36,10 +44,7 @@ function CompleteTask(id, completed) {
         type: 'POST',
         url: '/Task/Complete',
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&completed=' + completed,
-        success: function (html) {
-            $('#' + id).replaceWith(html);
-            $('.flippable').quickFlip();
-        }
+        success: buildReplaceCallback(id)
     });
 }
 
@@ -51,10 +56,7 @@ function RefreshStories() {
             type: 'GET',
             url: '/Stories/Get',
             data: 'projectId=' + items[0] + '&storyId=' + items[1],
-            success: function (html) {
-                $('#' + id).replaceWith(html);
-                $('.flippable').quickFlip();
-            }
+            success: buildReplaceCallback(id)
         });
     });
 }
@@ -65,10 +67,7 @@ function StartStory(id) {
         type: 'POST',
         url: '/Stories/Start',
         data: 'projectId=' + items[0] + '&storyId=' + items[1],
-        success: function (html) {
-            $('#' + id).replaceWith(html);
-            $('.flippable').quickFlip();
-        }
+        success: buildReplaceCallback(id)
     });
 }
 
@@ -78,10 +77,7 @@ function FinishStory(id) {
         type: 'POST',
         url: '/Stories/Finish',
         data: 'projectId=' + items[0] + '&storyId=' + items[1],
-        success: function (html) {
-            $('#' + id).replaceWith(html);
-            $('.flippable').quickFlip();
-        }
+        success: buildReplaceCallback(id)
     });
 }
 
@@ -107,12 +103,19 @@ function BindFaceboxLinks(unbind) {
 
     //on reveal, need to bind new async forms and cancellation links
     $(document).bind('reveal.facebox', function () {
+        //this could probably use buildReplaceCallback if we added ability to pass in an additional function
+        //would be slightly awkward because it needs to be constructed when updateTargetId is available so buildReplaceCallback(updateTargetId)(responseText);
         $('.async-form').ajaxForm(function (responseText) {
-            $('#' + updateTargetId).replaceWith(responseText);
-            $('.flippable').quickFlip();
-            $.facebox.close();
-            BindFaceboxLinks(true);
-            updateTargetId = null;
+            buildReplaceCallback(updateTargetId, function () {
+                $.facebox.close();
+                updateTargetId = null;
+            })(responseText);
+
+//            $('#' + updateTargetId).replaceWith(responseText);
+//            $('.flippable').quickFlip();
+//            $.facebox.close();
+//            BindFaceboxLinks(true);
+//            updateTargetId = null;
         });
 
         $('.facebox-cancel').bind('click', function () {
