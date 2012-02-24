@@ -14,18 +14,23 @@
 
 function SignUpForTask() {
     initials = prompt('Enter your initials in AA/BB format (an empty string will clear existing assignment):', '');
-    $('div.ui-selected').each(function () {
-        if (initials != null) {
+    var array = [];
+    var storyId;
+    if (initials != null) {
+        $('div.ui-selected').each(function () {
             var id = $(this).attr('id');
             var items = id.split('-');
-            $.ajax({
-                type: 'POST',
-                url: '/Task/SignUp',
-                data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&initials=' + initials,
-                success: buildReplaceCallback(id)
-            });
-        }
-    });
+            storyId = items[0] + '-' + items[1];
+            array.push(id);
+        });
+        var queryString = $.param({ initials: initials, fullIds: array }, true);
+        $.ajax({
+            type: 'POST',
+            url: '/Task/SignUp',
+            data: queryString,
+            success: buildReplaceCallback(storyId)
+        });
+    }
 }
 
 function RemoveTask(id) {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
@@ -21,13 +22,39 @@ namespace PivotalExtension.TaskManager.Controllers {
 			return PartialView("TaskDetails", new TaskViewModel(Service.GetTask(projectId, storyId, id)));
 		}
 
-		[HttpPost]
-		public ActionResult SignUp(int id, int storyId, int projectId, string initials) {
-			var task = Service.GetTask(projectId, storyId, id);
-			task.Description = AddInitialsToDescription(task, initials);
-			Service.SaveTask(task);
-			return PartialView("TaskDetails", new TaskViewModel(task));
-		}
+        //[HttpPost]
+        //public ActionResult SignUp(int id, int storyId, int projectId, string initials) {
+        //    var task = Service.GetTask(projectId, storyId, id);
+        //    task.Description = AddInitialsToDescription(task, initials);
+        //    Service.SaveTask(task);
+        //    return PartialView("TaskDetails", new TaskViewModel(task));
+        //}
+
+        [HttpPost]
+        public ActionResult SignUp(string initials, string[] fullIds) {
+            int storyId = 0, taskId = 0, projectId = 0;
+
+            foreach (var s in fullIds) {
+                var parts = s.Split('-');
+                if (parts.Length != 3) {
+                    throw new InvalidOperationException("Must pass ids in the format projectId-storyId-taskId");
+                }
+                if (!int.TryParse(parts[0], out projectId)) {
+                    throw new InvalidOperationException("Invalid project id");
+                }
+                if (!int.TryParse(parts[1], out storyId)) {
+                    throw new InvalidOperationException("Invalid story id");
+                }
+                if (!int.TryParse(parts[2], out taskId)) {
+                    throw new InvalidOperationException("Invalid task id");
+                }
+
+                var task = Service.GetTask(projectId, storyId, taskId);
+                task.Description = AddInitialsToDescription(task, initials);
+                Service.SaveTask(task);
+            }
+            return RedirectToAction("Get", "Stories", new { projectId = projectId, storyId = storyId });
+        }
 
 		private string AddInitialsToDescription(Task task, string initials) {
 			return new TaskViewModel(task).GetDescriptionWithoutOwners() + (string.IsNullOrEmpty(initials) ? "" : (" (" + initials.ToUpper() + ")"));
