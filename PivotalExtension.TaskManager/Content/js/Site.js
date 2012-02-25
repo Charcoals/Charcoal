@@ -2,19 +2,57 @@
     return function (html) {
         var rootSelector = '#' + id;
         $(rootSelector).replaceWith(html);
-        $(rootSelector + ' .flippable').quickFlip();
-        $(rootSelector + ' .task-column').selectable({
-            filter: 'div.task:not(.complete)',
-            selected: function (event, ui) {
-                var deselector = 'td.task-column:not(#' + $(ui.selected).parent().attr('id') + ')';
-                $(deselector).find('.ui-selected').removeClass('ui-selected');
-            }
-        });
+        rebindEvents(rootSelector);
         if (additionalFunction != undefined) {
             additionalFunction();
         }
-        BindFaceboxLinks(true);
     };
+}
+
+function rebindEvents(rootSelector) {
+    rootSelector = rootSelector || '';
+    var rootDefined = rootSelector.length > 0;
+    if (rootDefined) rootSelector = rootSelector + ' ';
+    $(rootSelector + '.flippable').quickFlip();
+    $(rootSelector + '.task-column').selectable({
+        filter: 'div.task:not(.complete)',
+        selected: function (event, ui) {
+            var deselector = 'td.task-column:not(#' + $(ui.selected).parent().attr('id') + ')';
+            $(deselector).find('.ui-selected').removeClass('ui-selected');
+        }
+    });
+    //TODO: pull facebox logic into here, use partial rebind instead of unbind approach
+    bindFaceboxLinks(rootDefined);
+}
+
+//facebox stuff
+//requires jquery.form.js and facebox
+var updateTargetId;
+
+function bindFaceboxLinks(unbind) {
+    //$.live() doesn't work w/ facebox, need to re-bind when content is reloaded
+    if (unbind) {
+        $('a.facebox').unbind();
+    }
+    $('a.facebox').bind('click', function () {
+        updateTargetId = this.rel;
+    }).facebox();
+
+    //on reveal, need to bind new async forms and cancellation links
+    $(document).bind('reveal.facebox', function () {
+        $('.async-form').ajaxForm(function (responseText) {
+            buildReplaceCallback(updateTargetId, function () {
+                $.facebox.close();
+                updateTargetId = null;
+            })(responseText);
+        });
+
+        $('.facebox-cancel').bind('click', function () {
+            $.facebox.close();
+            updateTargetId = null;
+            return false;
+        });
+    });
 }
 
 function SignUpForTask() {
@@ -94,44 +132,6 @@ function FinishStory(id) {
 function Toggle(elem, selector) {
     $(selector).each(function () {
         $(this).toggle(elem.checked);
-    });
-}
-
-//facebox stuff
-//requires jquery.form.js and facebox
-var updateTargetId;
-
-function BindFaceboxLinks(unbind) {
-    //$.live() doesn't work w/ facebox, need to re-bind when content is reloaded
-    if (unbind) {
-        $('a.facebox').unbind();
-    }
-    $('a.facebox').bind('click', function () {
-        updateTargetId = this.rel;
-    }).facebox();
-
-    //on reveal, need to bind new async forms and cancellation links
-    $(document).bind('reveal.facebox', function () {
-        //this could probably use buildReplaceCallback if we added ability to pass in an additional function
-        //would be slightly awkward because it needs to be constructed when updateTargetId is available so buildReplaceCallback(updateTargetId)(responseText);
-        $('.async-form').ajaxForm(function (responseText) {
-            buildReplaceCallback(updateTargetId, function () {
-                $.facebox.close();
-                updateTargetId = null;
-            })(responseText);
-
-//            $('#' + updateTargetId).replaceWith(responseText);
-//            $('.flippable').quickFlip();
-//            $.facebox.close();
-//            BindFaceboxLinks(true);
-//            updateTargetId = null;
-        });
-
-        $('.facebox-cancel').bind('click', function () {
-            $.facebox.close();
-            updateTargetId = null;
-            return false;
-        });
     });
 }
 
