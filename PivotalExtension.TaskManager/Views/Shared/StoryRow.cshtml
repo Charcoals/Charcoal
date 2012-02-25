@@ -1,7 +1,7 @@
 ﻿@model PivotalExtension.TaskManager.Models.StoryRowViewModel
 <tr class="story-row @Model.Story.CurrentState @Model.Story.StoryType" id="@Model.Story.ProjectId-@Model.Story.Id">
     <td class="story-column">@Html.Partial("StoryDetails", new PivotalExtension.TaskManager.Models.StoryViewModel(Model.Story))</td>
-    <td class="task-column">
+    <td class="task-column" id="task-@Model.Story.ProjectId-@Model.Story.Id">
         @foreach (var task in Model.Story.Tasks) {
             @Html.Partial("TaskDetails", new PivotalExtension.TaskManager.Models.TaskViewModel(task))
         }

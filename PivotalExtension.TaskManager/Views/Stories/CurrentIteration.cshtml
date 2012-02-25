@@ -15,9 +15,13 @@
 </table>
 
 <script type="text/javascript">
-$(function () {
-    $('.task-column').selectable({
-        filter: 'div.task:not(.complete)'
+    $(function () {
+        $('.task-column').selectable({
+            filter: 'div.task:not(.complete)',
+            selected: function (event, ui) {
+                var deselector = 'td.task-column:not(#' + $(ui.selected).parent().attr('id') + ')';
+                $(deselector).find('.ui-selected').removeClass('ui-selected');
+            }
+        });
     });
-});
 </script>

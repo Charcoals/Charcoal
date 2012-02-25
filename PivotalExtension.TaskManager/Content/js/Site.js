@@ -4,7 +4,11 @@
         $(rootSelector).replaceWith(html);
         $(rootSelector + ' .flippable').quickFlip();
         $(rootSelector + ' .task-column').selectable({
-            filter: 'div.task:not(.complete)'
+            filter: 'div.task:not(.complete)',
+            selected: function (event, ui) {
+                var deselector = 'td.task-column:not(#' + $(ui.selected).parent().attr('id') + ')';
+                $(deselector).find('.ui-selected').removeClass('ui-selected');
+            }
         });
         if (additionalFunction != undefined) {
             additionalFunction();
