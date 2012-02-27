@@ -1,18 +1,22 @@
-﻿function buildReplaceCallback(id, additionalFunction) {
+﻿//require jquery, jqueryui, jquery.form.js, jquery.quickflip.js
+function buildReplaceCallback(id, additionalFunction) {
     return function (html) {
         var rootSelector = '#' + id;
         $(rootSelector).replaceWith(html);
-        rebindEvents(rootSelector);
+        bindUIEvents(rootSelector);
         if (additionalFunction != undefined) {
             additionalFunction();
         }
     };
 }
 
-function rebindEvents(rootSelector) {
+//needed to hold update target for facebox
+var updateTargetId;
+
+function bindUIEvents(rootSelector) {
     rootSelector = rootSelector || '';
     var rootDefined = rootSelector.length > 0;
-    if (rootDefined) rootSelector = rootSelector + ' ';
+    if (rootDefined) rootSelector = rootSelector + ' ';//space for all descendants, > for children
     $(rootSelector + '.flippable').quickFlip();
     $(rootSelector + '.task-column').selectable({
         filter: 'div.task:not(.complete)',
@@ -21,38 +25,28 @@ function rebindEvents(rootSelector) {
             $(deselector).find('.ui-selected').removeClass('ui-selected');
         }
     });
-    //TODO: pull facebox logic into here, use partial rebind instead of unbind approach
-    bindFaceboxLinks(rootDefined);
-}
 
-//facebox stuff
-//requires jquery.form.js and facebox
-var updateTargetId;
-
-function bindFaceboxLinks(unbind) {
-    //$.live() doesn't work w/ facebox, need to re-bind when content is reloaded
-    if (unbind) {
-        $('a.facebox').unbind();
-    }
-    $('a.facebox').bind('click', function () {
+    $(rootSelector + 'a.facebox').unbind('click');
+    $(rootSelector + 'a.facebox').bind('click', function () {
         updateTargetId = this.rel;
     }).facebox();
 
-    //on reveal, need to bind new async forms and cancellation links
-    $(document).bind('reveal.facebox', function () {
-        $('.async-form').ajaxForm(function (responseText) {
-            buildReplaceCallback(updateTargetId, function () {
+    if (!rootDefined) { //assume that presence of root selector means document events already bound
+        $(document).bind('reveal.facebox', function () {
+            $('.async-form').ajaxForm(function (responseText) {
+                buildReplaceCallback(updateTargetId, function () {
+                    $.facebox.close();
+                    updateTargetId = null;
+                })(responseText);
+            });
+
+            $('.facebox-cancel').bind('click', function () {
                 $.facebox.close();
                 updateTargetId = null;
-            })(responseText);
+                return false;
+            });
         });
-
-        $('.facebox-cancel').bind('click', function () {
-            $.facebox.close();
-            updateTargetId = null;
-            return false;
-        });
-    });
+    }
 }
 
 function SignUpForTask() {
@@ -134,13 +128,3 @@ function Toggle(elem, selector) {
         $(this).toggle(elem.checked);
     });
 }
-
-function ExpandNotes(id) {
-    var $button = $('#link-' + id);
-    if ($button.hasClass("expand")) {
-        $button.switchClass("expand", "collapse", 200);
-    } else {
-        $button.switchClass("collapse", "expand", 200);
-    }
-    $('#' + id).toggle("blind", null, 400);
-};
