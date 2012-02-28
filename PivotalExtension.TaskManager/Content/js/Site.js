@@ -18,6 +18,7 @@ function bindUIEvents(rootSelector) {
     var rootDefined = rootSelector.length > 0;
     if (rootDefined) rootSelector = rootSelector + ' ';//space for all descendants, > for children
     $(rootSelector + '.flippable').quickFlip();
+    $(rootSelector + '.task-column').sortable({ handle: 'h3' });
     $(rootSelector + '.task-column').selectable({
         filter: 'div.task:not(.complete)',
         selected: function (event, ui) {

@@ -9,6 +9,7 @@ namespace PivotalTrackerDotNet.Domain {
         public bool Complete { get; set; }
         public int ParentStoryId { get; set; }
         public int ProjectId { get; set; }
+        public int Position { get; set; }
 
         public string GetIdToken() {
             return string.Format("{0}:{1}:{2}", ProjectId, ParentStoryId, Id);
