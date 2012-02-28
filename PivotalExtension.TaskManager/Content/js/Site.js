@@ -1,4 +1,4 @@
-﻿//require jquery, jqueryui, jquery.form.js, jquery.quickflip.js
+﻿//require jquery, jqueryui, facebox, query.form.js, jquery.quickflip.js
 function buildReplaceCallback(id, additionalFunction) {
     return function (html) {
         var rootSelector = '#' + id;
