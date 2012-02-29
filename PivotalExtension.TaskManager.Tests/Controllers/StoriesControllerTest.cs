@@ -139,5 +139,34 @@ namespace PivotalExtension.TaskManager.Tests.Controllers {
                 Assert.AreEqual(((StoryRowViewModel)viewResult.Model).Story, anotherStory);
             }
         }
+
+        [Test]
+        public void AddComment() {
+            var mockery = new MockRepository();
+            var storyService = mockery.StrictMock<IStoryService>();
+
+            var storyId = 1;
+            var projectId = 3;
+            var comment = "comment";
+
+            var story = new Story();
+
+            using (mockery.Record()) 
+            using (mockery.Ordered()) {
+                storyService.AddComment(projectId, storyId, comment);
+                Expect.Call(storyService.GetStory(projectId, storyId)).Return(story);
+            }
+
+            using(mockery.Playback()){
+                var controller = new StoriesController(storyService);
+                var result = controller.AddComment(projectId, storyId, comment);
+
+                var partialResult = result as PartialViewResult;
+                Assert.NotNull(partialResult);
+                var model = partialResult.Model as StoryRowViewModel;
+                Assert.NotNull(model);
+                Assert.AreEqual(story, model.Story);
+            }
+        }
     }
 }

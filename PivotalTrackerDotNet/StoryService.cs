@@ -12,7 +12,8 @@ namespace PivotalTrackerDotNet {
         private const string AllStoriesEndpoint = "projects/{0}/stories";
         const string TaskEndpoint = "projects/{0}/stories/{1}/tasks";
         const string SaveStoryEndpoint = "projects/{0}/stories?story[name]={1}&story[requested_by]={2}&story[description]={3}&story[story_type]={4}";
-        const string SaveTaskEndpoint = "projects/{0}/stories/{1}/tasks?task[description]={2}";
+        const string SaveNewTaskEndpoint = "projects/{0}/stories/{1}/tasks?task[description]={2}";
+        const string SaveNewCommentEndpoint = "projects/{0}/stories/{1}/notes?note[text]={2}";
         const string SingleTaskEndpoint = "projects/{0}/stories/{1}/tasks/{2}";//projects/$PROJECT_ID/stories/$STORY_ID/tasks/$TASK_ID
         const string IceBoxEndpoint = "projects/{0}/stories?filter=current_state:unscheduled";
         const string StoryStateEndpoint = "projects/{0}/stories/{1}?story[current_state]={2}";
@@ -118,7 +119,7 @@ namespace PivotalTrackerDotNet {
 
         public Task AddNewTask(Task task) {
             var request = BuildPostRequest();
-            request.Resource = string.Format(SaveTaskEndpoint, task.ProjectId, task.ParentStoryId, task.Description);
+            request.Resource = string.Format(SaveNewTaskEndpoint, task.ProjectId, task.ParentStoryId, task.Description);
 
             var response = RestClient.Execute<Task>(request);
             return response.Data;
@@ -141,6 +142,12 @@ namespace PivotalTrackerDotNet {
             output.ParentStoryId = storyId;
             output.ProjectId = projectId;
             return output;
+        }
+
+        public void AddComment(int projectId, int storyId, string comment) {
+            var request = BuildPutRequest();
+            request.Resource = string.Format(SaveNewCommentEndpoint, projectId, storyId, comment);
+            RestClient.Execute(request);
         }
 
         List<Story> GetStoriesByIterationType(int projectId, string iterationType) {

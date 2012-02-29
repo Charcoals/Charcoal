@@ -134,6 +134,19 @@ function FinishStory(id) {
     });
 }
 
+function AddComment(id) {
+    var comment = prompt('Enter your comment:', 'I am too lazy to enter a real comment');
+    if (comment) {
+        var items = id.split('-');
+        $.ajax({
+            type: 'POST',
+            url: '/Stories/AddComment',
+            data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&comment=' + comment,
+            success: buildReplaceCallback(id)
+        });
+    }
+}
+
 function Toggle(elem, selector) {
     $(selector).each(function () {
         $(this).toggle(elem.checked);
