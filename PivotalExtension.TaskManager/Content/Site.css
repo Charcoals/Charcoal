@@ -426,6 +426,7 @@ table.story-table
 tr.story-row
 {
     vertical-align: top;
+    overflow: auto;
 }
 
 td.story-column
