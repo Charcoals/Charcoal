@@ -86,7 +86,7 @@ h5{font-size:14px;}
 h6{font-size:13px;color:#bfbfbf;text-transform:uppercase;}
 ul,ol{margin:0 0 18px 25px;}
 ul ul,ul ol,ol ol,ol ul{margin-bottom:0;}
-ul{list-style:disc;}
+
 ol{list-style:decimal;}
 li{line-height:18px;color:#808080;}
 ul.unstyled{list-style:none;margin-left:0;}

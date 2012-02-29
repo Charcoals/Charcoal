@@ -412,6 +412,11 @@ table th
 
 /* Custom */
 
+#sortable > div
+{
+    float: left;
+}
+
 table.story-table
 {
     border-collapse: collapse;
