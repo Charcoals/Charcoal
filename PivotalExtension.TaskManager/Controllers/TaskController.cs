@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using PivotalTrackerDotNet;
@@ -74,5 +75,20 @@ namespace PivotalExtension.TaskManager.Controllers {
         public ActionResult Add(int storyId, int projectId) {
             return PartialView(new TaskViewModel(new Task { ParentStoryId = storyId, ProjectId = projectId }));
         }
+
+        [HttpPost]
+        public ActionResult UpdateTaskOrder(string taskArray){
+            var arr = taskArray.Split(',');
+            var tasks = arr.Select(ExtractTask).ToList();
+            var firstTask = tasks.First();
+            Service.ReorderTasks(firstTask.ProjectId,firstTask.ParentStoryId,tasks);
+            return new EmptyResult();
+        }
+
+	    private Task ExtractTask(string taskIds, int position)
+	    {
+	        var ids = taskIds.Split('-');
+	        return new Task {ProjectId = int.Parse(ids[0]), ParentStoryId = int.Parse(ids[1]), Id = int.Parse(ids[2]), Position = position+1};
+	    }
 	}
 }

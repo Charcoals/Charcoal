@@ -1,7 +1,7 @@
 ﻿@model PivotalExtension.TaskManager.Models.TaskViewModel      
 @using PivotalExtension.TaskManager
 @using PivotalTrackerDotNet.Domain;
-<div class="@Model.GetStyle()" id="@Model.DisplayId" onclick="toggleSortable(); return true">
+<div class="@Model.GetStyle()" id="@Model.DisplayId">
     <h3>Task</h3>
     <p>@Html.Raw(Html.FormatLinksInPlace(Model.GetDescriptionWithoutOwners()))</p>
     <p><strong>@string.Join("/", Model.GetOwners())</strong></p>

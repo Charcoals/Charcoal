@@ -106,6 +106,17 @@ namespace PivotalTrackerDotNet {
             RestClient.Execute(request);
         }
 
+        public void ReorderTasks(int projectId, int storyId, List<Task> tasks)
+        {
+            foreach (var task in tasks)
+            {
+                var request = BuildPutRequest();
+                request.Resource = string.Format(TaskEndpoint + "/{2}?task[position]={3}", task.ProjectId,
+                                                 task.ParentStoryId, task.Id, task.Position);
+                RestClient.Execute(request);
+            }
+        }
+
         public Task AddNewTask(Task task) {
             var request = BuildPostRequest();
             request.Resource = string.Format(SaveTaskEndpoint, task.ProjectId, task.ParentStoryId, task.Description);

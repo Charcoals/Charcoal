@@ -17,5 +17,6 @@ namespace PivotalTrackerDotNet {
 		Task GetTask(int projectId, int storyId, int taskId);
 		Task RemoveTask(int projectId, int storyId, int taskId);
 		void SaveTask(Task task);
+	    void ReorderTasks(int projectId, int storyId, List<Task> tasks);
 	}
 }
