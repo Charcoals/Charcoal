@@ -66,8 +66,6 @@ namespace PivotalTrackerDotNet.Tests {
 
 		[Test]
 		public void CanSaveTask() {
-			const int storyId = 23590427;
-
 			var guid = Guid.NewGuid().ToString();
 
 			var stories = storyService.GetCurrentStories(projectId);

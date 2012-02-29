@@ -77,7 +77,7 @@ namespace PivotalExtension.TaskManager.Controllers {
         }
 
         [HttpPost]
-        public ActionResult UpdateTaskOrder(string taskArray){
+        public ActionResult ReOrder(string taskArray){
             var arr = taskArray.Split(',');
             var tasks = arr.Select(ExtractTask).ToList();
             var firstTask = tasks.First();

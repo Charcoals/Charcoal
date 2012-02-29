@@ -24,7 +24,7 @@ function bindUIEvents(rootSelector) {
             arr = $(this).sortable('toArray').toString();
             $.ajax({
                 type: 'POST',
-                url: '/Task/UpdateTaskOrder',
+                url: '/Task/ReOrder',
                 data: 'taskArray=' + arr
             });
         }
