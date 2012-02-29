@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
 using PivotalExtension.TaskManager.Models;
+using Parallel = System.Threading.Tasks.Parallel;
 
 namespace PivotalExtension.TaskManager.Controllers {
 	public class TaskController : BaseController {
@@ -35,7 +36,7 @@ namespace PivotalExtension.TaskManager.Controllers {
         public ActionResult SignUp(string initials, string[] fullIds) {
             int storyId = 0, taskId = 0, projectId = 0;
 
-            foreach (var s in fullIds) {
+            Parallel.ForEach(fullIds, s => {
                 var parts = s.Split('-');
                 if (parts.Length != 3) {
                     throw new InvalidOperationException("Must pass ids in the format projectId-storyId-taskId");
@@ -53,7 +54,8 @@ namespace PivotalExtension.TaskManager.Controllers {
                 var task = Service.GetTask(projectId, storyId, taskId);
                 task.Description = AddInitialsToDescription(task, initials);
                 Service.SaveTask(task);
-            }
+            });
+
             return RedirectToAction("Get", "Stories", new { projectId = projectId, storyId = storyId });
         }
 
@@ -81,7 +83,7 @@ namespace PivotalExtension.TaskManager.Controllers {
             var arr = taskArray.Split(',');
             var tasks = arr.Select(ExtractTask).ToList();
             var firstTask = tasks.First();
-            Service.ReorderTasks(firstTask.ProjectId,firstTask.ParentStoryId,tasks);
+            Service.ReorderTasks(firstTask.ProjectId, firstTask.ParentStoryId, tasks);
             return new EmptyResult();
         }
 

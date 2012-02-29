@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PivotalTrackerDotNet.Domain;
 using RestSharp;
 using RestSharp.Contrib;
+using Parallel = System.Threading.Tasks.Parallel;
 
 namespace PivotalTrackerDotNet {
     public class StoryService : AAuthenticatedService, IStoryService {
@@ -107,12 +108,12 @@ namespace PivotalTrackerDotNet {
         }
 
         public void ReorderTasks(int projectId, int storyId, List<Task> tasks) {
-            foreach (var task in tasks) {
+            Parallel.ForEach(tasks, t => {
                 var request = BuildPutRequest();
-                request.Resource = string.Format(TaskEndpoint + "/{2}?task[position]={3}", task.ProjectId,
-                                                 task.ParentStoryId, task.Id, task.Position);
+                request.Resource = string.Format(TaskEndpoint + "/{2}?task[position]={3}", t.ProjectId,
+                                                 t.ParentStoryId, t.Id, t.Position);
                 RestClient.Execute(request);
-            }
+            });
         }
 
         public Task AddNewTask(Task task) {
