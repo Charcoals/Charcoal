@@ -8,21 +8,22 @@ using PivotalExtension.TaskManager.Models;
 using Parallel = System.Threading.Tasks.Parallel;
 
 namespace PivotalExtension.TaskManager.Controllers {
-	public class TaskController : BaseController {
-		IStoryService service;
-		IStoryService Service {
-			get { return service ?? (service = new StoryService(Token)); }
-		}
-		public TaskController() : this(null) { }
+    public class TaskController : BaseController {
+        IStoryService service;
+        IStoryService Service {
+            get { return service ?? (service = new StoryService(Token)); }
+        }
+        public TaskController() : this(null) { }
 
-		public TaskController(IStoryService service = null)
-			: base() {
-			this.service = service;
-		}
+        public TaskController(IStoryService service = null)
+            : base() {
+            this.service = service;
+        }
 
-		public ActionResult Details(int id, int storyId, int projectId) {
-			return PartialView("TaskDetails", new TaskViewModel(Service.GetTask(projectId, storyId, id)));
-		}
+        [HttpGet]
+        public ActionResult Details(int id, int storyId, int projectId) {
+            return PartialView("TaskDetails", new TaskViewModel(Service.GetTask(projectId, storyId, id)));
+        }
 
         //[HttpPost]
         //public ActionResult SignUp(int id, int storyId, int projectId, string initials) {
@@ -32,7 +33,7 @@ namespace PivotalExtension.TaskManager.Controllers {
         //    return PartialView("TaskDetails", new TaskViewModel(task));
         //}
 
-        [HttpPost]
+        [HttpPut]
         public ActionResult SignUp(string initials, string[] fullIds) {
             int storyId = 0, taskId = 0, projectId = 0;
 
@@ -59,27 +60,27 @@ namespace PivotalExtension.TaskManager.Controllers {
             return RedirectToAction("Get", "Stories", new { projectId = projectId, storyId = storyId });
         }
 
-		private string AddInitialsToDescription(Task task, string initials) {
-			return new TaskViewModel(task).GetDescriptionWithoutOwners() + (string.IsNullOrEmpty(initials) ? "" : (" (" + initials.ToUpper() + ")"));
-		}
+        private string AddInitialsToDescription(Task task, string initials) {
+            return new TaskViewModel(task).GetDescriptionWithoutOwners() + (string.IsNullOrEmpty(initials) ? "" : (" (" + initials.ToUpper() + ")"));
+        }
 
-		[HttpPost]
-		public ActionResult Complete(int id, int storyId, int projectId, bool completed) {
-			var task = Service.GetTask(projectId, storyId, id);
-			if (task.Complete != completed) {
-				task.Complete = completed;
-				Service.SaveTask(task);
-			}
-			return PartialView("TaskDetails", new TaskViewModel(task));
-		}
+        [HttpPut]
+        public ActionResult Complete(int id, int storyId, int projectId, bool completed) {
+            var task = Service.GetTask(projectId, storyId, id);
+            if (task.Complete != completed) {
+                task.Complete = completed;
+                Service.SaveTask(task);
+            }
+            return PartialView("TaskDetails", new TaskViewModel(task));
+        }
 
         [HttpGet]
         public ActionResult Add(int storyId, int projectId) {
             return PartialView(new TaskViewModel(new Task { ParentStoryId = storyId, ProjectId = projectId }));
         }
 
-        [HttpPost]
-        public ActionResult ReOrder(string taskArray){
+        [HttpPut]
+        public ActionResult ReOrder(string taskArray) {
             var arr = taskArray.Split(',');
             var tasks = arr.Select(ExtractTask).ToList();
             var firstTask = tasks.First();
@@ -87,10 +88,9 @@ namespace PivotalExtension.TaskManager.Controllers {
             return new EmptyResult();
         }
 
-	    private Task ExtractTask(string taskIds, int position)
-	    {
-	        var ids = taskIds.Split('-');
-	        return new Task {ProjectId = int.Parse(ids[0]), ParentStoryId = int.Parse(ids[1]), Id = int.Parse(ids[2]), Position = position+1};
-	    }
-	}
+        private Task ExtractTask(string taskIds, int position) {
+            var ids = taskIds.Split('-');
+            return new Task { ProjectId = int.Parse(ids[0]), ParentStoryId = int.Parse(ids[1]), Id = int.Parse(ids[2]), Position = position + 1 };
+        }
+    }
 }

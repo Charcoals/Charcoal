@@ -23,7 +23,7 @@ function bindUIEvents(rootSelector) {
         update: function (event, ui) {
             arr = $(this).sortable('toArray').toString();
             $.ajax({
-                type: 'POST',
+                type: 'PUT',
                 url: '/Task/ReOrder',
                 data: 'taskArray=' + arr
             });
@@ -73,7 +73,7 @@ function SignUpForTask() {
         });
         var queryString = $.param({ initials: initials, fullIds: array }, true);
         $.ajax({
-            type: 'POST',
+            type: 'PUT',
             url: '/Task/SignUp',
             data: queryString,
             success: buildReplaceCallback(storyId)
@@ -84,7 +84,7 @@ function SignUpForTask() {
 function RemoveTask(id) {
     var items = id.split('-');
     $.ajax({
-        type: 'POST',
+        type: 'DELETE',
         url: '/Stories/DeleteTask',
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&taskId=' + items[2],
         success: buildReplaceCallback(items[0] + '-' + items[1])
@@ -94,7 +94,7 @@ function RemoveTask(id) {
 function CompleteTask(id, completed) {
     var items = id.split('-');
     $.ajax({
-        type: 'POST',
+        type: 'PUT',
         url: '/Task/Complete',
         data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&completed=' + completed,
         success: buildReplaceCallback(id)
@@ -117,7 +117,7 @@ function RefreshStories() {
 function StartStory(id) {
     var items = id.split('-');
     $.ajax({
-        type: 'POST',
+        type: 'PUT',
         url: '/Stories/Start',
         data: 'projectId=' + items[0] + '&storyId=' + items[1],
         success: buildReplaceCallback(id)
@@ -127,7 +127,7 @@ function StartStory(id) {
 function FinishStory(id) {
     var items = id.split('-');
     $.ajax({
-        type: 'POST',
+        type: 'PUT',
         url: '/Stories/Finish',
         data: 'projectId=' + items[0] + '&storyId=' + items[1],
         success: buildReplaceCallback(id)

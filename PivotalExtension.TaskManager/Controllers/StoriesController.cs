@@ -37,13 +37,13 @@ namespace PivotalExtension.TaskManager.Controllers {
             return View (Service.GetIceboxStories (projectId));
         }
 
-        [HttpPost]
+        [HttpPut]
         public ActionResult Start (int projectId, int storyId) {
             var startedStory = Service.StartStory (projectId, storyId);
             return PartialView ("StoryRow", new StoryRowViewModel (startedStory));
         }
 
-        [HttpPost]
+        [HttpPut]
         public ActionResult Finish (int projectId, int storyId) {
             var finishedStory = Service.FinishStory (projectId, storyId);
             return PartialView ("StoryRow", new StoryRowViewModel (finishedStory));
@@ -62,7 +62,7 @@ namespace PivotalExtension.TaskManager.Controllers {
             return new TaskViewModel(task).GetDescriptionWithoutOwners() + (string.IsNullOrEmpty(initials) ? "" : (" (" + initials.ToUpper() + ")"));
         }
 
-        [HttpPost]
+        [HttpDelete]
         public ActionResult DeleteTask (int storyId, int projectId, int taskId) {
             Service.RemoveTask (projectId, storyId, taskId);
             return GetStory (storyId, projectId);
