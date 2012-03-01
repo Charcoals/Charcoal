@@ -145,7 +145,7 @@ namespace PivotalTrackerDotNet {
         }
 
         public void AddComment(int projectId, int storyId, string comment) {
-            var request = BuildPutRequest();
+            var request = BuildPostRequest();
             request.Resource = string.Format(SaveNewCommentEndpoint, projectId, storyId, comment);
             RestClient.Execute(request);
         }
