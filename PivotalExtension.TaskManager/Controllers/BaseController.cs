@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using PivotalTrackerDotNet.Domain;
+using System.Web.Security;
 
 namespace PivotalExtension.TaskManager.Controllers {
     [SessionState(System.Web.SessionState.SessionStateBehavior.ReadOnly)]
@@ -20,6 +21,7 @@ namespace PivotalExtension.TaskManager.Controllers {
 
         protected override void OnException(ExceptionContext filterContext) {
             if (filterContext.Exception is NotAuthenticatedException) {
+                FormsAuthentication.SignOut();
                 Response.Redirect("~/Account/LogOn?returnUrl=" + filterContext.HttpContext.Request.Url);
             }
             base.OnException(filterContext);
