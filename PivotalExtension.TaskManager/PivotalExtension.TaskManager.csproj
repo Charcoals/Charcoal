@@ -125,6 +125,7 @@
     <Content Include="Content\facebox\README.txt" />
     <Content Include="Content\facebox\tl.png" />
     <Content Include="Content\facebox\tr.png" />
+    <Content Include="Content\favicon.ico" />
     <Content Include="Content\green-index-card.png" />
     <Content Include="Content\grey.png" />
     <Content Include="Content\HONDURAN_ROSEWOOD.jpg" />
