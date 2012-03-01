@@ -22,7 +22,8 @@ namespace PivotalExtension.TaskManager.Controllers {
             return View (Service.GetCurrentStories (projectId));
         }
 
-        [HttpGet]
+        //put is needed so we can redirect here from Put requests
+        [AcceptVerbs(HttpVerbs.Put | HttpVerbs.Get)]
         public ActionResult Get (int projectId, int storyId) {
             return GetStory (storyId, projectId);
         }

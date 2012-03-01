@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
 using PivotalExtension.TaskManager.Models;
-using Parallel = System.Threading.Tasks.Parallel;
 
 namespace PivotalExtension.TaskManager.Controllers {
     public class TaskController : BaseController {
@@ -35,9 +34,10 @@ namespace PivotalExtension.TaskManager.Controllers {
 
         [HttpPut]
         public ActionResult SignUp(string initials, string[] fullIds) {
-            int storyId = 0, taskId = 0, projectId = 0;
+            int projectId = 0, storyId = 0;
 
-            Parallel.ForEach(fullIds, s => {
+            foreach(var s in fullIds) {
+                int taskId = 0;
                 var parts = s.Split('-');
                 if (parts.Length != 3) {
                     throw new InvalidOperationException("Must pass ids in the format projectId-storyId-taskId");
@@ -55,8 +55,7 @@ namespace PivotalExtension.TaskManager.Controllers {
                 var task = Service.GetTask(projectId, storyId, taskId);
                 task.Description = AddInitialsToDescription(task, initials);
                 Service.SaveTask(task);
-            });
-
+            }
             return RedirectToAction("Get", "Stories", new { projectId = projectId, storyId = storyId });
         }
 
