@@ -17,10 +17,7 @@
                         <li>@Html.ActionLink("My Projects", "Index", "Projects")</li>
                         <li>@Html.Partial("_LogOnPartial")</li>
                     </ul>
-                    <div class="top-actions">
-                        <a href="#" onclick="SignUpForTask(); return false;">Sign Up For Selected</a> <a
-                            href="#" onclick="RefreshStories(); return false;">Refresh</a>
-                    </div>
+                    @RenderSection("topAction",false)
                 </div>
             </div>
         </div>

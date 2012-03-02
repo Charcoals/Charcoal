@@ -2,6 +2,12 @@
 @{
     ViewBag.Title = "BackLogStories";
 }
+
+@section topAction
+{
+    @Html.Partial("TopActionControl")
+}
+
 <p>
     <h2 style="display:inline;margin-right:40px;">Backlog</h2>
     @Html.Partial("StoryFilter")

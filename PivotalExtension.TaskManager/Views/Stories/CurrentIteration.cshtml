@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "Current Iteration";
 }
+@section topAction
+{
+    @Html.Partial("TopActionControl")
+}
+
 <p>
     <h2 style="display:inline;margin-right:40px;">Current Iteration</h2>
     @Html.Partial("TaskFilter")
