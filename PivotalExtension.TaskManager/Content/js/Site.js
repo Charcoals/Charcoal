@@ -44,11 +44,11 @@ function bindUIEvents(rootSelector) {
 
     if (!rootDefined) { //assume that presence of root selector means document events already bound
         $(document).bind('reveal.facebox', function () {
-            $('.async-form').ajaxForm(function (responseText) {
+            $('.async-form').ajaxForm(function (html) {
                 buildReplaceCallback(updateTargetId, function () {
                     $.facebox.close();
                     updateTargetId = null;
-                })(responseText);
+                })(html);
             });
 
             $('.facebox-cancel').bind('click', function () {
