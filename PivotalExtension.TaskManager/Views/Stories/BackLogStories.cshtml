@@ -1,21 +1,22 @@
-﻿@model IEnumerable<PivotalTrackerDotNet.Domain.Story>
+﻿@model PivotalExtension.TaskManager.Models.ProjectStoryViewModel
 @{
     ViewBag.Title = "BackLogStories";
 }
-
 @section topAction
 {
-<div class="top-actions">
-    <a href="#" onclick="RefreshStories(); return false;">Refresh</a>
-</div>
+    <div class="top-actions">
+        <a href="#" onclick="RefreshStories(); return false;">Refresh</a>
+    </div>
+    @Html.Partial("StoryNavigationControl", @Model.ProjectId)
+
 }
 
 <p>
-    <h2 style="display:inline;margin-right:40px;">Backlog</h2>
+    <h2 style="display: inline; margin-right: 40px;">Backlog</h2>
     @Html.Partial("StoryFilter")
 </p>
 <table class="story-table">
-    @foreach (var story in Model) {
+    @foreach (var story in Model.Stories) {
         @Html.Partial("StoryRow", new PivotalExtension.TaskManager.Models.StoryRowViewModel(story))
     }
 </table>
