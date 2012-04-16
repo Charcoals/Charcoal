@@ -10,7 +10,6 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PivotalExtension.TaskManager.Tests</RootNamespace>
     <AssemblyName>PivotalExtension.TaskManager.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,24 +30,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Mvc\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Mvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\StoriesControllerTest.cs" />
@@ -58,13 +55,13 @@
     <Compile Include="Controllers\TaskControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PivotalExtension.TaskManager\PivotalExtension.TaskManager.csproj">
-      <Project>{8E36CF8F-C7DF-4B74-B4B5-20327A04ECE8}</Project>
-      <Name>PivotalExtension.TaskManager</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PivotalTrackerDotNet\PivotalTrackerDotNet.csproj">
       <Project>{579B9125-0944-4C30-A31F-6C70A0DDE1C8}</Project>
       <Name>PivotalTrackerDotNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PivotalExtension.TaskManager\Charcoal.Web.csproj">
+      <Project>{8E36CF8F-C7DF-4B74-B4B5-20327A04ECE8}</Project>
+      <Name>Charcoal.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
