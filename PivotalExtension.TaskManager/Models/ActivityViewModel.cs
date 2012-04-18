@@ -1,7 +1,6 @@
-﻿using System.Globalization;
-using PivotalTrackerDotNet.Domain;
+﻿using PivotalTrackerDotNet.Domain;
 
-namespace PivotalExtension.TaskManager.Models {
+namespace Charcoal.Web.Models {
     public class ActivityViewModel {
         public ActivityViewModel(Activity activity) {
             Activity = activity;

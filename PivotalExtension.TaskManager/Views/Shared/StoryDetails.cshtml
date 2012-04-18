@@ -1,4 +1,4 @@
-﻿@model PivotalExtension.TaskManager.Models.StoryViewModel
+﻿@model Charcoal.Web.Models.StoryViewModel
 @{
     var hasComments = Model.Story.Notes.Any();
 }
@@ -22,7 +22,7 @@
 
                     <button class="btn" onclick="FinishStory('@Model.FormattedId');return false;">
                         Finish Story</button>
-                    @Html.ActionLink("Add task", "Add", "Task", new { projectId = @Model.Story.ProjectId, storyId = @Model.Story.Id }, new { @class = "facebox btn success", rel = @Model.FormattedId })
+                        @Html.ActionLink("Add task", "Add", "Task", new { projectId = @Model.Story.ProjectId, storyId = @Model.Story.Id }, new { @class = "facebox btn success", rel = @Model.FormattedId })
                     }
 
                     <button class="btn" onclick="AddComment('@Model.FormattedId');return false;">

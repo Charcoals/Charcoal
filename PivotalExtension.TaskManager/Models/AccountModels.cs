@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using System.Web.Security;
 
-namespace PivotalExtension.TaskManager.Models {
+namespace Charcoal.Web.Models {
 
     public class ChangePasswordModel {
         [Required]

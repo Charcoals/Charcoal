@@ -1,4 +1,5 @@
-﻿@model PivotalExtension.TaskManager.Models.ProjectStoryViewModel
+﻿@using Charcoal.Web.Models
+@model Charcoal.Web.Models.ProjectStoryViewModel
 @{
     ViewBag.Title = "BackLogStories";
 }
@@ -17,6 +18,6 @@
 </p>
 <table class="story-table">
     @foreach (var story in Model.Stories) {
-        @Html.Partial("StoryRow", new PivotalExtension.TaskManager.Models.StoryRowViewModel(story))
+        @Html.Partial("StoryRow", new StoryRowViewModel(story))
     }
 </table>

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using Charcoal.Web.Controllers;
+using Charcoal.Web.Models;
 using NUnit.Framework;
-using PivotalExtension.TaskManager.Models;
 using Rhino.Mocks;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
-using PivotalExtension.TaskManager.Controllers;
 using System.Web.Mvc;
 
 namespace PivotalExtension.TaskManager.Tests.Controllers {

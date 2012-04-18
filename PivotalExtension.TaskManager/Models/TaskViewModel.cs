@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Text.RegularExpressions;
 using PivotalTrackerDotNet.Domain;
-using PivotalTrackerDotNet;
 
-namespace PivotalExtension.TaskManager.Models {
+namespace Charcoal.Web.Models {
     public class TaskViewModel {
 
         public TaskViewModel(Task task) {

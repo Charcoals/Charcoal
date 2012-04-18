@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charcoal.Web.Models;
 using NUnit.Framework;
 using PivotalTrackerDotNet.Domain;
-using PivotalExtension.TaskManager.Models;
 
 namespace PivotalExtension.TaskManager.Tests.Models {
     [TestFixture]

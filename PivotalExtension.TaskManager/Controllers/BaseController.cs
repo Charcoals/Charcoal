@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using PivotalTrackerDotNet.Domain;
 using System.Web.Security;
 
-namespace PivotalExtension.TaskManager.Controllers {
+namespace Charcoal.Web.Controllers {
     [SessionState(System.Web.SessionState.SessionStateBehavior.ReadOnly)]
     public class BaseController : Controller {
         protected AuthenticationToken Token {

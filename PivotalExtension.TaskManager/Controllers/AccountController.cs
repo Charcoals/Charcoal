@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
+﻿using System.Web.Mvc;
 using System.Web.Security;
-using PivotalExtension.TaskManager.Models;
+using Charcoal.Web.Models;
 using PivotalTrackerDotNet;
 
-namespace PivotalExtension.TaskManager.Controllers {
+namespace Charcoal.Web.Controllers {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Required)]
     public class AccountController : BaseController {
 

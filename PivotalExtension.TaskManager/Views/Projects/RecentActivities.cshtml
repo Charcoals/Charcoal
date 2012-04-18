@@ -1,9 +1,10 @@
-﻿@model IEnumerable<PivotalTrackerDotNet.Domain.Activity>
+﻿@using Charcoal.Web.Models
+@model IEnumerable<PivotalTrackerDotNet.Domain.Activity>
 @{
     ViewBag.Title = "Recent Activities";
 }
 @foreach (var activity in Model) {
-    @Html.Partial("ActivityDetails", new PivotalExtension.TaskManager.Models.ActivityViewModel(activity))
+    @Html.Partial("ActivityDetails", new ActivityViewModel(activity))
 }
 
 <p>

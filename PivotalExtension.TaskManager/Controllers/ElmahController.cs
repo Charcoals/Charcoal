@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using Elmah;
 
-namespace PivotalExtension.TaskManager.Areas.Admin.Controllers 
+namespace Charcoal.Web.Controllers.Areas.Admin.Controllers 
 {
     //[Authorize(Roles = "Admin")]
     public class ElmahController : Controller

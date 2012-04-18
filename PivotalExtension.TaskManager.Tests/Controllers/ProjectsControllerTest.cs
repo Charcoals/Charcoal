@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charcoal.Web.Controllers;
 using NUnit.Framework;
 using Rhino.Mocks;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
-using PivotalExtension.TaskManager.Controllers;
 using System.Web.Mvc;
 
 namespace PivotalExtension.TaskManager.Tests.Controllers {

@@ -1,8 +1,7 @@
-﻿using System.Web.Mvc;
-using System.Linq;
+﻿using System.Linq;
 using PivotalTrackerDotNet.Domain;
 
-namespace PivotalExtension.TaskManager.Models {
+namespace Charcoal.Web.Models {
     public class StoryViewModel {
 
         public StoryViewModel(Story story) {

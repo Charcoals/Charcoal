@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Charcoal.Web.Models;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
-using PivotalExtension.TaskManager.Models;
 
-namespace PivotalExtension.TaskManager.Controllers {
+namespace Charcoal.Web.Controllers {
     public class TaskController : BaseController {
         IStoryService service;
         IStoryService Service {

@@ -1,6 +1,6 @@
 ﻿using PivotalTrackerDotNet.Domain;
 
-namespace PivotalExtension.TaskManager.Models {
+namespace Charcoal.Web.Models {
 	public class StoryRowViewModel {
 
 		public StoryRowViewModel(Story story) {

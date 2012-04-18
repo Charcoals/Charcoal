@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using PivotalTrackerDotNet.Domain;
+﻿using PivotalTrackerDotNet.Domain;
 
-namespace PivotalExtension.TaskManager.Models {
+namespace Charcoal.Web.Models {
     public class ProjectViewModel {
         public Project Project { get; private set; }
 
