@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Charcoal.Web.Controllers;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -9,7 +6,7 @@ using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
 using System.Web.Mvc;
 
-namespace PivotalExtension.TaskManager.Tests.Controllers {
+namespace Charcoal.Web.Tests.Controllers {
     [TestFixture]
     public class ProjectsControllerTest {
         [Test]

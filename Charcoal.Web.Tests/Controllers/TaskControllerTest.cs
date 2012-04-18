@@ -7,9 +7,8 @@ using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
 using Rhino.Mocks;
 using System.Collections.Generic;
-using Rhino.Mocks.Constraints;
 
-namespace PivotalExtension.TaskManager.Tests.Controllers {
+namespace Charcoal.Web.Tests.Controllers {
     [TestFixture]
     public class TaskControllerTest {
 

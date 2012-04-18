@@ -7,7 +7,7 @@ using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
 using System.Web.Mvc;
 
-namespace PivotalExtension.TaskManager.Tests.Controllers {
+namespace Charcoal.Web.Tests.Controllers {
     [TestFixture]
     public class StoriesControllerTest {
         [Test]

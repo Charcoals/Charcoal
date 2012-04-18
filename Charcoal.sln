@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotalTrackerDotNet", "PivotalTrackerDotNet\PivotalTrackerDotNet.csproj", "{579B9125-0944-4C30-A31F-6C70A0DDE1C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.Web", "PivotalExtension.TaskManager\Charcoal.Web.csproj", "{8E36CF8F-C7DF-4B74-B4B5-20327A04ECE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.Web", "Charcoal.Web\Charcoal.Web.csproj", "{8E36CF8F-C7DF-4B74-B4B5-20327A04ECE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotalExtension.TaskManager.Tests", "PivotalExtension.TaskManager.Tests\PivotalExtension.TaskManager.Tests.csproj", "{5BA00BA7-1177-4B07-8D8B-F2D98345FD7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.Web.Tests", "Charcoal.Web.Tests\Charcoal.Web.Tests.csproj", "{5BA00BA7-1177-4B07-8D8B-F2D98345FD7B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.DataLayer", "Charcoal.DataLayer\Charcoal.DataLayer.csproj", "{73FE8271-3D9F-4827-80E4-330DDB2141FD}"
 EndProject

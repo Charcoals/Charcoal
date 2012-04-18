@@ -8,8 +8,8 @@
     <ProjectGuid>{5BA00BA7-1177-4B07-8D8B-F2D98345FD7B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PivotalExtension.TaskManager.Tests</RootNamespace>
-    <AssemblyName>PivotalExtension.TaskManager.Tests</AssemblyName>
+    <RootNamespace>Charcoal.Web.Tests</RootNamespace>
+    <AssemblyName>Charcoal.Web.Tests</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -59,7 +59,7 @@
       <Project>{579B9125-0944-4C30-A31F-6C70A0DDE1C8}</Project>
       <Name>PivotalTrackerDotNet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PivotalExtension.TaskManager\Charcoal.Web.csproj">
+    <ProjectReference Include="..\Charcoal.Web\Charcoal.Web.csproj">
       <Project>{8E36CF8F-C7DF-4B74-B4B5-20327A04ECE8}</Project>
       <Name>Charcoal.Web</Name>
     </ProjectReference>

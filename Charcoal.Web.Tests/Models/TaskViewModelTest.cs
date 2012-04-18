@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Charcoal.Web.Models;
 using NUnit.Framework;
 using PivotalTrackerDotNet.Domain;
 
-namespace PivotalExtension.TaskManager.Tests.Models {
+namespace Charcoal.Web.Tests.Models {
     [TestFixture]
     public class TaskViewModelTest {
         [Test]
