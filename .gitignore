@@ -10,3 +10,4 @@ user.config
 *.user
 *.Publish.xml
 PivotalExtension.TaskManager/Content/combined_*
+*/Content/combined_*
