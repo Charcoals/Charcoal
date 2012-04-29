@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{ABE413D3-7543-4FCF-BE93-6D61417CD536}</ProjectGuid>
+    <ProjectGuid>{1F95B1D5-BD33-4CEF-8F23-E0AA83AED9A7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Charcoal.Core</RootNamespace>
@@ -42,12 +42,6 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Charcoal.DataLayer\Charcoal.DataLayer.csproj">
-      <Project>{73FE8271-3D9F-4827-80E4-330DDB2141FD}</Project>
-      <Name>Charcoal.DataLayer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
