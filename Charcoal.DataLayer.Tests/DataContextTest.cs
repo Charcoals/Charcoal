@@ -14,7 +14,7 @@ namespace Charcoal.DataLayer.Tests {
         {
             var session = provider.Session();
 
-            var context = new DataContext<Story>(session);
+            var context = new DataContext(session);
 
             var obj = new Story();
             obj.Id = 4567;
@@ -24,7 +24,7 @@ namespace Charcoal.DataLayer.Tests {
             context.Store(obj);
             context.SaveChanges();
 
-            var retrieved = context.Query().Where(x => x.ETag == obj.ETag);
+            var retrieved = context.Query<Story>().Where(x => x.ETag == obj.ETag);
 
             Assert.IsNotNull(retrieved);
         }
