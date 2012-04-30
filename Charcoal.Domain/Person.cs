@@ -1,5 +1,5 @@
 ﻿namespace Charcoal.Core {
-	public class Person {
+	public class Person : BaseEntity {
 		public string Email { get; set; }
 		public string Name { get; set; }
 		public string Initials { get; set; }

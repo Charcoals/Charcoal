@@ -1,6 +1,5 @@
 namespace Charcoal.Core {
-    public class Task {
-        public int Id { get; set; }
+    public class Task : BaseEntity {
         public string Description { get; set; }
         public bool Complete { get; set; }
         public int ParentStoryId { get; set; }

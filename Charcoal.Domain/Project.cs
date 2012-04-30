@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 
 namespace Charcoal.Core {
-    public class Project {
-        public int Id { get; set; }
+    public class Project : BaseEntity {
         public string Name { get; set; }
         public int IterationLength { get; set; }
         public DayOfWeek WeekStartDay { get; set; }

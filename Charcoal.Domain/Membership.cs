@@ -1,6 +1,5 @@
 ﻿namespace Charcoal.Core {
-    public class Membership {
-        public int Id { get; set; }
+    public class Membership : BaseEntity {
         public Person Person { get; set; }
         public string Role { get; set; }
         //  <memberships type="array">

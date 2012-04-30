@@ -1,6 +1,5 @@
 ﻿namespace Charcoal.Core {
-    public class Activity {
-        public int Id { get; set; }
+    public class Activity : BaseEntity {
         public int Version { get; set; }
         public string EventType { get; set; }
         public string OccurredAt { get; set; }

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Charcoal.Core {
-    public class Story {
-        public int Id { get; set; }
+    public class Story : BaseEntity {
         public int ProjectId { get; set; }
         public StoryType StoryType { get; set; }
         public int Estimate { get; set; }
