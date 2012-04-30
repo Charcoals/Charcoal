@@ -23,19 +23,11 @@ namespace Charcoal.DataLayer {
         }
 
         public void Store<T>(T entity) where T : BaseEntity {
-            session.Store(entity, entity.ETag, entity.RavenKey());
+            session.Store(entity, entity.ETag, entity.Id);
         }
 
         public void SaveChanges() {
             session.SaveChanges();
-        }
-    }
-
-    internal static class BaseEntityExtensions {
-        internal static string RavenKey<T>(this T entity) where T : BaseEntity {
-            var typeName = entity.GetType().Name.ToLower();
-            var dataRoot = typeName.EndsWith("y") ? typeName.Replace("y", "ies") : typeName + "s";
-            return string.Format("{0}/{1}", dataRoot, entity.Id);
         }
     }
 }

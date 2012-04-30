@@ -16,17 +16,24 @@ namespace Charcoal.DataLayer.Tests {
 
             var context = new DataContext(session);
 
+            var id = Guid.NewGuid();
+
             var obj = new Story();
-            obj.Id = 4567;
+            obj.SetId(id);
             obj.ETag = Guid.NewGuid();
             obj.Description = "some text";
 
+            var expectedKey = "stories/" + id;
+
+            Assert.AreEqual(expectedKey, obj.Id);
             context.Store(obj);
             context.SaveChanges();
 
-            var retrieved = context.Query<Story>().Where(x => x.ETag == obj.ETag);
+            var queried = context.Query<Story>().Where(x => x.ETag == obj.ETag);
+            Assert.NotNull(queried);
 
-            Assert.IsNotNull(retrieved);
+            var loaded = context.Load<Story>(expectedKey);
+            Assert.NotNull(loaded);
         }
     }
 }
