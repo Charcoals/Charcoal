@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.Core", "Charcoal.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.Domain", "Charcoal.Domain\Charcoal.Domain.csproj", "{ABE413D3-7543-4FCF-BE93-6D61417CD536}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.Migrations", "Charcoal.Migrations\Charcoal.Migrations.csproj", "{0A030659-3A2D-4F60-A515-DC28AB5252E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,16 @@ Global
 		{ABE413D3-7543-4FCF-BE93-6D61417CD536}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{ABE413D3-7543-4FCF-BE93-6D61417CD536}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{ABE413D3-7543-4FCF-BE93-6D61417CD536}.Release|x86.ActiveCfg = Release|Any CPU
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
