@@ -13,7 +13,7 @@ namespace Charcoal.DataLayer
             m_connectionString = connectionString;
         }
 
-        public OperationResponse Save(dynamic entity)
+        public DatabaseOperationResponse Save(dynamic entity)
         {
             try
             {
@@ -21,44 +21,85 @@ namespace Charcoal.DataLayer
                 entity.LastEditedOn = DateTime.UtcNow;
                 var database = Database.OpenConnection(m_connectionString);
                 database.Stories.Insert(entity);
-                return new OperationResponse(true);
+                return new DatabaseOperationResponse(true);
+            }
+            catch (Exception ex)
+            {
+                return new DatabaseOperationResponse(description: ex.Message,reason:FailReason.Exception);
+            }
+        }
+
+        public DatabaseOperationResponse Save(IEnumerable<dynamic> entities)
+        {
+            try
+            {
+                var database = Database.OpenConnection(m_connectionString);
+                using (var tx = database.BeginTransaction())
+                {
+                    foreach (var entity in entities)
+                    {
+                        tx.Stories.Insert(entity);
+                    }
+                    tx.Commit();
+                    return new DatabaseOperationResponse(true);
+                }
             }
             catch (Exception ex)
             {
 
-                return new OperationResponse(description: ex.Message);
+                return new DatabaseOperationResponse(description: ex.Message, reason: FailReason.Exception);
             }
         }
 
-        public OperationResponse Save(IEnumerable<dynamic> entities)
+        public DatabaseOperationResponse Update(dynamic entity)
         {
-            //   using(var transaction = db.BeginTransaction() )
-            throw new System.NotImplementedException();
+            try
+            {
+                var database = Database.OpenConnection(m_connectionString);
+                if (database.Stories.FindById(entity.Id) == null)
+                {
+                    return new DatabaseOperationResponse(false, "Item Does not exist", FailReason.ItemNoLongerExists);
+                }
+                entity.LastEditedOn = DateTime.UtcNow;
+                
+                var inserted = database.Stories.Update(entity);
+                return new DatabaseOperationResponse(inserted == 1);
+            }
+            catch (Exception ex)
+            {
+                return new DatabaseOperationResponse(description: ex.Message, reason: FailReason.Exception);
+            }
         }
 
-        public OperationResponse Update(dynamic entity)
+        public DatabaseOperationResponse Delete(long id)
         {
-            throw new System.NotImplementedException();
-        }
+            try
+            {
+                var database = Database.OpenConnection(m_connectionString);
+                if (database.Stories.FindById(id) == null)
+                {
+                    return new DatabaseOperationResponse(false, "Item Does not exist", FailReason.ItemNoLongerExists);
+                }
 
-        public OperationResponse Delete(dynamic entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public OperationResponse Delete(IEnumerable<dynamic> entity)
-        {
-            throw new System.NotImplementedException();
+                var deleted = database.Stories.DeleteById(id);
+                return new DatabaseOperationResponse(deleted == 1);
+            }
+            catch (Exception ex)
+            {
+                return new DatabaseOperationResponse(description: ex.Message, reason: FailReason.Exception);
+            }
         }
 
         public List<dynamic> FindAll()
         {
-            throw new System.NotImplementedException();
+            var database = Database.OpenConnection(m_connectionString);
+            return database.Stories.All.ToList<dynamic>();
         }
 
         public dynamic Find(long id)
         {
-            throw new System.NotImplementedException();
+            var database = Database.OpenConnection(m_connectionString);
+            return database.Stories.FindById(id);
         }
     }
 }

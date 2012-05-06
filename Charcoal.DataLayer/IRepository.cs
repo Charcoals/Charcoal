@@ -4,13 +4,10 @@ namespace Charcoal.DataLayer
 {
     public interface IRepository
     {
-        OperationResponse Save(dynamic entity);
-        OperationResponse Save(IEnumerable<dynamic> entities);
+        DatabaseOperationResponse Save(dynamic entity);
+        DatabaseOperationResponse Save(IEnumerable<dynamic> entities);
 
-        OperationResponse Update(dynamic entity);
-
-        OperationResponse Delete(dynamic entity);
-        OperationResponse Delete(IEnumerable<dynamic> entity);
+        DatabaseOperationResponse Delete(long id);
 
         List<dynamic> FindAll();
         dynamic Find(long id);
