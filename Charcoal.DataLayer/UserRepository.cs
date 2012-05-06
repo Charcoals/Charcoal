@@ -4,11 +4,11 @@ using Simple.Data;
 
 namespace Charcoal.DataLayer
 {
-    public class StoryRepository : IRepository
-    {
+    public class UserRepository:IRepository{
+
         private readonly string m_connectionString;
 
-        internal StoryRepository(string connectionString)
+        internal UserRepository(string connectionString)
         {
             m_connectionString = connectionString;
         }
@@ -20,7 +20,7 @@ namespace Charcoal.DataLayer
                 entity.CreatedOn = DateTime.UtcNow;
                 entity.LastEditedOn = DateTime.UtcNow;
                 var database = Database.OpenConnection(m_connectionString);
-                database.Stories.Insert(entity);
+                database.Users.Insert(entity);
                 return new DatabaseOperationResponse(true);
             }
             catch (Exception ex)
@@ -38,7 +38,7 @@ namespace Charcoal.DataLayer
                 {
                     foreach (var entity in entities)
                     {
-                        tx.Stories.Insert(entity);
+                        tx.Users.Insert(entity);
                     }
                     tx.Commit();
                     return new DatabaseOperationResponse(true);
@@ -56,13 +56,13 @@ namespace Charcoal.DataLayer
             try
             {
                 var database = Database.OpenConnection(m_connectionString);
-                if (database.Stories.FindById(entity.Id) == null)
+                if (database.Users.FindById(entity.Id) == null)
                 {
                     return new DatabaseOperationResponse(false, "Item Does not exist", FailReason.ItemNoLongerExists);
                 }
                 entity.LastEditedOn = DateTime.UtcNow;
 
-                var inserted = database.Stories.Update(entity);
+                var inserted = database.Users.Update(entity);
                 return new DatabaseOperationResponse(inserted == 1);
             }
             catch (Exception ex)
@@ -76,12 +76,12 @@ namespace Charcoal.DataLayer
             try
             {
                 var database = Database.OpenConnection(m_connectionString);
-                if (database.Stories.FindById(id) == null)
+                if (database.Users.FindById(id) == null)
                 {
                     return new DatabaseOperationResponse(false, "Item Does not exist", FailReason.ItemNoLongerExists);
                 }
 
-                var deleted = database.Stories.DeleteById(id);
+                var deleted = database.Users.DeleteById(id);
                 return new DatabaseOperationResponse(deleted == 1);
             }
             catch (Exception ex)
@@ -93,13 +93,13 @@ namespace Charcoal.DataLayer
         public List<dynamic> FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Stories.All.ToList<dynamic>();
+            return database.Users.All.ToList<dynamic>();
         }
 
         public dynamic Find(long id)
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Stories.FindById(id);
+            return database.Users.FindById(id);
         }
     }
 }

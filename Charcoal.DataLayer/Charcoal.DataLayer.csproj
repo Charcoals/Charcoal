@@ -48,6 +48,8 @@
     <Compile Include="DatabaseOperationResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoryRepository.cs" />
+    <Compile Include="TaskRepository.cs" />
+    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Charcoal.Domain\Charcoal.Domain.csproj">

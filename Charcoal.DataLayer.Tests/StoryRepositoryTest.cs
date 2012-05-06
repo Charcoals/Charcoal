@@ -13,13 +13,12 @@ namespace Charcoal.DataLayer.Tests
     {
         private StoryRepository m_repository;
         private dynamic m_database;
-       
+
         [TestFixtureSetUp]
         public void Init()
         {
             m_repository = new StoryRepository(DatabaseHelper.GetConnectionString());
             m_database = Database.OpenConnection(DatabaseHelper.GetConnectionString());
-
         }
 
         [TearDown]
@@ -87,7 +86,7 @@ namespace Charcoal.DataLayer.Tests
         [Test]
         public void CannotDeleteNonExisitingStory()
         {
-            
+
             DatabaseOperationResponse response = m_repository.Delete(78);
             Assert.IsFalse(response.HasSucceeded);
         }

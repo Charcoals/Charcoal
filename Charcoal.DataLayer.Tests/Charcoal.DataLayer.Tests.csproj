@@ -73,6 +73,7 @@
     <Compile Include="DatabaseHelper.cs" />
     <Compile Include="DatabaseSetupFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
