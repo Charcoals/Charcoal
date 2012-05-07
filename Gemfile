@@ -1,0 +1,5 @@
+source "http://rubygems.org"
+gem "rake"
+gem "albacore"
+gem "git"
+gem "nokogiri"
