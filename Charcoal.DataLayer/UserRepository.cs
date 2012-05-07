@@ -93,7 +93,7 @@ namespace Charcoal.DataLayer
         public List<dynamic> FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Users.All.ToList<dynamic>();
+            return database.Users.All().ToList<dynamic>();
         }
 
         public dynamic Find(long id)

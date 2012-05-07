@@ -57,6 +57,29 @@ namespace Charcoal.DataLayer.Tests
         }
 
         [Test]
+        public void CanFindById()
+        {
+            dynamic task = new ExpandoObject();
+            task.Description = "Im a task";
+            task.Assignees = "Dude1, Dude2";
+            task.IsCompleted = true;
+            task.StoryId = m_database.Stories.All().ToList<dynamic>()[0].Id;
+
+            DatabaseOperationResponse response = m_repository.Save(task);
+            Assert.IsTrue(response.HasSucceeded, response.Description);
+
+            var retrievedTask = m_database.Tasks.All().ToList<dynamic>()[0];
+
+
+            var foundTask = m_repository.Find(retrievedTask.Id);
+            Verifytask(retrievedTask, foundTask);
+
+            Assert.NotNull(foundTask.Stories);
+            Assert.NotNull(foundTask.Stories.Id);
+            Assert.AreEqual(task.StoryId, foundTask.Stories.Id);
+        }
+
+        [Test]
         public void CannotUpdateInexistantTask()
         {
             dynamic task = new ExpandoObject();

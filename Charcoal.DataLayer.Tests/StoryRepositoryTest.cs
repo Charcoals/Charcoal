@@ -112,6 +112,43 @@ namespace Charcoal.DataLayer.Tests
             Assert.AreEqual(0, stories.Count);
         }
 
+        [Test]
+        public void CanFindAll()
+        {
+            dynamic story = new ExpandoObject();
+            story.Title = "My New story";
+            story.Description = "loooooooo";
+            story.Status = 3;
+            story.CreatedBy = m_database.Users.All().ToList<dynamic>()[0].Id;
+
+            DatabaseOperationResponse response = m_repository.Save(story);
+            Assert.IsTrue(response.HasSucceeded);
+
+            var repository = new TaskRepository(DatabaseHelper.GetConnectionString());
+            dynamic task = new ExpandoObject();
+            task.Description = "Im a task";
+            task.Assignees = "Dude1, Dude2";
+            task.IsCompleted = true;
+            task.StoryId = m_database.Stories.All().ToList<dynamic>()[0].Id;
+
+            response = repository.Save(task);
+            Assert.IsTrue(response.HasSucceeded, response.Description);
+
+            dynamic task2 = new ExpandoObject();
+            task2.Description = "Yes I am a taks";
+            task2.Assignees = "Dude1, Dude2";
+            task2.IsCompleted = true;
+            task2.StoryId = m_database.Stories.All().ToList<dynamic>()[0].Id;
+
+
+            response = repository.Save(task2);
+            Assert.IsTrue(response.HasSucceeded, response.Description);
+
+            var stories = m_repository.FindAll();
+            Assert.AreEqual(1, stories.Count);
+            Assert.AreEqual(2, stories.Single().Tasks.Count);
+        }
+
         static void VerifyStory(dynamic expected, dynamic actual)
         {
             Assert.AreEqual(expected.Title, actual.Title);

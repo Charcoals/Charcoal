@@ -94,13 +94,13 @@ namespace Charcoal.DataLayer
         public List<dynamic> FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Tasks.All.ToList<dynamic>();
+            return database.Tasks.All().WithStories().ToList<dynamic>();
         }
 
         public dynamic Find(long id)
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Tasks.FindById(id);
+            return database.Tasks.FindAllById(id).WithStories().FirstOrDefault();
         }
     }
 }

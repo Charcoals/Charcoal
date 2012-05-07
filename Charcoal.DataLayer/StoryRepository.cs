@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Simple.Data;
+using System.Linq;
 
 namespace Charcoal.DataLayer
 {
@@ -93,13 +94,13 @@ namespace Charcoal.DataLayer
         public List<dynamic> FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Stories.All.ToList<dynamic>();
+            return database.Stories.All().WithTasks(database.Stories.Id == database.Tasks.StoryId).ToList<dynamic>();
         }
 
         public dynamic Find(long id)
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Stories.FindById(id);
+            return database.Stories.FindAllById(id).WithTasks(database.Stories.Id == database.Tasks.StoryId).FirstOrDefault();
         }
     }
 }
