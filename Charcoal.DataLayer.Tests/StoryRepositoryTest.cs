@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
+using Charcoal.DataLayer.Entities;
 using NUnit.Framework;
 using Simple.Data;
 
@@ -19,6 +16,10 @@ namespace Charcoal.DataLayer.Tests
         {
             m_repository = new StoryRepository(DatabaseHelper.GetConnectionString());
             m_database = Database.OpenConnection(DatabaseHelper.GetConnectionString());
+
+            m_database.Users.Insert(UserName: "somedude", FirstName: "Some", LastName: "Dude", APIKey: "yuiu-998",
+                                         Email: "aaa@aaa.com", Privileges: 2);
+            m_database.Projects.Insert(Title: "wololo", Description: "blah");
         }
 
         [TearDown]
@@ -28,19 +29,27 @@ namespace Charcoal.DataLayer.Tests
             m_database.Stories.DeleteAll();
         }
 
+        [TestFixtureTearDown]
+        public void FullCleanUp()
+        {
+            m_database.Projects.DeleteAll();
+            m_database.Users.DeleteAll();
+        }
+
         [Test]
         public void CanSaveStory()
         {
-            dynamic story = new ExpandoObject();
+            var story = new Story();
             story.Title = "My New story";
             story.Description = "loooooooo";
-            story.Status = 3;
+            story.Status = StoryStatus.Started;
             story.CreatedBy = m_database.Users.All().ToList<dynamic>()[0].Id;
+            story.ProjectId = m_database.Projects.All().ToList<dynamic>()[0].Id;
 
             DatabaseOperationResponse response = m_repository.Save(story);
             Assert.IsTrue(response.HasSucceeded);
 
-            var stories = m_database.Stories.All().ToList<dynamic>();
+            var stories = m_database.Stories.All().ToList<Story>();
             Assert.AreEqual(1, stories.Count);
 
             VerifyStory(story, stories[0]);
@@ -49,22 +58,23 @@ namespace Charcoal.DataLayer.Tests
         [Test]
         public void CanUpdateExistingStory()
         {
-            dynamic story = new ExpandoObject();
+            var story = new Story();
             story.Title = "My New story";
             story.Description = "loooooooo";
-            story.Status = 3;
+            story.Status = StoryStatus.Started;
             story.CreatedBy = m_database.Users.All().ToList<dynamic>()[0].Id;
+            story.ProjectId = m_database.Projects.All().ToList<dynamic>()[0].Id;
 
             DatabaseOperationResponse response = m_repository.Save(story);
             Assert.IsTrue(response.HasSucceeded);
 
-            var retrievedStory = m_database.Stories.All().ToList<dynamic>()[0];
+            Story retrievedStory = m_database.Stories.All().ToList<dynamic>()[0];
             retrievedStory.Title = "New Title";
 
             response = m_repository.Update(retrievedStory);
             Assert.IsTrue(response.HasSucceeded);
 
-            var stories = m_database.Stories.All().ToList<dynamic>();
+            var stories = m_database.Stories.All().ToList<Story>();
             Assert.AreEqual(1, stories.Count);
 
             VerifyStory(retrievedStory, stories[0]);
@@ -73,11 +83,12 @@ namespace Charcoal.DataLayer.Tests
         [Test]
         public void CannotUpdateNonExisitingStory()
         {
-            dynamic story = new ExpandoObject();
+            var story = new Story();
             story.Title = "My New story";
             story.Description = "loooooooo";
-            story.Status = 3;
+            story.Status = StoryStatus.Started;
             story.CreatedBy = m_database.Users.All().ToList<dynamic>()[0].Id;
+            story.ProjectId = m_database.Projects.All().ToList<dynamic>()[0].Id;
 
             DatabaseOperationResponse response = m_repository.Update(story);
             Assert.IsFalse(response.HasSucceeded);
@@ -94,38 +105,40 @@ namespace Charcoal.DataLayer.Tests
         [Test]
         public void CanDeleteExistingStory()
         {
-            dynamic story = new ExpandoObject();
+            var story = new Story();
             story.Title = "My New story";
             story.Description = "loooooooo";
-            story.Status = 3;
+            story.Status = StoryStatus.Started;
             story.CreatedBy = m_database.Users.All().ToList<dynamic>()[0].Id;
+            story.ProjectId = m_database.Projects.All().ToList<dynamic>()[0].Id;
 
             DatabaseOperationResponse response = m_repository.Save(story);
             Assert.IsTrue(response.HasSucceeded);
 
-            var retrievedStory = m_database.Stories.All().ToList<dynamic>()[0];
+            Story retrievedStory = m_database.Stories.All().ToList<Story>()[0];
 
             response = m_repository.Delete(retrievedStory.Id);
             Assert.IsTrue(response.HasSucceeded);
 
-            var stories = m_database.Stories.All().ToList<dynamic>();
+            var stories = m_database.Stories.All().ToList<Story>();
             Assert.AreEqual(0, stories.Count);
         }
 
         [Test]
         public void CanFindAll()
         {
-            dynamic story = new ExpandoObject();
+            var story = new Story();
             story.Title = "My New story";
             story.Description = "loooooooo";
-            story.Status = 3;
+            story.Status = StoryStatus.Started;
             story.CreatedBy = m_database.Users.All().ToList<dynamic>()[0].Id;
+            story.ProjectId = m_database.Projects.All().ToList<dynamic>()[0].Id;
 
             DatabaseOperationResponse response = m_repository.Save(story);
             Assert.IsTrue(response.HasSucceeded);
 
             var repository = new TaskRepository(DatabaseHelper.GetConnectionString());
-            dynamic task = new ExpandoObject();
+            var task = new Task();
             task.Description = "Im a task";
             task.Assignees = "Dude1, Dude2";
             task.IsCompleted = true;
@@ -134,7 +147,7 @@ namespace Charcoal.DataLayer.Tests
             response = repository.Save(task);
             Assert.IsTrue(response.HasSucceeded, response.Description);
 
-            dynamic task2 = new ExpandoObject();
+            var task2 = new Task();
             task2.Description = "Yes I am a taks";
             task2.Assignees = "Dude1, Dude2";
             task2.IsCompleted = true;
@@ -147,9 +160,11 @@ namespace Charcoal.DataLayer.Tests
             var stories = m_repository.FindAll();
             Assert.AreEqual(1, stories.Count);
             Assert.AreEqual(2, stories.Single().Tasks.Count);
+            Assert.NotNull(stories[0].Project);
+            Assert.AreEqual(story.ProjectId, stories[0].Project.Id);
         }
 
-        static void VerifyStory(dynamic expected, dynamic actual)
+        static void VerifyStory(Story expected, Story actual)
         {
             Assert.AreEqual(expected.Title, actual.Title);
             Assert.AreEqual(expected.Description, actual.Description);

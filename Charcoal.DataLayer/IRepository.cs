@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using Charcoal.DataLayer.Entities;
 
 namespace Charcoal.DataLayer
 {
-    public interface IRepository
+    public interface IRepository<T> where T : BaseEntity
     {
-        DatabaseOperationResponse Save(dynamic entity);
-        DatabaseOperationResponse Save(IEnumerable<dynamic> entities);
+        DatabaseOperationResponse Save(T entity);
+        DatabaseOperationResponse DeepSave(T entity);
 
         DatabaseOperationResponse Delete(long id);
 
-        List<dynamic> FindAll();
-        dynamic Find(long id);
+        List<T> FindAll();
+        T Find(long id);
     }
 }

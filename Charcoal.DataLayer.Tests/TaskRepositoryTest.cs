@@ -1,4 +1,6 @@
+using System;
 using System.Dynamic;
+using Charcoal.DataLayer.Entities;
 using NUnit.Framework;
 using Simple.Data;
 
@@ -15,16 +17,21 @@ namespace Charcoal.DataLayer.Tests
         {
             m_repository = new TaskRepository(DatabaseHelper.GetConnectionString());
             m_database = Database.OpenConnection(DatabaseHelper.GetConnectionString());
+            m_database.Users.Insert(UserName: "somedude", FirstName: "Some", LastName: "Dude", APIKey: "yuiu-998",
+                                         Email: "aaa@aaa.com", Privileges: 2);
+            m_database.Projects.Insert(Title: "wololo", Description: "blah");
 
-            var storyRepository = new StoryRepository(DatabaseHelper.GetConnectionString());
             dynamic story = new ExpandoObject();
             story.Title = "My New story";
             story.Description = "loooooooo";
             story.Status = 3;
             story.CreatedBy = m_database.Users.All().ToList<dynamic>()[0].Id;
+            story.CreatedOn = DateTime.UtcNow;
+            story.LastEditedOn = DateTime.UtcNow;
+            story.ProjectId = m_database.Projects.All().ToList<dynamic>()[0].Id;
+            
 
-            DatabaseOperationResponse response = storyRepository.Save(story);
-            Assert.IsTrue(response.HasSucceeded);
+            m_database.Stories.Insert(story);
         }
 
         [TearDown]
@@ -37,12 +44,14 @@ namespace Charcoal.DataLayer.Tests
         public void StoriesCleanUp()
         {
             m_database.Stories.DeleteAll();
+            m_database.Projects.DeleteAll();
+            m_database.Users.DeleteAll();
         }
 
         [Test]
         public void CanSaveTask()
         {
-            dynamic task = new ExpandoObject();
+            var task = new Task();
             task.Description = "Im a task";
             task.Assignees = "Dude1, Dude2";
             task.IsCompleted = true;
@@ -51,7 +60,7 @@ namespace Charcoal.DataLayer.Tests
             DatabaseOperationResponse response = m_repository.Save(task);
             Assert.IsTrue(response.HasSucceeded);
 
-            var tasks = m_database.Tasks.All().ToList<dynamic>();
+            var tasks = m_database.Tasks.All().ToList<Task>();
             Assert.AreEqual(1, tasks.Count);
             Verifytask(task, tasks[0]);
         }
@@ -59,7 +68,7 @@ namespace Charcoal.DataLayer.Tests
         [Test]
         public void CanFindById()
         {
-            dynamic task = new ExpandoObject();
+            var task = new Task();
             task.Description = "Im a task";
             task.Assignees = "Dude1, Dude2";
             task.IsCompleted = true;
@@ -68,21 +77,21 @@ namespace Charcoal.DataLayer.Tests
             DatabaseOperationResponse response = m_repository.Save(task);
             Assert.IsTrue(response.HasSucceeded, response.Description);
 
-            var retrievedTask = m_database.Tasks.All().ToList<dynamic>()[0];
+            Task retrievedTask = m_database.Tasks.All().ToList<dynamic>()[0];
 
 
-            var foundTask = m_repository.Find(retrievedTask.Id);
+            Task foundTask = m_repository.Find(retrievedTask.Id);
             Verifytask(retrievedTask, foundTask);
 
-            Assert.NotNull(foundTask.Stories);
-            Assert.NotNull(foundTask.Stories.Id);
-            Assert.AreEqual(task.StoryId, foundTask.Stories.Id);
+            Assert.NotNull(foundTask.Story);
+            Assert.NotNull(foundTask.Story.Id);
+            Assert.AreEqual(task.StoryId, foundTask.Story.Id);
         }
 
         [Test]
         public void CannotUpdateInexistantTask()
         {
-            dynamic task = new ExpandoObject();
+            var task = new Task();
             task.Description = "Im a task";
             task.Assignees = "Dude1, Dude2";
             task.IsCompleted = true;
@@ -103,7 +112,7 @@ namespace Charcoal.DataLayer.Tests
         [Test]
         public void CanUpdateTask()
         {
-            dynamic task = new ExpandoObject();
+            var task = new Task();
             task.Description = "Im a task";
             task.Assignees = "Dude1, Dude2";
             task.IsCompleted = true;
@@ -112,14 +121,14 @@ namespace Charcoal.DataLayer.Tests
             DatabaseOperationResponse response = m_repository.Save(task);
             Assert.IsTrue(response.HasSucceeded);
 
-            var retrievedTask = m_database.Tasks.All().ToList<dynamic>()[0];
+            Task retrievedTask = m_database.Tasks.All().ToList<dynamic>()[0];
             retrievedTask.IsCompleted = false;
             task.Description = "blah blah";
 
             response = m_repository.Update(retrievedTask);
             Assert.IsTrue(response.HasSucceeded);
 
-            var tasks = m_database.Tasks.All().ToList<dynamic>();
+            var tasks = m_database.Tasks.All().ToList<Task>();
             Assert.AreEqual(1, tasks.Count);
             Verifytask(retrievedTask, tasks[0]);
         }
@@ -127,7 +136,7 @@ namespace Charcoal.DataLayer.Tests
         [Test]
         public void CanDeleteTask()
         {
-            dynamic task = new ExpandoObject();
+            var task = new Task();
             task.Description = "Im a task";
             task.Assignees = "Dude1, Dude2";
             task.IsCompleted = true;
@@ -136,16 +145,16 @@ namespace Charcoal.DataLayer.Tests
             DatabaseOperationResponse response = m_repository.Save(task);
             Assert.IsTrue(response.HasSucceeded);
 
-            var retrievedTask = m_database.Tasks.All().ToList<dynamic>()[0];
+            Task retrievedTask = m_database.Tasks.All().ToList<dynamic>()[0];
 
             response = m_repository.Delete(retrievedTask.Id);
             Assert.IsTrue(response.HasSucceeded);
 
-            var tasks = m_database.Tasks.All().ToList<dynamic>();
+            var tasks = m_database.Tasks.All().ToList<Task>();
             Assert.AreEqual(0, tasks.Count);
         }
 
-        static void Verifytask(dynamic expected, dynamic actual)
+        static void Verifytask(Task expected, Task actual)
         {
             Assert.AreEqual(expected.Description, actual.Description);
             Assert.AreEqual(expected.Assignees, actual.Assignees);

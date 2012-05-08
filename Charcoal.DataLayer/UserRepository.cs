@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Simple.Data;
+using Charcoal.DataLayer.Entities;
 
 namespace Charcoal.DataLayer
 {
-    public class UserRepository:IRepository{
+    public class UserRepository : IRepository<User>
+    {
 
         private readonly string m_connectionString;
 
@@ -13,12 +15,10 @@ namespace Charcoal.DataLayer
             m_connectionString = connectionString;
         }
 
-        public DatabaseOperationResponse Save(dynamic entity)
+        public DatabaseOperationResponse Save(User entity)
         {
             try
             {
-                entity.CreatedOn = DateTime.UtcNow;
-                entity.LastEditedOn = DateTime.UtcNow;
                 var database = Database.OpenConnection(m_connectionString);
                 database.Users.Insert(entity);
                 return new DatabaseOperationResponse(true);
@@ -29,29 +29,12 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public DatabaseOperationResponse Save(IEnumerable<dynamic> entities)
+        public DatabaseOperationResponse DeepSave(User entity)
         {
-            try
-            {
-                var database = Database.OpenConnection(m_connectionString);
-                using (var tx = database.BeginTransaction())
-                {
-                    foreach (var entity in entities)
-                    {
-                        tx.Users.Insert(entity);
-                    }
-                    tx.Commit();
-                    return new DatabaseOperationResponse(true);
-                }
-            }
-            catch (Exception ex)
-            {
-
-                return new DatabaseOperationResponse(description: ex.Message, reason: FailReason.Exception);
-            }
+            throw new NotImplementedException();
         }
 
-        public DatabaseOperationResponse Update(dynamic entity)
+        public DatabaseOperationResponse Update(User entity)
         {
             try
             {
@@ -60,7 +43,6 @@ namespace Charcoal.DataLayer
                 {
                     return new DatabaseOperationResponse(false, "Item Does not exist", FailReason.ItemNoLongerExists);
                 }
-                entity.LastEditedOn = DateTime.UtcNow;
 
                 var inserted = database.Users.Update(entity);
                 return new DatabaseOperationResponse(inserted == 1);
@@ -90,16 +72,20 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public List<dynamic> FindAll()
+        public List<User> FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Users.All().ToList<dynamic>();
+            return database.Users.All()
+                .With(database.Users.UsersXProjects.Projects.As("Projects"))
+                .ToList<User>();
         }
 
-        public dynamic Find(long id)
+        public User Find(long id)
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Users.FindById(id);
+            return database.Users.FindAllById(id)
+                .With(database.Users.UsersXProjects.Projects.As("Projects"))
+                .FirstOrDefault();
         }
     }
 }

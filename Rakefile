@@ -44,7 +44,7 @@ task :default => [:build]
 desc "Build"
 msbuild :build do |msb|
 	msb.properties :configuration => :Debug
-	msb.targets [ :Clean, :Build ]
+	msb.targets [ :Rebuild ]
 	msb.solution = "Charcoal.sln"
 end
 

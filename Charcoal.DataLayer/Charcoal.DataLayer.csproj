@@ -44,18 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\Project.cs" />
+    <Compile Include="Entities\Story.cs" />
+    <Compile Include="Entities\Task.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="DatabaseOperationResponse.cs" />
+    <Compile Include="ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoryRepository.cs" />
     <Compile Include="TaskRepository.cs" />
     <Compile Include="UserRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Charcoal.Domain\Charcoal.Domain.csproj">
-      <Project>{ABE413D3-7543-4FCF-BE93-6D61417CD536}</Project>
-      <Name>Charcoal.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

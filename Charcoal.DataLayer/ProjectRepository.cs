@@ -1,28 +1,26 @@
 using System;
 using System.Collections.Generic;
-using Simple.Data;
-using System.Linq;
 using Charcoal.DataLayer.Entities;
+using Simple.Data;
 
 namespace Charcoal.DataLayer
 {
-    public class StoryRepository : IRepository<Story>
+    public class ProjectRepository : IRepository<Project>
     {
+
         private readonly string m_connectionString;
 
-        internal StoryRepository(string connectionString)
+        internal ProjectRepository(string connectionString)
         {
             m_connectionString = connectionString;
         }
 
-        public DatabaseOperationResponse Save(Story entity)
+        public DatabaseOperationResponse Save(Project entity)
         {
             try
             {
-                entity.CreatedOn = DateTime.UtcNow;
-                entity.LastEditedOn = DateTime.UtcNow;
                 var database = Database.OpenConnection(m_connectionString);
-                database.Stories.Insert(entity);
+                database.Projects.Insert(entity);
                 return new DatabaseOperationResponse(true);
             }
             catch (Exception ex)
@@ -31,23 +29,22 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public DatabaseOperationResponse DeepSave(Story entity)
+        public DatabaseOperationResponse DeepSave(Project entity)
         {
             throw new NotImplementedException();
         }
 
-        public DatabaseOperationResponse Update(Story entity)
+        public DatabaseOperationResponse Update(Project entity)
         {
             try
             {
                 var database = Database.OpenConnection(m_connectionString);
-                if (database.Stories.FindById(entity.Id) == null)
+                if (database.Projects.FindById(entity.Id) == null)
                 {
                     return new DatabaseOperationResponse(false, "Item Does not exist", FailReason.ItemNoLongerExists);
                 }
-                entity.LastEditedOn = DateTime.UtcNow;
 
-                var inserted = database.Stories.Update(entity);
+                var inserted = database.Projects.Update(entity);
                 return new DatabaseOperationResponse(inserted == 1);
             }
             catch (Exception ex)
@@ -61,12 +58,12 @@ namespace Charcoal.DataLayer
             try
             {
                 var database = Database.OpenConnection(m_connectionString);
-                if (database.Stories.FindById(id) == null)
+                if (database.Projects.FindById(id) == null)
                 {
                     return new DatabaseOperationResponse(false, "Item Does not exist", FailReason.ItemNoLongerExists);
                 }
 
-                var deleted = database.Stories.DeleteById(id);
+                var deleted = database.Projects.DeleteById(id);
                 return new DatabaseOperationResponse(deleted == 1);
             }
             catch (Exception ex)
@@ -75,22 +72,16 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public List<Story> FindAll()
+        public List<Project> FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Stories.All()
-                .With(database.Stories.Projects.As("Project"))
-                .WithTasks(database.Stories.Id == database.Tasks.StoryId)
-                .ToList<Story>();
+            return database.Projects.All().ToList<Project>();
         }
 
-        public Story Find(long id)
+        public Project Find(long id)
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Stories.FindAllById(id)
-                .With(database.Stories.Projects.As("Project"))
-                .WithTasks(database.Stories.Id == database.Tasks.StoryId)
-                .FirstOrDefault();
+            return database.Projects.FindById(id);
         }
     }
 }

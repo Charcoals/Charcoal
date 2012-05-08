@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Simple.Data;
+using Charcoal.DataLayer.Entities;
 
 namespace Charcoal.DataLayer
 {
-    public class TaskRepository : IRepository
+    public class TaskRepository : IRepository<Task>
     {
 
         private readonly string m_connectionString;
@@ -14,7 +15,7 @@ namespace Charcoal.DataLayer
             m_connectionString = connectionString;
         }
 
-        public DatabaseOperationResponse Save(dynamic entity)
+        public DatabaseOperationResponse Save(Task entity)
         {
             try
             {
@@ -30,26 +31,9 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public DatabaseOperationResponse Save(IEnumerable<dynamic> entities)
+        public DatabaseOperationResponse DeepSave(Task entity)
         {
-            try
-            {
-                var database = Database.OpenConnection(m_connectionString);
-                using (var tx = database.BeginTransaction())
-                {
-                    foreach (var entity in entities)
-                    {
-                        tx.Tasks.Insert(entity);
-                    }
-                    tx.Commit();
-                    return new DatabaseOperationResponse(true);
-                }
-            }
-            catch (Exception ex)
-            {
-
-                return new DatabaseOperationResponse(description: ex.Message, reason: FailReason.Exception);
-            }
+            throw new NotImplementedException();
         }
 
         public DatabaseOperationResponse Update(dynamic entity)
@@ -91,16 +75,16 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public List<dynamic> FindAll()
+        public List<Task> FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Tasks.All().WithStories().ToList<dynamic>();
+            return database.Tasks.All().With(database.Tasks.Stories.As("Story")).ToList<Task>();
         }
 
-        public dynamic Find(long id)
+        public Task Find(long id)
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Tasks.FindAllById(id).WithStories().FirstOrDefault();
+            return database.Tasks.FindAllById(id).With(database.Tasks.Stories.As("Story")).FirstOrDefault();
         }
     }
 }
