@@ -4,6 +4,10 @@ require 'fileutils'
 require 'albacore'
 require 'git'
 
+def ouputToConsole(str)
+puts "Operator>>>>>>>",str
+end
+
 def migrate(migrator, filePath, connection, task)
 	migrator.command = "packages/FluentMigrator.1.0.2.0/tools/Migrate.exe"
 	migrator.provider = 'sqlserver'
@@ -77,7 +81,7 @@ fluentmigrator :rollback do |migrator|
 end
 
 desc "Ready to checkin"
-task :checkin => [:migrate, :pull, :unit] do
+task :checkin => [:pull,:migrate, :unit] do
 	begin
 	ouputToConsole "You should be ready to checkin"
 	git = Git.open (".")
