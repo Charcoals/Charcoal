@@ -3,7 +3,7 @@ using FluentMigrator;
 namespace Charcoal.Migrations
 {
     [Migration(1)]
-    public class CreateUsersTable:Migration
+    public class CreateUsersTable : Migration
     {
         public override void Up()
         {
