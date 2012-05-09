@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Charcoal.Core {
+namespace Charcoal.Domain {
     public class Story : BaseEntity {
         public int ProjectId { get; set; }
         public StoryType StoryType { get; set; }

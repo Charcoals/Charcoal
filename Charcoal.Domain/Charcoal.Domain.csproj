@@ -8,8 +8,8 @@
     <ProjectGuid>{ABE413D3-7543-4FCF-BE93-6D61417CD536}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Charcoal.Core</RootNamespace>
-    <AssemblyName>Charcoal.Core</AssemblyName>
+    <RootNamespace>Charcoal.Domain</RootNamespace>
+    <AssemblyName>Charcoal.Domain</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

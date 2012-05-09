@@ -1,4 +1,4 @@
-﻿namespace Charcoal.Core {
+﻿namespace Charcoal.Domain {
     public class Activity : BaseEntity {
         public int Version { get; set; }
         public string EventType { get; set; }

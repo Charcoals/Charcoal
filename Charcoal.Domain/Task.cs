@@ -1,4 +1,4 @@
-namespace Charcoal.Core {
+namespace Charcoal.Domain {
     public class Task : BaseEntity {
         public string Description { get; set; }
         public bool Complete { get; set; }

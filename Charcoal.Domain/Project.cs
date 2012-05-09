@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Charcoal.Core {
+namespace Charcoal.Domain {
     public class Project : BaseEntity {
         public string Name { get; set; }
         public int IterationLength { get; set; }

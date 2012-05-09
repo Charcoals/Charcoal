@@ -1,4 +1,4 @@
-﻿namespace Charcoal.Core {
+﻿namespace Charcoal.Domain {
     public class Membership : BaseEntity {
         public Person Person { get; set; }
         public string Role { get; set; }
