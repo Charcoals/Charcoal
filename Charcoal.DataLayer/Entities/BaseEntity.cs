@@ -11,8 +11,10 @@ namespace Charcoal.DataLayer.Entities
     public enum Privilege
     {
         Undefined = 0,
-        Read,
-        Write,
+        Admin,
+        Product,
+        Developer,
+        Tester,
         All
     }
 

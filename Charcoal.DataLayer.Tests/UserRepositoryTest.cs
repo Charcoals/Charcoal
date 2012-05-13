@@ -33,7 +33,8 @@ namespace Charcoal.DataLayer.Tests
             user.UserName = "loooooooo";
             user.LastName = "loooe3rewrrewooooo";
             user.FirstName = "dsfsdf";
-            user.Privileges = Privilege.Read | Privilege.Write;
+            user.Password = "wololo";
+            user.Privileges = Privilege.Developer | Privilege.Product;
             user.Email = "dude@dude.org";
 
             DatabaseOperationResponse response = m_repository.Save(user);
@@ -53,7 +54,8 @@ namespace Charcoal.DataLayer.Tests
             user.UserName = "loooooooo";
             user.LastName = "loooe3rewrrewooooo";
             user.FirstName = "dsfsdf";
-            user.Privileges = Privilege.Read | Privilege.Write;
+            user.Password = "wololo";
+            user.Privileges = Privilege.Product;
             user.Email = "dude@dude.org";
 
             DatabaseOperationResponse response = m_repository.Save(user);
@@ -79,7 +81,8 @@ namespace Charcoal.DataLayer.Tests
             user.UserName = "loooooooo";
             user.LastName = "loooe3rewrrewooooo";
             user.FirstName = "dsfsdf";
-            user.Privileges = Privilege.Read | Privilege.Write;
+            user.Password = "wololo";
+            user.Privileges = Privilege.Product;
             user.Email = "dude@dude.org";
 
             DatabaseOperationResponse response = m_repository.Save(user);
@@ -102,7 +105,8 @@ namespace Charcoal.DataLayer.Tests
             user.UserName = "loooooooo";
             user.LastName = "loooe3rewrrewooooo";
             user.FirstName = "dsfsdf";
-            user.Privileges = Privilege.Read | Privilege.Write;
+            user.Privileges = Privilege.Product;
+            user.Password = "wololo";
             user.Email = "dude@dude.org";
 
             DatabaseOperationResponse response = m_repository.Save(user);
@@ -132,7 +136,8 @@ namespace Charcoal.DataLayer.Tests
             user.UserName = "loooooooo";
             user.LastName = "loooe3rewrrewooooo";
             user.FirstName = "dsfsdf";
-            user.Privileges = Privilege.Read | Privilege.Write;
+            user.Password = "wololo";
+            user.Privileges = Privilege.Product;
             user.Email = "dude@dude.org";
 
             DatabaseOperationResponse response = m_repository.Save(user);

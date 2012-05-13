@@ -25,7 +25,7 @@ namespace Charcoal.DataLayer.Tests
         }
 
         [Test]
-        public void CanSaveUser()
+        public void CanSaveProject()
         {
             var project = new Project();
             project.Title = "loooooooo";
@@ -37,11 +37,11 @@ namespace Charcoal.DataLayer.Tests
             var users = m_database.Projects.All().ToList<Project>();
             Assert.AreEqual(1, users.Count);
 
-            VerifyUserProject(project, users[0]);
+            VerifyProject(project, users[0]);
         }
 
         [Test]
-        public void CanUpdateExistingUser()
+        public void CanUpdateExistingProject()
         {
             var project = new Project();
             project.Title = "loooooooo";
@@ -59,11 +59,11 @@ namespace Charcoal.DataLayer.Tests
             var projects = m_database.Projects.All().ToList<Project>();
             Assert.AreEqual(1, projects.Count);
 
-            VerifyUserProject(retrievedProject, projects[0]);
+            VerifyProject(retrievedProject, projects[0]);
         }
 
         [Test]
-        public void CanDeleteExistingStory()
+        public void CanDeleteExistingProject()
         {
             var project = new Project();
             project.Title = "loooooooo";
@@ -94,7 +94,7 @@ namespace Charcoal.DataLayer.Tests
             Project retrievedProject = m_database.Projects.All().ToList<Project>()[0];
 
             Project foundUser = m_repository.Find(retrievedProject.Id);
-            VerifyUserProject(retrievedProject, foundUser);
+            VerifyProject(retrievedProject, foundUser);
         }
 
         [Test]
@@ -111,12 +111,12 @@ namespace Charcoal.DataLayer.Tests
 
             var foundUsers = m_repository.FindAll();
             Assert.AreEqual(1, foundUsers.Count);
-            VerifyUserProject(retrievedProject, foundUsers[0]);
+            VerifyProject(retrievedProject, foundUsers[0]);
         }
 
 
 
-        private void VerifyUserProject(Project expected, Project actual)
+        private void VerifyProject(Project expected, Project actual)
         {
             Assert.AreEqual(expected.Title, actual.Title);
             Assert.AreEqual(expected.Description, actual.Description);

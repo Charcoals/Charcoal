@@ -18,7 +18,7 @@ namespace Charcoal.DataLayer.Tests
             m_repository = new TaskRepository(DatabaseHelper.GetConnectionString());
             m_database = Database.OpenConnection(DatabaseHelper.GetConnectionString());
             m_database.Users.Insert(UserName: "somedude", FirstName: "Some", LastName: "Dude", APIKey: "yuiu-998",
-                                         Email: "aaa@aaa.com", Privileges: 2);
+            Email: "aaa@aaa.com", Privileges: 2, Password:"jawn");
             m_database.Projects.Insert(Title: "wololo", Description: "blah");
 
             dynamic story = new ExpandoObject();
