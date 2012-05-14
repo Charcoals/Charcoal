@@ -1,14 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using Simple.Data;
 using Charcoal.DataLayer.Entities;
 
 namespace Charcoal.DataLayer
 {
-    public class UserRepository : IRepository<User>
+    public interface IUserRepository:IRepository<User>
+    {
+        User FindByEmail(string email);
+        User FindByUserName(string name);
+        bool IsValid(string userName, string password);
+    }
+
+    public class UserRepository : IUserRepository
     {
 
         private readonly string m_connectionString;
+
+        public UserRepository()
+            : this(ConfigurationManager.ConnectionStrings["Server"].ConnectionString)
+        {
+            
+        }
 
         internal UserRepository(string connectionString)
         {
@@ -86,6 +100,21 @@ namespace Charcoal.DataLayer
             return database.Users.FindAllById(id)
                 .With(database.Users.UsersXProjects.Projects.As("Projects"))
                 .FirstOrDefault();
+        }
+
+        public User FindByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User FindByUserName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsValid(string userName, string password)
+        {
+            throw new NotImplementedException();
         }
     }
 }

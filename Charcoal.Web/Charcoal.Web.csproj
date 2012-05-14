@@ -83,6 +83,7 @@
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\ActivityViewModel.cs" />
+    <Compile Include="Models\CharcoalMembershipProvider.cs" />
     <Compile Include="Models\ProjectStoryViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\StoryViewModel.cs" />
@@ -91,6 +92,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Local.mdf" />
+    <Content Include="App_Data\Local_log.ldf">
+      <DependentUpon>Local.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\activities.gif" />
     <Content Include="Content\Bg_Texture___wood_by_nortago.jpg" />
     <Content Include="Content\blackmenu.png" />
@@ -164,13 +169,16 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Charcoal.DataLayer\Charcoal.DataLayer.csproj">
+      <Project>{73FE8271-3D9F-4827-80E4-330DDB2141FD}</Project>
+      <Name>Charcoal.DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PivotalTrackerDotNet\PivotalTrackerDotNet.csproj">
       <Project>{579B9125-0944-4C30-A31F-6C70A0DDE1C8}</Project>
       <Name>PivotalTrackerDotNet</Name>
@@ -220,6 +228,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\StoryNavigationControl.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

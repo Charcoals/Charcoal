@@ -7,6 +7,18 @@ namespace Charcoal.Web.Controllers {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Required)]
     public class AccountController : BaseController {
 
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(RegisterModel model)
+        {
+            return RedirectToAction("Index", "Home"); 
+        }
+
         //
         // GET: /Account/LogOn
 
