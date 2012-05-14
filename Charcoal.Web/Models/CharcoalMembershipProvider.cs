@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Specialized;
 using System.Web.Security;
-using Charcoal.Core.Entities;
+using Charcoal.Common.Entities;
 using Charcoal.DataLayer;
 
 namespace Charcoal.Web.Models

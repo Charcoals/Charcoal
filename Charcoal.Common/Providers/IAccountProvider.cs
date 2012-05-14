@@ -1,7 +1,7 @@
-﻿using Charcoal.Core.Entities;
+using Charcoal.Common.Entities;
 
-namespace Charcoal.Core.Services {
-	public interface IAccountService
+namespace Charcoal.Common.Providers {
+	public interface IAccountProvider
 	{
 		string Authenticate(string username, string password);
 		OperationResponse CreateUser(User user);

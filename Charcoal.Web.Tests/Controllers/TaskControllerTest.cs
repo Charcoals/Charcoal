@@ -47,7 +47,7 @@ namespace Charcoal.Web.Tests.Controllers {
         //    var description = "Doin work";
         //    var task = new Task { Description = description, Id = id, ParentStoryId = storyId, ProjectId = projectId };
 
-        //    var storyService = mockery.StrictMock<IStoryService> ();
+        //    var storyService = mockery.StrictMock<IStoryProvider> ();
 
         //    using (mockery.Record ())
         //    using (mockery.Ordered ()) {

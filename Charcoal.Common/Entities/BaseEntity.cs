@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace Charcoal.Core.Entities
+namespace Charcoal.Common.Entities
 {
     public abstract class BaseEntity
     {

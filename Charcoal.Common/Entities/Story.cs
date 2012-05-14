@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Charcoal.Core.Entities
+namespace Charcoal.Common.Entities
 {
     public class Story : BaseEntity
     {

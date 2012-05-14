@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Charcoal.Core.Entities;
+using System.Collections.Generic;
+using Charcoal.Common.Entities;
 
-namespace Charcoal.Core.Services
+namespace Charcoal.Common.Providers
 {
-	public interface IStoryService
+	public interface IStoryProvider
 	{
 		Story AddNewStory(long projectId, Story toBeSaved);
 		Task AddNewTask(Task task);

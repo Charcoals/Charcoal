@@ -1,5 +1,5 @@
 using System;
-using Charcoal.Core.Entities;
+using Charcoal.Common.Entities;
 using NUnit.Framework;
 using Simple.Data;
 

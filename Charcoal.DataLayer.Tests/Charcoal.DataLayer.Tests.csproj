@@ -81,9 +81,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Charcoal.Core\Charcoal.Core.csproj">
-      <Project>{1F95B1D5-BD33-4CEF-8F23-E0AA83AED9A7}</Project>
-      <Name>Charcoal.Core</Name>
+    <ProjectReference Include="..\Charcoal.Common\Charcoal.Common.csproj">
+      <Project>{CB6B0C49-5469-49BE-B46A-9BB9E32CFDD1}</Project>
+      <Name>Charcoal.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Charcoal.DataLayer\Charcoal.DataLayer.csproj">
       <Project>{73FE8271-3D9F-4827-80E4-330DDB2141FD}</Project>
