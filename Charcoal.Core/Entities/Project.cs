@@ -1,4 +1,4 @@
-namespace Charcoal.DataLayer.Entities
+namespace Charcoal.Core.Entities
 {
     public class Project : BaseEntity
     {

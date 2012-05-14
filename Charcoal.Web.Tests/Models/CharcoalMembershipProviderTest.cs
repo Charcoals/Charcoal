@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Charcoal.Core.Entities;
 using Charcoal.DataLayer;
-using Charcoal.DataLayer.Entities;
 using NUnit.Framework;
 using Charcoal.Web.Models;
 using Moq;

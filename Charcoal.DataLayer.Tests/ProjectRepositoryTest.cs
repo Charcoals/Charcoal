@@ -1,4 +1,4 @@
-using Charcoal.DataLayer.Entities;
+using Charcoal.Core.Entities;
 using NUnit.Framework;
 using Simple.Data;
 
@@ -116,7 +116,7 @@ namespace Charcoal.DataLayer.Tests
 
 
 
-        private void VerifyProject(Project expected, Project actual)
+        private void VerifyProject(dynamic expected, dynamic actual)
         {
             Assert.AreEqual(expected.Title, actual.Title);
             Assert.AreEqual(expected.Description, actual.Description);

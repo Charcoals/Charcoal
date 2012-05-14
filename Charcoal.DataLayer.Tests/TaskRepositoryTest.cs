@@ -1,6 +1,6 @@
 using System;
 using System.Dynamic;
-using Charcoal.DataLayer.Entities;
+using Charcoal.Core.Entities;
 using NUnit.Framework;
 using Simple.Data;
 
@@ -154,7 +154,7 @@ namespace Charcoal.DataLayer.Tests
             Assert.AreEqual(0, tasks.Count);
         }
 
-        static void Verifytask(Task expected, Task actual)
+        static void Verifytask(dynamic expected, dynamic actual)
         {
             Assert.AreEqual(expected.Description, actual.Description);
             Assert.AreEqual(expected.Assignees, actual.Assignees);

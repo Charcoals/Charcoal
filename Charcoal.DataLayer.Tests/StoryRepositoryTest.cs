@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Charcoal.DataLayer.Entities;
+using Charcoal.Core.Entities;
 using NUnit.Framework;
 using Simple.Data;
 
@@ -159,7 +159,7 @@ namespace Charcoal.DataLayer.Tests
 
             var stories = m_repository.FindAll();
             Assert.AreEqual(1, stories.Count);
-            Assert.AreEqual(2, stories.Single().Tasks.Count);
+            Assert.AreEqual(2, stories[0].Tasks.Count);
             Assert.NotNull(stories[0].Project);
             Assert.AreEqual(story.ProjectId, stories[0].Project.Id);
         }

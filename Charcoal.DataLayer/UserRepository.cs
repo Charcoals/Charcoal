@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using Simple.Data;
-using Charcoal.DataLayer.Entities;
 
 namespace Charcoal.DataLayer
 {
-    public interface IUserRepository:IRepository<User>
+    public interface IUserRepository:IRepository
     {
-        User FindByEmail(string email);
-        User FindByUserName(string name);
+        dynamic FindByEmail(string email);
+        dynamic FindByUserName(string name);
         bool IsValid(string userName, string password);
     }
 
@@ -29,7 +28,7 @@ namespace Charcoal.DataLayer
             m_connectionString = connectionString;
         }
 
-        public DatabaseOperationResponse Save(User entity)
+        public DatabaseOperationResponse Save(dynamic entity)
         {
             try
             {
@@ -43,12 +42,12 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public DatabaseOperationResponse DeepSave(User entity)
+        public DatabaseOperationResponse DeepSave(dynamic entity)
         {
             throw new NotImplementedException();
         }
 
-        public DatabaseOperationResponse Update(User entity)
+        public DatabaseOperationResponse Update(dynamic entity)
         {
             try
             {
@@ -86,15 +85,15 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public List<User> FindAll()
+        public dynamic FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
             return database.Users.All()
                 .With(database.Users.UsersXProjects.Projects.As("Projects"))
-                .ToList<User>();
+                .ToList();
         }
 
-        public User Find(long id)
+        public dynamic Find(long id)
         {
             var database = Database.OpenConnection(m_connectionString);
             return database.Users.FindAllById(id)
@@ -102,13 +101,13 @@ namespace Charcoal.DataLayer
                 .FirstOrDefault();
         }
 
-        public User FindByEmail(string email)
+        public dynamic FindByEmail(string email)
         {
             var database = Database.OpenConnection(m_connectionString);
             return database.Users.FindByEmail(email);
         }
 
-        public User FindByUserName(string name)
+        public dynamic FindByUserName(string name)
         {
             var database = Database.OpenConnection(m_connectionString);
             return database.Users.FindByUserName(name);

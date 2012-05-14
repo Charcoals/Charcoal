@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Charcoal.DataLayer.Entities
+namespace Charcoal.Core.Entities
 {
     public class User : BaseEntity
     {

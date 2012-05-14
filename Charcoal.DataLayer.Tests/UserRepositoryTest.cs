@@ -1,5 +1,5 @@
 using System;
-using Charcoal.DataLayer.Entities;
+using Charcoal.Core.Entities;
 using NUnit.Framework;
 using Simple.Data;
 
@@ -204,7 +204,7 @@ namespace Charcoal.DataLayer.Tests
             User retrievedUser = m_database.Users.All().ToList<User>()[0];
             m_database.Projects.Insert(Title: "wololo", Description: "blah");
 
-            long projectId = m_database.Projects.All().ToList<dynamic>()[0].Id;
+            long projectId = m_database.Projects.All().ToList<Project>()[0].Id;
 
             m_database.UsersXProjects.Insert(UserId: retrievedUser.Id,
                                              ProjectId: projectId);
@@ -220,14 +220,14 @@ namespace Charcoal.DataLayer.Tests
 
 
 
-        private void VerifyUserStory(User expected, User actual)
+        private void VerifyUserStory(dynamic expected, dynamic actual)
         {
             Assert.AreEqual(expected.Email, actual.Email);
             Assert.AreEqual(expected.UserName, actual.UserName);
             Assert.AreEqual(expected.FirstName, actual.FirstName);
             Assert.AreEqual(expected.LastName, actual.LastName);
             Assert.AreEqual(expected.APIKey, actual.APIKey);
-            Assert.AreEqual(expected.Privileges, actual.Privileges);
+            Assert.AreEqual(expected.Privileges,(Privilege) actual.Privileges);
         }
     }
 }

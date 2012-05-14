@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Charcoal.DataLayer.Entities
+namespace Charcoal.Core.Entities
 {
     public abstract class BaseEntity
     {

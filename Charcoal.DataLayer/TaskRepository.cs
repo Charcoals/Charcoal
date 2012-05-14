@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Simple.Data;
-using Charcoal.DataLayer.Entities;
 
 namespace Charcoal.DataLayer
 {
-    public class TaskRepository : IRepository<Task>
+    public class TaskRepository : IRepository
     {
 
         private readonly string m_connectionString;
@@ -15,7 +14,7 @@ namespace Charcoal.DataLayer
             m_connectionString = connectionString;
         }
 
-        public DatabaseOperationResponse Save(Task entity)
+        public DatabaseOperationResponse Save(dynamic entity)
         {
             try
             {
@@ -31,7 +30,7 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public DatabaseOperationResponse DeepSave(Task entity)
+        public DatabaseOperationResponse DeepSave(dynamic entity)
         {
             throw new NotImplementedException();
         }
@@ -75,13 +74,13 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public List<Task> FindAll()
+        public dynamic FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Tasks.All().With(database.Tasks.Stories.As("Story")).ToList<Task>();
+            return database.Tasks.All().With(database.Tasks.Stories.As("Story")).ToList();
         }
 
-        public Task Find(long id)
+        public dynamic Find(long id)
         {
             var database = Database.OpenConnection(m_connectionString);
             return database.Tasks.FindAllById(id).With(database.Tasks.Stories.As("Story")).FirstOrDefault();
