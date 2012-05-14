@@ -47,6 +47,24 @@ namespace Charcoal.DataLayer.Tests
         }
 
         [Test]
+        public void CanValidateUser()
+        {
+            var user = new User();
+            user.APIKey = Guid.NewGuid().ToString();
+            user.UserName = "loooooooo";
+            user.LastName = "loooe3rewrrewooooo";
+            user.FirstName = "dsfsdf";
+            user.Password = "wololo";
+            user.Privileges = Privilege.Developer | Privilege.Product;
+            user.Email = "dude@dude.org";
+
+            DatabaseOperationResponse response = m_repository.Save(user);
+            Assert.IsTrue(response.HasSucceeded);
+
+            Assert.IsTrue(m_repository.IsValid(user.UserName,user.Password));
+        }
+
+        [Test]
         public void CanUpdateExistingUser()
         {
             var user = new User();
@@ -126,6 +144,46 @@ namespace Charcoal.DataLayer.Tests
             Assert.NotNull(foundUser.Projects);
             Assert.AreEqual(1, foundUser.Projects.Count);
             Assert.AreEqual(projectId, foundUser.Projects[0].Id);
+        }
+
+        [Test]
+        public void CanFindByEmail()
+        {
+            var user = new User();
+            user.APIKey = Guid.NewGuid().ToString();
+            user.UserName = "loooooooo";
+            user.LastName = "loooe3rewrrewooooo";
+            user.FirstName = "dsfsdf";
+            user.Privileges = Privilege.Product;
+            user.Password = "wololo";
+            user.Email = "dude@dude.org";
+
+            DatabaseOperationResponse response = m_repository.Save(user);
+            Assert.IsTrue(response.HasSucceeded);
+
+
+            User foundUser = m_repository.FindByEmail(user.Email);
+            VerifyUserStory(user, foundUser);
+        }
+
+        [Test]
+        public void CanFindByUserName()
+        {
+            var user = new User();
+            user.APIKey = Guid.NewGuid().ToString();
+            user.UserName = "loooooooo";
+            user.LastName = "loooe3rewrrewooooo";
+            user.FirstName = "dsfsdf";
+            user.Privileges = Privilege.Product;
+            user.Password = "wololo";
+            user.Email = "dude@dude.org";
+
+            DatabaseOperationResponse response = m_repository.Save(user);
+            Assert.IsTrue(response.HasSucceeded);
+
+
+            User foundUser = m_repository.FindByUserName(user.UserName);
+            VerifyUserStory(user, foundUser);
         }
 
         [Test]

@@ -104,17 +104,21 @@ namespace Charcoal.DataLayer
 
         public User FindByEmail(string email)
         {
-            throw new NotImplementedException();
+            var database = Database.OpenConnection(m_connectionString);
+            return database.Users.FindByEmail(email);
         }
 
         public User FindByUserName(string name)
         {
-            throw new NotImplementedException();
+            var database = Database.OpenConnection(m_connectionString);
+            return database.Users.FindByUserName(name);
         }
 
         public bool IsValid(string userName, string password)
         {
-            throw new NotImplementedException();
+            var database = Database.OpenConnection(m_connectionString);
+            return database.Users.Find(database.Users.UserName == userName
+                                       && database.Users.Password == password) != null;
         }
     }
 }
