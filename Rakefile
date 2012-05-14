@@ -4,6 +4,11 @@ require 'fileutils'
 require 'albacore'
 require 'git'
 
+
+$dir=Dir.pwd.gsub("/","\\")
+$testdb="Data Source=.\\SQLEXPRESS;AttachDbFilename=#{$dir}\\Charcoal.DataLayer.Tests\\TestDatabase.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True"
+$proddb="Data Source=.\\SQLEXPRESS;AttachDbFilename=#{$dir}\\Charcoal.Web\\App_Data\\Local.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True"
+
 def ouputToConsole(str)
 puts "Operator>>>>>>>",str
 end
@@ -59,11 +64,11 @@ nunit :unit => :build do |nunit|
 end
 
 
-desc "Migrate Database Up"
-fluentmigrator :migrate => :build do |migrator|
+desc "Migrate Database Up. example rake migrate['prod']"
+fluentmigrator :migrate, [:db] => :build do |migrator, args|
 	#migrate local test database
-	dir=Dir.pwd.gsub("/","\\")
-	migrate migrator, "Charcoal.Migrations/bin/Debug/Charcoal.Migrations.dll", "Data Source=.\\SQLEXPRESS;AttachDbFilename=#{dir}\\Charcoal.DataLayer.Tests\\TestDatabase.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True",'migrate'
+	connection = args[:db] == 'prod' ? $proddb : $testdb
+	migrate migrator, "Charcoal.Migrations/bin/Debug/Charcoal.Migrations.dll", connection, 'migrate'
 	#migrate server database
 end
 
@@ -73,10 +78,10 @@ task :pull do
 end
 
 desc "Migrate Database Down"
-fluentmigrator :rollback do |migrator|
+fluentmigrator :rollback, [:db] do |migrator, args|
 	#migrate local test database
-	dir=Dir.pwd.gsub("/","\\")
-	migrate migrator, "Charcoal.Migrations/bin/Debug/Charcoal.Migrations.dll", "Data Source=.\\SQLEXPRESS;AttachDbFilename=#{dir}\\Charcoal.DataLayer.Tests\\TestDatabase.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True",'rollback'
+	connection = args[:db] == 'prod' ? $proddb : $testdb
+	migrate migrator, "Charcoal.Migrations/bin/Debug/Charcoal.Migrations.dll", connection, 'rollback'
 	#migrate server database
 end
 
