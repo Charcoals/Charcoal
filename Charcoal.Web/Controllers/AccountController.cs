@@ -2,12 +2,14 @@
 using System.Web.Security;
 using Charcoal.Web.Models;
 using PivotalTrackerDotNet;
+using Charcoal.Common.Providers;
 
 
-namespace Charcoal.Web.Controllers {
+namespace Charcoal.Web.Controllers
+{
     [SessionState(System.Web.SessionState.SessionStateBehavior.Required)]
-    public class AccountController : BaseController {
-
+    public class AccountController : BaseController
+    {
 
         public ActionResult Register()
         {
@@ -36,7 +38,8 @@ namespace Charcoal.Web.Controllers {
         //
         // GET: /Account/LogOn
 
-        public ActionResult LogOn() {
+        public ActionResult LogOn()
+        {
             Response.TrySkipIisCustomErrors = true;
             Response.StatusCode = 999;
             return View();
@@ -46,20 +49,26 @@ namespace Charcoal.Web.Controllers {
         // POST: /Account/LogOn
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl) {
-            if (ModelState.IsValid) {
-                var token = AuthenticationService.Authenticate(model.UserName, model.Password);
-                if (token != null) {
+        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                var token = new AuthenticationService().Authenticate(model.UserName, model.Password);
+                if (!string.IsNullOrWhiteSpace(token))
+                {
                     Token = token;
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\")) {
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
                         return Redirect(returnUrl);
                     }
-                    else {
+                    else
+                    {
                         return RedirectToAction("Index", "Home");
                     }
                 }
-                else {
+                else
+                {
                     ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 }
             }
@@ -71,17 +80,20 @@ namespace Charcoal.Web.Controllers {
         //
         // GET: /Account/LogOff
 
-        public ActionResult LogOff() {
+        public ActionResult LogOff()
+        {
             FormsAuthentication.SignOut();
             Token = null;
             return RedirectToAction("Index", "Home");
         }
 
         #region Status Codes
-        private static string ErrorCodeToString(MembershipCreateStatus createStatus) {
+        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
+        {
             // See http://go.microsoft.com/fwlink/?LinkID=177550 for
             // a full list of status codes.
-            switch (createStatus) {
+            switch (createStatus)
+            {
                 case MembershipCreateStatus.DuplicateUserName:
                     return "User name already exists. Please enter a different user name.";
 

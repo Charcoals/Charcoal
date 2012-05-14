@@ -18,7 +18,7 @@ namespace PivotalTrackerDotNet {
         const string IceBoxEndpoint = "projects/{0}/stories?filter=current_state:unscheduled";
         const string StoryStateEndpoint = "projects/{0}/stories/{1}?story[current_state]={2}";
 
-        public StoryService(AuthenticationToken token)
+        public StoryService(string token)
             : base(token) {
         }
 

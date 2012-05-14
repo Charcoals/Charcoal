@@ -7,7 +7,7 @@ using PivotalTrackerDotNet.Domain;
 namespace PivotalTrackerDotNet {
 	public class MembershipService : AAuthenticatedService, IMembershipService {
 		const string MemberShipEndpoint = "projects/{0}/memberships";
-		public MembershipService(AuthenticationToken token)
+		public MembershipService(string token)
 			: base(token) {
 		}
 

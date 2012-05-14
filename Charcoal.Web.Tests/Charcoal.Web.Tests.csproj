@@ -73,9 +73,9 @@
       <Project>{73FE8271-3D9F-4827-80E4-330DDB2141FD}</Project>
       <Name>Charcoal.DataLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PivotalTrackerDotNet\PivotalTrackerDotNet.csproj">
+    <ProjectReference Include="..\PivotalTrackerDotNet\Charcoal.PivotalTracker.csproj">
       <Project>{579B9125-0944-4C30-A31F-6C70A0DDE1C8}</Project>
-      <Name>PivotalTrackerDotNet</Name>
+      <Name>Charcoal.PivotalTracker</Name>
     </ProjectReference>
     <ProjectReference Include="..\Charcoal.Web\Charcoal.Web.csproj">
       <Project>{8E36CF8F-C7DF-4B74-B4B5-20327A04ECE8}</Project>
