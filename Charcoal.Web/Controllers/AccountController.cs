@@ -3,6 +3,7 @@ using System.Web.Security;
 using Charcoal.Web.Models;
 using PivotalTrackerDotNet;
 
+
 namespace Charcoal.Web.Controllers {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Required)]
     public class AccountController : BaseController {
@@ -16,7 +17,20 @@ namespace Charcoal.Web.Controllers {
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            return RedirectToAction("Index", "Home"); 
+            if (ModelState.IsValid)
+            {
+                // Attempt to register the user
+                MembershipCreateStatus createStatus;
+                Membership.CreateUser(model.UserName, model.Password, model.Email, model.FirstName, model.LastName, false, null, out createStatus);
+
+                if (createStatus == MembershipCreateStatus.Success)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
         //
