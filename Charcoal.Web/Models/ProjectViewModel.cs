@@ -1,4 +1,6 @@
-﻿using PivotalTrackerDotNet.Domain;
+﻿
+
+using Charcoal.Common.Entities;
 
 namespace Charcoal.Web.Models {
     public class ProjectViewModel {
@@ -8,27 +10,17 @@ namespace Charcoal.Web.Models {
             Project = project;
         }
 
-        public string StartDate {
-            get { return string.Format("Starts every {0} week on {1}.", Project.IterationLength, Project.WeekStartDay); }
-        }
 
-        public string Velocity {
-            get { return string.Format("{0} points", Project.CurrentVelocity); }
-        }
-
-        public string VelocityScheme {
-            get { return Project.VelocityScheme; }
+        public string Description {
+            get { return Project.Description; }
         }
 
         public string Name {
-            get { return Project.Name; }
+            get { return Project.Title; }
         }
 
-        public string LatestEvent {
-            get { return "Last updated on " + Project.LastActivityAt; }
-        }
 
-        public int Id
+        public long Id
         {
             get { return Project.Id; }
         }
