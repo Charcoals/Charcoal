@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using PivotalTrackerDotNet.Domain;
+using Charcoal.Common;
+using Charcoal.Common.Entities;
+using Charcoal.Common.Providers;
 using RestSharp;
 using RestSharp.Contrib;
 using Parallel = System.Threading.Tasks.Parallel;
+using Story = PivotalTrackerDotNet.Domain.Story;
+using Task = PivotalTrackerDotNet.Domain.Task;
 
-namespace PivotalTrackerDotNet {
-    public class StoryService : AAuthenticatedService, IStoryService {
+namespace PivotalTrackerDotNet
+{
+    public class StoryService : AAuthenticatedService, IStoryProvider
+    {
         const string StoryIterationEndpoint = "projects/{0}/iterations/{1}";
         const string SingleStoryEndpoint = "projects/{0}/stories/{1}";
         private const string AllStoriesEndpoint = "projects/{0}/stories";
@@ -19,17 +25,20 @@ namespace PivotalTrackerDotNet {
         const string StoryStateEndpoint = "projects/{0}/stories/{1}?story[current_state]={2}";
 
         public StoryService(string token)
-            : base(token) {
+            : base(token)
+        {
         }
 
-        public List<Story> GetAllStories(int projectId) {
+        List<Story> GetAllStories(int projectId)
+        {
             var request = BuildGetRequest();
             request.Resource = string.Format(AllStoriesEndpoint, projectId);
 
             return GetStories(projectId, request);
         }
 
-        public Story FinishStory(int projectId, int storyId) {
+        Story FinishStory(int projectId, int storyId)
+        {
             var originalStory = GetStory(projectId, storyId);
             string finished = originalStory.StoryType == StoryType.Chore ? "accepted" : "finished";
 
@@ -42,7 +51,8 @@ namespace PivotalTrackerDotNet {
             return story;
         }
 
-        public Story StartStory(int projectId, int storyId) {
+        Story StartStory(int projectId, int storyId)
+        {
             var request = BuildPutRequest();
             request.Resource = string.Format(StoryStateEndpoint, projectId, storyId, "started");
 
@@ -52,7 +62,8 @@ namespace PivotalTrackerDotNet {
             return story;
         }
 
-        public Story GetStory(int projectId, int storyId) {
+        Story GetStory(int projectId, int storyId)
+        {
             var request = BuildGetRequest();
             request.Resource = string.Format(SingleStoryEndpoint, projectId, storyId);
 
@@ -62,27 +73,32 @@ namespace PivotalTrackerDotNet {
             return GetStoryWithTasks(projectId, story);
         }
 
-        public List<Story> GetCurrentStories(int projectId) {
+        List<Story> GetCurrentStories(int projectId)
+        {
 
             return GetStoriesByIterationType(projectId, "current");
         }
 
-        public List<Story> GetDoneStories(int projectId) {
+        List<Story> GetDoneStories(int projectId)
+        {
             return GetStoriesByIterationType(projectId, "done");
         }
 
-        public List<Story> GetIceboxStories(int projectId) {
+        List<Story> GetIceboxStories(int projectId)
+        {
             var request = BuildGetRequest();
             request.Resource = string.Format(IceBoxEndpoint, projectId);
 
             return GetStories(projectId, request);
         }
 
-        public List<Story> GetBacklogStories(int projectId) {
+        List<Story> GetBacklogStories(int projectId)
+        {
             return GetStoriesByIterationType(projectId, "backlog");
         }
 
-        public Story RemoveStory(int projectId, int storyId) {
+        Story RemoveStory(int projectId, int storyId)
+        {
             var request = BuildDeleteRequest();
             request.Resource = string.Format(SingleStoryEndpoint, projectId, storyId);
 
@@ -92,7 +108,8 @@ namespace PivotalTrackerDotNet {
             return story;
         }
 
-        public Story AddNewStory(int projectId, Story toBeSaved) {
+        internal Story AddNewStory(int projectId, Story toBeSaved)
+        {
             var request = BuildPostRequest();
             request.Resource = string.Format(SaveStoryEndpoint, projectId, toBeSaved.Name, toBeSaved.RequestedBy, toBeSaved.Description, toBeSaved.StoryType);
 
@@ -102,14 +119,17 @@ namespace PivotalTrackerDotNet {
             return story;
         }
 
-        public void SaveTask(Task task) {
+        void SaveTask(Task task)
+        {
             var request = BuildPutRequest();
             request.Resource = string.Format(TaskEndpoint + "/{2}?task[description]={3}&task[complete]={4}&task[position]={5}", task.ProjectId, task.ParentStoryId, task.Id, HttpUtility.UrlEncode(task.Description), task.Complete.ToString().ToLower(), task.Position);
             RestClient.Execute(request);
         }
 
-        public void ReorderTasks(int projectId, int storyId, List<Task> tasks) {
-            Parallel.ForEach(tasks, t => {
+        void ReorderTasks(int projectId, int storyId, List<Task> tasks)
+        {
+            Parallel.ForEach(tasks, t =>
+            {
                 var request = BuildPutRequest();
                 request.Resource = string.Format(TaskEndpoint + "/{2}?task[position]={3}", t.ProjectId,
                                                  t.ParentStoryId, t.Id, t.Position);
@@ -117,7 +137,8 @@ namespace PivotalTrackerDotNet {
             });
         }
 
-        public Task AddNewTask(Task task) {
+        Task AddNewTask(Task task)
+        {
             var request = BuildPostRequest();
             request.Resource = string.Format(SaveNewTaskEndpoint, task.ProjectId, task.ParentStoryId, task.Description);
 
@@ -125,7 +146,8 @@ namespace PivotalTrackerDotNet {
             return response.Data;
         }
 
-        public Task RemoveTask(int projectId, int storyId, int taskId) {
+        Task RemoveTask(int projectId, int storyId, int taskId)
+        {
             var request = BuildDeleteRequest();
             request.Resource = string.Format(SingleTaskEndpoint, projectId, storyId, taskId);
 
@@ -133,7 +155,8 @@ namespace PivotalTrackerDotNet {
             return response.Data;
         }
 
-        public Task GetTask(int projectId, int storyId, int taskId) {
+        Task GetTask(int projectId, int storyId, int taskId)
+        {
             var request = BuildGetRequest();
             request.Resource = string.Format(SingleTaskEndpoint, projectId, storyId, taskId);
 
@@ -144,40 +167,126 @@ namespace PivotalTrackerDotNet {
             return output;
         }
 
-        public void AddComment(int projectId, int storyId, string comment) {
-            var request = BuildPostRequest();
-            request.Resource = string.Format(SaveNewCommentEndpoint, projectId, storyId, comment);
-            RestClient.Execute(request);
-        }
-
-        List<Story> GetStoriesByIterationType(int projectId, string iterationType) {
+        List<Story> GetStoriesByIterationType(int projectId, string iterationType)
+        {
             var request = BuildGetRequest();
             request.Resource = string.Format(StoryIterationEndpoint, projectId, iterationType);
 
             return GetStories(projectId, request);
         }
 
-        private List<Story> GetStories(int projectId, RestRequest request) {
+        private List<Story> GetStories(int projectId, RestRequest request)
+        {
             var response = RestClient.Execute<List<Story>>(request);
             var stories = response.Data ?? new List<Story>();
-            foreach (var story in stories) {
+            foreach (var story in stories)
+            {
                 GetStoryWithTasks(projectId, story);
             }
             return stories;
         }
 
-        Story GetStoryWithTasks(int projectId, Story story) {
+        Story GetStoryWithTasks(int projectId, Story story)
+        {
             var request = BuildGetRequest();
             request.Resource = string.Format(TaskEndpoint, projectId, story.Id);
             var taskResponse = RestClient.Execute<List<Task>>(request);
             story.Tasks = taskResponse.Data;
-            if (story.Tasks != null) {
-                story.Tasks.ForEach(e => {
+            if (story.Tasks != null)
+            {
+                story.Tasks.ForEach(e =>
+                {
                     e.ParentStoryId = story.Id;
                     e.ProjectId = projectId;
                 });
             }
             return story;
+        }
+
+        public Charcoal.Common.Entities.Story AddNewStory(long projectId, Charcoal.Common.Entities.Story toBeSaved)
+        {
+            return AddNewStory((int)projectId, toBeSaved.ConvertTo(projectId)).ConvertTo(IterationType.Undefined);
+        }
+
+        public Charcoal.Common.Entities.Task AddNewTask(Charcoal.Common.Entities.Task task, long projectId)
+        {
+            return AddNewTask(task.ConvertTo(projectId)).ConvertTo();
+        }
+
+        public List<Charcoal.Common.Entities.Story> GetStories(long projectId, IterationType iterationType)
+        {
+            var stories = new List<Story>();
+            switch (iterationType)
+            {
+                case IterationType.Current:
+                    stories = GetCurrentStories((int)projectId);
+                    break;
+                case IterationType.Icebox:
+                    stories = GetIceboxStories((int)projectId);
+                    break;
+                case IterationType.Backlog:
+                    stories = GetBacklogStories((int)projectId);
+                    break;
+            }
+            return stories.ConvertAll(e => e.ConvertTo(iterationType));
+        }
+
+        public List<Charcoal.Common.Entities.Story> GetAllStories(long projectId)
+        {
+            return GetAllStories((int)projectId).ConvertAll(e => e.ConvertTo(IterationType.Undefined));
+        }
+
+        public Charcoal.Common.Entities.Story FinishStory(long projectId, long storyId, IterationType iterationType)
+        {
+            return FinishStory((int)projectId, (int)storyId).ConvertTo(iterationType);
+        }
+
+        public Charcoal.Common.Entities.Story StartStory(long projectId, long storyId, IterationType iterationType)
+        {
+            return StartStory((int)projectId, (int)storyId).ConvertTo(iterationType);
+        }
+
+        public Charcoal.Common.Entities.Story GetStory(long projectId, long storyId, IterationType iterationType)
+        {
+           return GetStory((int)projectId, (int)storyId).ConvertTo(iterationType);
+        }
+
+        public Charcoal.Common.Entities.Story RemoveStory(long projectId, long storyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Charcoal.Common.Entities.Task GetTask(long projectId, long storyId, long taskId)
+        {
+            return GetTask((int) projectId, (int) storyId, (int) taskId).ConvertTo();
+        }
+
+        public Charcoal.Common.Entities.Task RemoveTask(long projectId, long storyId, long taskId)
+        {
+            return RemoveTask((int)projectId, (int)storyId, (int)taskId).ConvertTo();
+        }
+
+        public void SaveTask(Charcoal.Common.Entities.Task task, long projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public OperationResponse UpdateTask(Charcoal.Common.Entities.Task task, long projectId)
+        {
+            SaveTask(task.ConvertTo(projectId));
+            return new OperationResponse();
+        }
+
+        public void ReorderTasks(long projectId, long storyId, List<Charcoal.Common.Entities.Task> tasks)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public void AddComment(long projectId, long storyId, string comment)
+        {
+            var request = BuildPostRequest();
+            request.Resource = string.Format(SaveNewCommentEndpoint, projectId, storyId, comment);
+            RestClient.Execute(request);
         }
     }
 }

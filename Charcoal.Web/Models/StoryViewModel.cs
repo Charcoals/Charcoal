@@ -1,17 +1,21 @@
 ﻿using System.Linq;
-using PivotalTrackerDotNet.Domain;
+using Charcoal.Common.Entities;
 
 namespace Charcoal.Web.Models {
     public class StoryViewModel {
 
-        public StoryViewModel(Story story) {
+        public StoryViewModel(Story story, IterationType iterationType)
+        {
             Story = story;
+            IterationType = iterationType;
         }
 
-        public Story Story { get; set; }
+        public Story Story { get; private set; }
+        public IterationType IterationType { get; private set; }
 
         public string GetCardStyle() {
-            return (Story.Notes.Any() ? "flippable " : "" ) + "story-card " + Story.CurrentState.ToString().ToLower();
+            return "story-card " + Story.Status.ToString().ToLower();
+            //return (Story.Notes.Any() ? "flippable " : "" ) + "story-card " + Story.CurrentState.ToString().ToLower();
         }
 
         public string GetHeader() {
@@ -35,16 +39,18 @@ namespace Charcoal.Web.Models {
         }
 
         public string FormattedId {
-            get { return Story.ProjectId + "-" + Story.Id; }
+            get { return Story.ProjectId + "-" + Story.Id + "-" + (int)IterationType; }
         }
 
         public string AdvanceAction() {
-            if (Story.CurrentState == StoryStatus.UnStarted 
-                || Story.CurrentState == StoryStatus.Finished 
-                || Story.CurrentState == StoryStatus.Rejected) {
+            if (Story.Status == StoryStatus.UnStarted
+                || Story.Status == StoryStatus.Finished
+                || Story.Status == StoryStatus.Rejected)
+            {
                 return "start";
             }
-            if (Story.CurrentState == StoryStatus.Started) {
+            if (Story.Status == StoryStatus.Started)
+            {
                 return "finish";
             }
             return string.Empty;

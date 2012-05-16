@@ -86,7 +86,7 @@ function RemoveTask(id) {
     $.ajax({
         type: 'DELETE',
         url: '/Stories/DeleteTask',
-        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&taskId=' + items[2],
+        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&taskId=' + items[2] + '&iteration=' + items[3],
         success: buildReplaceCallback(items[0] + '-' + items[1])
     });
 }
@@ -96,7 +96,7 @@ function CompleteTask(id, completed) {
     $.ajax({
         type: 'PUT',
         url: '/Task/Complete',
-        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&completed=' + completed,
+        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&id=' + items[2] + '&completed=' + completed + '&iteration=' + items[3],
         success: buildReplaceCallback(id)
     });
 }
@@ -119,7 +119,7 @@ function StartStory(id) {
     $.ajax({
         type: 'PUT',
         url: '/Stories/Start',
-        data: 'projectId=' + items[0] + '&storyId=' + items[1],
+        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&iteration=' + items[2],
         success: buildReplaceCallback(id)
     });
 }
@@ -129,7 +129,7 @@ function FinishStory(id) {
     $.ajax({
         type: 'PUT',
         url: '/Stories/Finish',
-        data: 'projectId=' + items[0] + '&storyId=' + items[1],
+        data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&iteration=' + items[2],
         success: buildReplaceCallback(id)
     });
 }
@@ -141,7 +141,7 @@ function AddComment(id) {
         $.ajax({
             type: 'POST',
             url: '/Stories/AddComment',
-            data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&comment=' + comment,
+            data: 'projectId=' + items[0] + '&storyId=' + items[1] + '&comment=' + comment + '&iteration=' + items[2],
             success: buildReplaceCallback(id)
         });
     }

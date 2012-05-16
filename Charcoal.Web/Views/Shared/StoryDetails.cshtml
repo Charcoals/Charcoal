@@ -1,6 +1,6 @@
 ﻿@model Charcoal.Web.Models.StoryViewModel
 @{
-    var hasComments = Model.Story.Notes.Any();
+
 }
 <div class="@Model.GetCardStyle()">
     <div>
@@ -8,7 +8,7 @@
             <div class="estimate">@Model.GetEstimate()</div>
             <h3>@Model.GetHeader()</h3>
             <div class="story-text">
-                <p>@Model.Story.Name</p>
+                <p>@Model.Story.Title</p>
             </div>
             <div class="card-buttons">
                 @{
@@ -22,43 +22,15 @@
 
                     <button class="btn" onclick="FinishStory('@Model.FormattedId');return false;">
                         Finish Story</button>
-                        @Html.ActionLink("Add task", "Add", "Task", new { projectId = @Model.Story.ProjectId, storyId = @Model.Story.Id }, new { @class = "facebox btn success", rel = @Model.FormattedId })
+                        @Html.ActionLink("Add task", "Add", "Task", new { projectId = @Model.Story.ProjectId, storyId = @Model.Story.Id, iterationType=@Model.IterationType }, new { @class = "facebox btn success", rel = @Model.FormattedId })
                     }
 
                     <button class="btn" onclick="AddComment('@Model.FormattedId');return false;">
                         Add Comment</button>
-                    if (hasComments) {
-                    <button class="btn quickFlipCta">
-                        View Comments</button>
-                    }
+                    
                 }
             </div>
         </div>
     </div>
-    @{
-        if (hasComments) {
-        <div>
-            <div class="story-details card-back">
-                <div class="card-notes">
-                    @if (hasComments) {  
-                        <ul>
-                            @foreach (var note in Model.Story.Notes) {
-                                <li>
-                                    <p>
-                                        <strong>@note.Author - </strong>@note.Text <strong>(@note.Timestamp.Value.ToShortDateString())</strong></p>
-                                </li>
-                            }
-                        </ul>
-                    }
-                </div>
-                <div class="card-buttons">
-                    <button class="btn" onclick="AddComment('@Model.FormattedId');return false;">
-                        Add Comment</button>
-                    <button class="btn quickFlipCta">
-                        View Card</button>
-                </div>
-            </div>
-        </div>
-        }
-    }
+<!--Comment/Notes section removed-->
 </div>

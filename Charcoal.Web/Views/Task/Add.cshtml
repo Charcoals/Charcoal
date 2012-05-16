@@ -16,6 +16,7 @@
                 Initials: @Html.TextBox("initials", null, new { @class = "transparent", style="width:auto;" })
             </p>
         </div>
+        @Html.HiddenFor(model => model.IterationType)
         <div class="card-buttons">
             <input type="submit" class="btn success" value="Save" />
             <button class="btn danger facebox-cancel">

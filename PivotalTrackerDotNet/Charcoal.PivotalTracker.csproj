@@ -55,6 +55,7 @@
     <Compile Include="Domain\Project.cs" />
     <Compile Include="Domain\Story.cs" />
     <Compile Include="Domain\Task.cs" />
+    <Compile Include="EntitiyConverter.cs" />
     <Compile Include="IMembershipService.cs" />
     <Compile Include="IStoryService.cs" />
     <Compile Include="MembershipService.cs" />

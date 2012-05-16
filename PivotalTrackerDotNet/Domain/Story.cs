@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charcoal.Common.Entities;
 
 namespace PivotalTrackerDotNet.Domain {
     public class Story {
-        public int Id { get; set; }
-        public int ProjectId { get; set; }
+        public long Id { get; set; }
+        public long ProjectId { get; set; }
         public StoryType StoryType { get; set; }
         public int Estimate { get; set; }
         public StoryStatus CurrentState { get; set; }
@@ -17,8 +18,6 @@ namespace PivotalTrackerDotNet.Domain {
         public List<Task> Tasks { get; set; }
     }
 
-    public enum StoryStatus { UnScheduled, UnStarted, Started, Finished, Delivered, Accepted, Rejected }
-    public enum StoryType { Bug, Chore, Feature }
     //  <story>
     //  <id type="integer">$STORY_ID</id>
     //  <project_id type="integer">$PROJECT_ID</project_id>

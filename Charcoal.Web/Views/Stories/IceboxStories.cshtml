@@ -1,4 +1,5 @@
-﻿@using Charcoal.Web.Models
+﻿@using Charcoal.Common.Entities
+@using Charcoal.Web.Models
 @model Charcoal.Web.Models.ProjectStoryViewModel
 @{
     ViewBag.Title = "IceboxStories";
@@ -16,6 +17,6 @@
 </p>
 <table class="story-table">
     @foreach (var story in Model.Stories) {
-        @Html.Partial("StoryRow", new StoryRowViewModel(story))
+        @Html.Partial("StoryRow", new StoryRowViewModel(story, IterationType.Icebox))
     }
 </table>

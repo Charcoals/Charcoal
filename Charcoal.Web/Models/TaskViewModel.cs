@@ -1,16 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using PivotalTrackerDotNet.Domain;
+using Charcoal.Common.Entities;
 
 namespace Charcoal.Web.Models {
     public class TaskViewModel {
+        private readonly long m_projectId;
 
-        public TaskViewModel(Task task) {
+        public TaskViewModel(Task task, long projectId, IterationType iterationType)
+        {
+            m_projectId = projectId;
             Task = task;
+            IterationType = iterationType;
         }
 
         public Task Task { get; set; }
+        public IterationType IterationType { get; private set; }
 
         static Regex FullOwnerRegex = new Regex(@"([ ]?\-[ ]?)?(\()?[A-Z]{2,3}(\/[A-Z]{2,3})*(\))?$", RegexOptions.Compiled);
 
@@ -21,25 +26,10 @@ namespace Charcoal.Web.Models {
             return descriptionWithoutOwners.Length == 0 ? placeholder : descriptionWithoutOwners.TrimEnd();
         }
 
-        public void SetOwners(List<Person> owners) {
-            if (owners.Count == 0) return;
-
-            var match = FullOwnerRegex.Match(Task.Description);
-            if (match != null) {
-                Task.Description = Task.Description.Remove(match.Index);
-                var initials = string.Join("/", owners.Select(o => o.Initials));
-                Task.Description += " - " + initials;
-            }
-        }
-
-        static Regex regex = new Regex(@"\([A-Z]{2,3}(\/[A-Z]{2,3})*\)", RegexOptions.Singleline | RegexOptions.Compiled);
-
-        public List<string> GetOwners() {
-            var matches = regex.Matches(Task.Description);
-            if (matches.Count == 0) return new List<string>();
-            return matches[0].Value
-                .TrimStart('(').TrimEnd(')')
-                .Split('/').ToList();
+        public List<string> GetOwners()
+        {
+            return new List<string>();
+            //return Task.Assignees.Split('/').ToList();
         }
 
         public string GetStyle() {
@@ -54,17 +44,17 @@ namespace Charcoal.Web.Models {
             }
         }
 
-        public int ProjectId { get { return Task.ProjectId; } }
+        public long ProjectId { get { return m_projectId; } }
 
-        public int StoryId { get { return Task.ParentStoryId; } }
+        public long StoryId { get { return Task.StoryId; } }
 
-        public int Id { get { return Task.Id; } }
+        public long Id { get { return Task.Id; } }
 
-        public bool Complete { get { return Task.Complete; } }
+        public bool Complete { get { return Task.IsCompleted; } }
 
         public string Description { get { return Task.Description; } }
 
-        public object DisplayId { get { return string.Format("{0}-{1}-{2}", ProjectId, StoryId, Id); } }
+        public object DisplayId { get { return string.Format("{0}-{1}-{2}-{3}", ProjectId, StoryId, Id, (int)IterationType); } }
 
         public string DisplayStoryId { get { return string.Format("{0}-{1}", ProjectId, StoryId); } }
     }

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using PivotalTrackerDotNet.Domain;
+using Charcoal.Common.Entities;
 
 namespace Charcoal.Web.Models {
 	public class ProjectStoryViewModel {

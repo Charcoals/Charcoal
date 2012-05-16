@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace PivotalTrackerDotNet.Domain {
     public class Task {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Description { get; set; }
         public bool Complete { get; set; }
-        public int ParentStoryId { get; set; }
-        public int ProjectId { get; set; }
+        public long ParentStoryId { get; set; }
+        public long ProjectId { get; set; }
         public int Position { get; set; }
 
         public string GetIdToken() {
