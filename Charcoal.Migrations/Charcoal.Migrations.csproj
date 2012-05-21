@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddEstimateAndStoryTypeAndIterationTypeToStoriesTable.cs" />
     <Compile Include="AddPasswordColumnToUsersTableAndMakeEmailUnique.cs" />
     <Compile Include="CreateProjectTableAndAddProjectIdToStoriesTable.cs" />
     <Compile Include="CreateStoriesTable.cs" />

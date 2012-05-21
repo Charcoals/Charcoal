@@ -53,7 +53,7 @@ namespace PivotalTrackerDotNet
                 Id = story.Id,
                 Description = story.Description,
                 Name = story.Title,
-                Estimate = story.Estimate,
+                Estimate = story.Estimate??0,
                 CurrentState = story.Status,
                 StoryType = story.StoryType,
                 Tasks = story.Tasks.Select(e => e.ConvertTo(projectId)).ToList(),

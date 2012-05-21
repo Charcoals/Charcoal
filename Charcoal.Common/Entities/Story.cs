@@ -15,8 +15,7 @@ namespace Charcoal.Common.Entities
         public Project Project { get; set; }
         public List<Task> Tasks { get; set; }
 
-        //TODO: Add fields below to the database via a migration script
-        public int Estimate { get; set; }
+        public int? Estimate { get; set; }
         public StoryType StoryType { get; set; }
         public IterationType IterationType { get; set; }
     }
