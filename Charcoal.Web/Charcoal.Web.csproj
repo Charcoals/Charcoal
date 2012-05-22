@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AccountProviderFactory.cs" />
     <Compile Include="Models\ActivityViewModel.cs" />
     <Compile Include="Models\CharcoalMembershipProvider.cs" />
     <Compile Include="Models\ProjectStoryViewModel.cs" />

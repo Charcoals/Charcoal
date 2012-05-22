@@ -274,7 +274,7 @@ namespace PivotalTrackerDotNet
         public OperationResponse UpdateTask(Charcoal.Common.Entities.Task task, long projectId)
         {
             SaveTask(task.ConvertTo(projectId));
-            return new OperationResponse();
+            return new OperationResponse(true);
         }
 
         public void ReorderTasks(long projectId, long storyId, List<Charcoal.Common.Entities.Task> tasks)

@@ -47,6 +47,25 @@ namespace Charcoal.DataLayer.Tests
         }
 
         [Test]
+        public void CanGetAPIKey()
+        {
+            var user = new User();
+            user.APIKey = Guid.NewGuid().ToString();
+            user.UserName = "loooooooo";
+            user.LastName = "loooe3rewrrewooooo";
+            user.FirstName = "dsfsdf";
+            user.Password = "wololo";
+            user.Privileges = Privilege.Developer | Privilege.Product;
+            user.Email = "dude@dude.org";
+
+            DatabaseOperationResponse response = m_repository.Save(user);
+            Assert.IsTrue(response.HasSucceeded);
+            var key = m_repository.GetAPIKey(user.UserName, user.Password);
+            Assert.IsNotEmpty(key);
+            Assert.AreEqual(user.APIKey, key);
+        }
+
+        [Test]
         public void CanValidateUser()
         {
             var user = new User();

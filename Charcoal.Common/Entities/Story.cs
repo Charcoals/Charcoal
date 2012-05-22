@@ -14,7 +14,6 @@ namespace Charcoal.Common.Entities
         public long ProjectId { get; set; }
         public Project Project { get; set; }
         public List<Task> Tasks { get; set; }
-
         public int? Estimate { get; set; }
         public StoryType StoryType { get; set; }
         public IterationType IterationType { get; set; }

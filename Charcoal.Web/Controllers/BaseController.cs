@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using PivotalTrackerDotNet.Domain;
 using System.Web.Security;
+using Charcoal.Web.Models;
 
 namespace Charcoal.Web.Controllers {
     [SessionState(System.Web.SessionState.SessionStateBehavior.ReadOnly)]
@@ -17,6 +18,23 @@ namespace Charcoal.Web.Controllers {
                 throw new NotAuthenticatedException();
             }
             set { Session.Add("token", value); }
+        }
+
+        protected AuthenticationType Authentication
+        {
+            get
+            {
+                if (Session != null)
+                {
+                    var type = Session["authType"];
+                    if (type is AuthenticationType)
+                    {
+                        return (AuthenticationType)type ;
+                    }
+                }
+                throw new NotAuthenticatedException();
+            }
+            set { Session.Add("authType", value); }
         }
 
         protected override void OnException(ExceptionContext filterContext) {

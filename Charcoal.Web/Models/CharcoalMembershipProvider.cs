@@ -27,8 +27,6 @@ namespace Charcoal.Web.Models
             m_userRepository = userRepository;
         }
 
-
-
         public override void Initialize(string name, NameValueCollection config)
         {
             if (config == null)
@@ -129,9 +127,9 @@ namespace Charcoal.Web.Models
             throw new NotImplementedException();
         }
 
-        public override string GetPassword(string username, string answer)
+        public override string GetPassword(string username, string password)
         {
-            throw new NotImplementedException();
+            return UserRepository.GetAPIKey(username, password);
         }
 
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)

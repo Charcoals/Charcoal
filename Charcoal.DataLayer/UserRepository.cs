@@ -10,6 +10,7 @@ namespace Charcoal.DataLayer
         dynamic FindByEmail(string email);
         dynamic FindByUserName(string name);
         bool IsValid(string userName, string password);
+        string GetAPIKey(string userName, string password);
     }
 
     public class UserRepository : IUserRepository
@@ -33,6 +34,11 @@ namespace Charcoal.DataLayer
             try
             {
                 var database = Database.OpenConnection(m_connectionString);
+                if (string.IsNullOrEmpty(entity.APIKey))
+                {
+                    entity.APIKey = Guid.NewGuid().ToString();
+                }
+
                 database.Users.Insert(entity);
                 return new DatabaseOperationResponse(true);
             }
@@ -118,6 +124,13 @@ namespace Charcoal.DataLayer
             var database = Database.OpenConnection(m_connectionString);
             return database.Users.Find(database.Users.UserName == userName
                                        && database.Users.Password == password) != null;
+        }
+
+        public string GetAPIKey(string userName, string password)
+        {
+            var database = Database.OpenConnection(m_connectionString);
+            return database.Users.Find(database.Users.UserName == userName
+                && database.Users.Password == password).APIKey;
         }
     }
 }
