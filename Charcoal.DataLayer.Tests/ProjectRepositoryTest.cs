@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Charcoal.Common.Entities;
 using NUnit.Framework;
 using Simple.Data;
@@ -34,10 +35,10 @@ namespace Charcoal.DataLayer.Tests
             DatabaseOperationResponse response = m_repository.Save(project);
             Assert.IsTrue(response.HasSucceeded);
 
-            var users = m_database.Projects.All().ToList<Project>();
-            Assert.AreEqual(1, users.Count);
+            var projects = m_database.Projects.All().ToList<Project>();
+            Assert.AreEqual(1, projects.Count);
 
-            VerifyProject(project, users[0]);
+            VerifyProject(project, projects[0]);
         }
 
         [Test]
@@ -109,9 +110,40 @@ namespace Charcoal.DataLayer.Tests
 
             Project retrievedProject = m_database.Projects.All().ToList<Project>()[0];
 
-            var foundUsers = m_repository.FindAll();
-            Assert.AreEqual(1, foundUsers.Count);
-            VerifyProject(retrievedProject, foundUsers[0]);
+            var projects = m_repository.FindAll();
+            Assert.AreEqual(1, projects.Count);
+            VerifyProject(retrievedProject, projects[0]);
+        }
+
+        [Test]
+        public void CanFindAllByUserToken()
+        {
+            var project = new Project();
+            project.Title = "loooooooo";
+            project.Description = "loooe3rewrrewooooo";
+
+            var project2 = new Project();
+            project2.Title = "ssss";
+            project.Description = "loooe3rewrrewooooo";
+
+            DatabaseOperationResponse response = m_repository.Save(project);
+            Assert.IsTrue(response.HasSucceeded);
+
+            response = m_repository.Save(project2);
+            Assert.IsTrue(response.HasSucceeded);
+
+            var token = "yuiu-998";
+            m_database.Users.Insert(UserName: "somedude", FirstName: "Some", LastName: "Dude", APIKey: token,
+            Email: "aaa@aaa.com", Privileges: 2, Password: "lolll");
+
+            List<Project> dbProjects = m_database.Projects.All().ToList<Project>();
+            long userId = m_database.Users.All().ToList<User>()[0].Id;
+
+            m_database.UsersXProjects.Insert(UserId: userId, ProjectId: dbProjects[0].Id);
+            m_database.UsersXProjects.Insert(UserId: userId, ProjectId: dbProjects[1].Id);
+
+            var projects = m_repository.GetProjectsByUseToken(token);
+            Assert.AreEqual(2, projects.Count);
         }
 
 

@@ -1,10 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using Simple.Data;
 
 namespace Charcoal.DataLayer
 {
-    public class ProjectRepository : IRepository
+    public interface IProjectRepository:IRepository
+    {
+        dynamic GetProjectsByUseToken(string apiToken);
+    }
+
+    public class ProjectRepository : IProjectRepository
     {
 
         private readonly string m_connectionString;
@@ -13,6 +19,13 @@ namespace Charcoal.DataLayer
         {
             m_connectionString = connectionString;
         }
+
+        public ProjectRepository()
+            : this(ConfigurationManager.ConnectionStrings["Server"].ConnectionString)
+        {
+            
+        }
+
 
         public DatabaseOperationResponse Save(dynamic entity)
         {
@@ -81,6 +94,15 @@ namespace Charcoal.DataLayer
         {
             var database = Database.OpenConnection(m_connectionString);
             return database.Projects.FindById(id);
+        }
+
+        public dynamic GetProjectsByUseToken(string apiToken)
+        {
+            var database = Database.OpenConnection(m_connectionString);
+
+            var userId = database.Users.FindByAPIKey(apiToken).Id;
+
+            return database.Projects.FindAll(database.Projects.UsersXProjects.Users.Id == userId).ToList();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Security;
+﻿using System.Web.Security;
 using Charcoal.Common;
 using Charcoal.Common.Entities;
 using Charcoal.Common.Providers;

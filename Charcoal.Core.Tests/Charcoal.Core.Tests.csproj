@@ -31,6 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,16 +47,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CharcoalProjectProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Charcoal.Common\Charcoal.Common.csproj">
+      <Project>{CB6B0C49-5469-49BE-B46A-9BB9E32CFDD1}</Project>
+      <Name>Charcoal.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Charcoal.Core\Charcoal.Core.csproj">
       <Project>{1F95B1D5-BD33-4CEF-8F23-E0AA83AED9A7}</Project>
       <Name>Charcoal.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Charcoal.DataLayer\Charcoal.DataLayer.csproj">
+      <Project>{73FE8271-3D9F-4827-80E4-330DDB2141FD}</Project>
+      <Name>Charcoal.DataLayer</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
