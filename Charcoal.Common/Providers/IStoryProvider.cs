@@ -14,7 +14,7 @@ namespace Charcoal.Common.Providers
 		Story GetStory(long projectId, long storyId, IterationType iterationType);
 		Story RemoveStory(long projectId, long storyId);
 		Task GetTask(long projectId, long storyId, long taskId);
-		Task RemoveTask(long projectId, long storyId, long taskId);
+		bool RemoveTask(long projectId, long storyId, long taskId);
         void SaveTask(Task task, long projectId);
 		OperationResponse UpdateTask(Task task, long projectId);
 		void ReorderTasks(long projectId, long storyId, List<Task> tasks);

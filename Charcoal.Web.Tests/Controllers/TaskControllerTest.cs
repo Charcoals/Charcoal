@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using Charcoal.Web.Controllers;
 using Charcoal.Web.Models;
 using NUnit.Framework;
-using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
 using Rhino.Mocks;
 using System.Collections.Generic;

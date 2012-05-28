@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.Migrations", "Char
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.Common", "Charcoal.Common\Charcoal.Common.csproj", "{CB6B0C49-5469-49BE-B46A-9BB9E32CFDD1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{33A977E9-3766-4129-B2E4-2CA6807B75FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4882A65D-1E77-4CDA-AA60-0608A4E2E7E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -122,6 +126,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{939B503B-5AD7-4FCA-8E13-1616825CB3A5} = {33A977E9-3766-4129-B2E4-2CA6807B75FA}
+		{5BA00BA7-1177-4B07-8D8B-F2D98345FD7B} = {33A977E9-3766-4129-B2E4-2CA6807B75FA}
+		{600775AF-0572-4131-A180-2BD0B8930E84} = {33A977E9-3766-4129-B2E4-2CA6807B75FA}
+		{0A030659-3A2D-4F60-A515-DC28AB5252E0} = {4882A65D-1E77-4CDA-AA60-0608A4E2E7E1}
+		{1F95B1D5-BD33-4CEF-8F23-E0AA83AED9A7} = {4882A65D-1E77-4CDA-AA60-0608A4E2E7E1}
+		{73FE8271-3D9F-4827-80E4-330DDB2141FD} = {4882A65D-1E77-4CDA-AA60-0608A4E2E7E1}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = PivotalTrackerDotNet\PivotalTrackerDotNet.csproj

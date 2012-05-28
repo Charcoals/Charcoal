@@ -63,7 +63,6 @@ nunit :unit => :build do |nunit|
 	nunit.assemblies "Charcoal.DataLayer.Tests/bin/Debug/Charcoal.DataLayer.Tests.dll"
 end
 
-
 desc "Migrate Database Up. example rake migrate['prod']"
 fluentmigrator :migrate, [:db] => :build do |migrator, args|
 	#migrate local test database

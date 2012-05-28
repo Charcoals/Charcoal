@@ -1,6 +1,6 @@
 using Charcoal.Common.Providers;
 using Charcoal.Core;
-using PivotalTrackerDotNet;
+using Charcoal.PivotalTracker;
 
 namespace Charcoal.Web.Models
 {
@@ -10,7 +10,7 @@ namespace Charcoal.Web.Models
         {
             if(type== AuthenticationType.Charcoal)
                 return new CharcoalAccountProvider();
-            return new AuthenticationService();
+            return new PTAuthenticationProvider();
         }
     }
 }

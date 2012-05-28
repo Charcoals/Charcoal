@@ -40,6 +40,9 @@
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PivotalTrackerDotNet">
+      <HintPath>..\packages\PivotalTrackerDotNet\PivotalTrackerDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="Simple.Data, Version=0.16.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Simple.Data.Core.0.16.1.0\lib\net40\Simple.Data.dll</HintPath>
     </Reference>
@@ -79,6 +82,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AnalyticsController.cs" />
     <Compile Include="Controllers\ElmahController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />

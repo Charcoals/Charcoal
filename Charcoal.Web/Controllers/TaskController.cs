@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Web.Mvc;
 using Charcoal.Common.Entities;
+using Charcoal.PivotalTracker;
 using Charcoal.Web.Models;
 using Charcoal.Common.Providers;
-using PivotalTrackerDotNet;
 
 namespace Charcoal.Web.Controllers
 {
@@ -13,7 +13,7 @@ namespace Charcoal.Web.Controllers
         IStoryProvider service;
         IStoryProvider Service
         {
-            get { return service ?? (service = new StoryService(Token)); }
+            get { return service ?? (service = new PTStoryProvider(Token)); }
         }
         public TaskController() : this(null) { }
 

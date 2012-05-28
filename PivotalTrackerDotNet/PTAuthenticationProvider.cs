@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Charcoal.Common;
 using Charcoal.Common.Entities;
 using Charcoal.Common.Providers;
+using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
 using RestSharp;
 
-namespace PivotalTrackerDotNet
+namespace Charcoal.PivotalTracker
 {
-    public class AuthenticationService : IAccountProvider
+    public class PTAuthenticationProvider : IAccountProvider
     {
         private const string AuthenticationEndpoint = "tokens/active";
 

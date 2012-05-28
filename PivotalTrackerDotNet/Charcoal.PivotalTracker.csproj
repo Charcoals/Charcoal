@@ -8,8 +8,8 @@
     <ProjectGuid>{579B9125-0944-4C30-A31F-6C70A0DDE1C8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PivotalTrackerDotNet</RootNamespace>
-    <AssemblyName>PivotalTrackerDotNet</AssemblyName>
+    <RootNamespace>Charcoal.PivotalTracker</RootNamespace>
+    <AssemblyName>Charcoal.PivotalTracker</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,6 +33,10 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PivotalTrackerDotNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\PivotalTrackerDotNet\PivotalTrackerDotNet.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.102.5\lib\net35\RestSharp.dll</HintPath>
     </Reference>
@@ -45,24 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AAuthenticatedService.cs" />
-    <Compile Include="AuthenticationService.cs" />
-    <Compile Include="Domain\Activity.cs" />
-    <Compile Include="Domain\AuthenticationToken.cs" />
-    <Compile Include="Domain\Membership.cs" />
-    <Compile Include="Domain\Note.cs" />
-    <Compile Include="Domain\Person.cs" />
-    <Compile Include="Domain\Project.cs" />
-    <Compile Include="Domain\Story.cs" />
-    <Compile Include="Domain\Task.cs" />
-    <Compile Include="EntitiyConverter.cs" />
-    <Compile Include="IMembershipService.cs" />
-    <Compile Include="IStoryService.cs" />
-    <Compile Include="MembershipService.cs" />
-    <Compile Include="PivotalTrackerRestEndpoint.cs" />
-    <Compile Include="ProjectService.cs" />
+    <Compile Include="PTAuthenticationProvider.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="PTProjectProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StoryService.cs" />
+    <Compile Include="PTStoryProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

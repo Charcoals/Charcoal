@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using Charcoal.Common.Providers;
-using PivotalTrackerDotNet;
+using Charcoal.PivotalTracker;
 
 namespace Charcoal.Web.Controllers {
     public class ProjectsController : BaseController
@@ -9,7 +9,7 @@ namespace Charcoal.Web.Controllers {
         IProjectProvider projectService;
         IProjectProvider ProjectService
         {
-            get { return projectService ?? (projectService = new ProjectService(Token)); }
+            get { return projectService ?? (projectService = new PTProjectProvider(Token)); }
         }
 
         public ProjectsController() : this(null) { }
@@ -26,7 +26,7 @@ namespace Charcoal.Web.Controllers {
         }
 
         //public ActionResult RecentActivities(int projectId) {
-        //    return View(ProjectService.GetRecentActivity(projectId));
+        //    return View(PTProjectProvider.GetRecentActivity(projectId));
         //} 
 
     }
