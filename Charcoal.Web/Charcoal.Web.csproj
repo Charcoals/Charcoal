@@ -102,6 +102,7 @@
     <Compile Include="Models\AccountProviderFactory.cs" />
     <Compile Include="Models\ActivityViewModel.cs" />
     <Compile Include="Models\CharcoalMembershipProvider.cs" />
+    <Compile Include="Models\ProjectProviderFactory.cs" />
     <Compile Include="Models\ProjectStoryViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Models\StoryViewModel.cs" />

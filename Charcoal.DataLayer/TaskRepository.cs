@@ -4,7 +4,12 @@ using Simple.Data;
 
 namespace Charcoal.DataLayer
 {
-    public class TaskRepository : IRepository
+    public interface ITaskRepository : IRepository
+    {
+        
+    }
+
+    public class TaskRepository : ITaskRepository
     {
 
         private readonly string m_connectionString;

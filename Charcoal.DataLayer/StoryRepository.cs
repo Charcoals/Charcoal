@@ -1,12 +1,25 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using Simple.Data;
 
 namespace Charcoal.DataLayer
 {
-    public class StoryRepository : IRepository
+    public interface IStoryRepository:IRepository
+    {
+        dynamic FindAllByIterationType(long projectId, int itertionType);
+        dynamic FindAllByProjectId(long projectId);
+    }
+
+    public class StoryRepository : IStoryRepository
     {
         private readonly string m_connectionString;
+
+        public StoryRepository()
+            : this(ConfigurationManager.ConnectionStrings["Server"].ConnectionString)
+        {
+            
+        }
 
         internal StoryRepository(string connectionString)
         {
@@ -20,8 +33,8 @@ namespace Charcoal.DataLayer
                 entity.CreatedOn = DateTime.UtcNow;
                 entity.LastEditedOn = DateTime.UtcNow;
                 var database = Database.OpenConnection(m_connectionString);
-                database.Stories.Insert(entity);
-                return new DatabaseOperationResponse(true);
+                var result = database.Stories.Insert(entity);
+                return new DatabaseOperationResponse(true){Object = result};
             }
             catch (Exception ex)
             {
@@ -89,6 +102,26 @@ namespace Charcoal.DataLayer
                 .With(database.Stories.Projects.As("Project"))
                 .WithTasks(database.Stories.Id == database.Tasks.StoryId)
                 .FirstOrDefault();
+        }
+
+        public dynamic FindAllByIterationType(long projectId, int itertionType)
+        {
+            var database = Database.OpenConnection(m_connectionString);
+            return database.Stories.FindAll(database.Stories.IterationType == itertionType 
+                                        && database.Stories.ProjectId == projectId)
+               .With(database.Stories.Projects.As("Project"))
+               .WithTasks(database.Stories.Id == database.Tasks.StoryId)
+                .ToList();
+        
+        }
+
+        public dynamic FindAllByProjectId(long projectId)
+        {
+            var database = Database.OpenConnection(m_connectionString);
+            return database.Stories.FindAll(database.Stories.ProjectId == projectId)
+               .With(database.Stories.Projects.As("Project"))
+               .WithTasks(database.Stories.Id == database.Tasks.StoryId)
+                .ToList();
         }
     }
 }
