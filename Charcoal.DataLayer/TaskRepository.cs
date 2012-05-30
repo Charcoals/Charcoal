@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using Simple.Data;
 
 namespace Charcoal.DataLayer
@@ -14,6 +15,12 @@ namespace Charcoal.DataLayer
 
         private readonly string m_connectionString;
 
+        public TaskRepository()
+            : this(ConfigurationManager.ConnectionStrings["Server"].ConnectionString)
+        {
+            
+        }
+
         internal TaskRepository(string connectionString)
         {
             m_connectionString = connectionString;
@@ -26,8 +33,8 @@ namespace Charcoal.DataLayer
                 entity.CreatedOn = DateTime.UtcNow;
                 entity.LastEditedOn = DateTime.UtcNow;
                 var database = Database.OpenConnection(m_connectionString);
-                database.Tasks.Insert(entity);
-                return new DatabaseOperationResponse(true);
+                var result = database.Tasks.Insert(entity);
+                return new DatabaseOperationResponse(true){Object = result};
             }
             catch (Exception ex)
             {

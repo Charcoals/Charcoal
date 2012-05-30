@@ -12,11 +12,10 @@ namespace Charcoal.Common.Providers
 		Story FinishStory(long projectId, long storyId, IterationType iterationType);
 		Story StartStory(long projectId, long storyId, IterationType iterationType);
 		Story GetStory(long projectId, long storyId, IterationType iterationType);
-		Story RemoveStory(long projectId, long storyId);
+		bool RemoveStory(long projectId, long storyId);
 		Task GetTask(long projectId, long storyId, long taskId);
 		bool RemoveTask(long projectId, long storyId, long taskId);
-        void SaveTask(Task task, long projectId);
-		OperationResponse UpdateTask(Task task, long projectId);
+	    OperationResponse UpdateTask(Task task, long projectId);
 		void ReorderTasks(long projectId, long storyId, List<Task> tasks);
 		void AddComment(long projectId, long storyId, string comment);
 	}

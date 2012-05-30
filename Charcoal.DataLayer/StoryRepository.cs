@@ -7,8 +7,9 @@ namespace Charcoal.DataLayer
 {
     public interface IStoryRepository:IRepository
     {
-        dynamic FindAllByIterationType(long projectId, int itertionType);
+        dynamic FindAllByIterationType(long projectId, int iterationType);
         dynamic FindAllByProjectId(long projectId);
+        dynamic UpdateStoryStatus(long storyId, int status);
     }
 
     public class StoryRepository : IStoryRepository
@@ -98,16 +99,13 @@ namespace Charcoal.DataLayer
         public dynamic Find(long id)
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Stories.FindAllById(id)
-                .With(database.Stories.Projects.As("Project"))
-                .WithTasks(database.Stories.Id == database.Tasks.StoryId)
-                .FirstOrDefault();
+            return GetStory(id, database);
         }
 
-        public dynamic FindAllByIterationType(long projectId, int itertionType)
+        public dynamic FindAllByIterationType(long projectId, int iterationType)
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Stories.FindAll(database.Stories.IterationType == itertionType 
+            return database.Stories.FindAll(database.Stories.IterationType == iterationType 
                                         && database.Stories.ProjectId == projectId)
                .With(database.Stories.Projects.As("Project"))
                .WithTasks(database.Stories.Id == database.Tasks.StoryId)
@@ -122,6 +120,21 @@ namespace Charcoal.DataLayer
                .With(database.Stories.Projects.As("Project"))
                .WithTasks(database.Stories.Id == database.Tasks.StoryId)
                 .ToList();
+        }
+
+        public dynamic UpdateStoryStatus(long storyId, int status)
+        {
+            var database = Database.OpenConnection(m_connectionString);
+            int updates= database.Stories.UpdateById(Id: storyId, Status: status);
+            return updates == 1 ? GetStory(storyId, database) : null;
+        }
+
+        private static dynamic GetStory(long id, dynamic database)
+        {
+            return database.Stories.FindAllById(id)
+                .With(database.Stories.Projects.As("Project"))
+                .WithTasks(database.Stories.Id == database.Tasks.StoryId)
+                .FirstOrDefault();
         }
     }
 }

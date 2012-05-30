@@ -105,6 +105,7 @@
     <Compile Include="Models\ProjectProviderFactory.cs" />
     <Compile Include="Models\ProjectStoryViewModel.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
+    <Compile Include="Models\StoryProviderFactory.cs" />
     <Compile Include="Models\StoryViewModel.cs" />
     <Compile Include="Models\StoryRowViewModel.cs" />
     <Compile Include="Models\TaskViewModel.cs" />

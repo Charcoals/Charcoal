@@ -6,12 +6,14 @@ using Charcoal.DataLayer;
 
 namespace Charcoal.Core
 {
-    public class CharcoalStoryProvider:IStoryProvider
+    public class CharcoalStoryProvider : IStoryProvider
     {
-        private IStoryRepository m_storyRepository;
+        private readonly ITaskRepository m_taskRepository;
+        private readonly IStoryRepository m_storyRepository;
 
-        public CharcoalStoryProvider(IStoryRepository storyRepository = null)
+        public CharcoalStoryProvider(IStoryRepository storyRepository = null, ITaskRepository taskRepository = null)
         {
+            m_taskRepository = taskRepository ?? new TaskRepository();
             m_storyRepository = storyRepository ?? new StoryRepository();
         }
 
@@ -24,12 +26,13 @@ namespace Charcoal.Core
 
         public Task AddNewTask(Task task, long projectId)
         {
-            throw new System.NotImplementedException();
+            var response = m_taskRepository.Save(task);
+            return response.HasSucceeded ? response.Object : null;
         }
 
         public List<Story> GetStories(long projectId, IterationType iterationType)
         {
-            return m_storyRepository.FindAllByIterationType(projectId, (int) iterationType);
+            return m_storyRepository.FindAllByIterationType(projectId, (int)iterationType);
         }
 
         public List<Story> GetAllStories(long projectId)
@@ -39,42 +42,38 @@ namespace Charcoal.Core
 
         public Story FinishStory(long projectId, long storyId, IterationType iterationType)
         {
-            throw new System.NotImplementedException();
+            return m_storyRepository.UpdateStoryStatus(storyId, (int)StoryStatus.Finished);
         }
 
         public Story StartStory(long projectId, long storyId, IterationType iterationType)
         {
-            throw new System.NotImplementedException();
+            return m_storyRepository.UpdateStoryStatus(storyId, (int)StoryStatus.Started);
         }
 
         public Story GetStory(long projectId, long storyId, IterationType iterationType)
         {
-            throw new System.NotImplementedException();
+            return m_storyRepository.Find(storyId);
         }
 
-        public Story RemoveStory(long projectId, long storyId)
+        public bool RemoveStory(long projectId, long storyId)
         {
-            throw new System.NotImplementedException();
+            return m_storyRepository.Delete(storyId).HasSucceeded;
         }
 
         public Task GetTask(long projectId, long storyId, long taskId)
         {
-            throw new System.NotImplementedException();
+            return m_taskRepository.Find(taskId);
         }
 
         public bool RemoveTask(long projectId, long storyId, long taskId)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void SaveTask(Task task, long projectId)
-        {
-            throw new System.NotImplementedException();
+            return m_taskRepository.Delete(taskId).HasSucceeded;
         }
 
         public OperationResponse UpdateTask(Task task, long projectId)
         {
-            throw new System.NotImplementedException();
+            var res = m_taskRepository.Update(task);
+            return new OperationResponse(res.HasSucceeded, res.Description);
         }
 
         public void ReorderTasks(long projectId, long storyId, List<Task> tasks)

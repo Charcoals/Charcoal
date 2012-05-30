@@ -6,7 +6,7 @@ namespace Charcoal.DataLayer
     {
         DatabaseOperationResponse Save(dynamic entity);
         DatabaseOperationResponse DeepSave(dynamic entity);
-
+        DatabaseOperationResponse Update(dynamic entity);
         DatabaseOperationResponse Delete(long id);
 
         dynamic FindAll();

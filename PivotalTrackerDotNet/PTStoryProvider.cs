@@ -63,9 +63,9 @@ namespace Charcoal.PivotalTracker
             return m_service.GetStory((int)projectId, (int)storyId).ConvertTo(iterationType);
         }
 
-        public Charcoal.Common.Entities.Story RemoveStory(long projectId, long storyId)
+        public bool RemoveStory(long projectId, long storyId)
         {
-            return m_service.RemoveStory((int) projectId, (int) storyId).ConvertTo(IterationType.Undefined);
+            return m_service.RemoveStory((int) projectId, (int) storyId).ConvertTo(IterationType.Undefined) != null;
         }
 
         public Charcoal.Common.Entities.Task GetTask(long projectId, long storyId, long taskId)
@@ -76,11 +76,6 @@ namespace Charcoal.PivotalTracker
         public bool RemoveTask(long projectId, long storyId, long taskId)
         {
             return m_service.RemoveTask((int)projectId, (int)storyId, (int)taskId);
-        }
-
-        public void SaveTask(Charcoal.Common.Entities.Task task, long projectId)
-        {
-            m_service.AddNewTask(task.ConvertTo(projectId));
         }
 
         public OperationResponse UpdateTask(Charcoal.Common.Entities.Task task, long projectId)

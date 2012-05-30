@@ -18,5 +18,8 @@ namespace Charcoal.Common.Entities
         All
     }
 
-    public enum StoryStatus { UnScheduled, UnStarted, Started, Finished, Delivered, Accepted, Rejected }
+    public enum StoryStatus
+    {
+        UnScheduled, UnStarted, Started, Finished, Delivered, Accepted, Rejected
+    }
 }

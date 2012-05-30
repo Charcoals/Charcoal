@@ -85,6 +85,29 @@ namespace Charcoal.DataLayer.Tests
         }
 
         [Test]
+        public void CanUpdateStoryIterationType()
+        {
+            var story = new Story();
+            story.Title = "My New story";
+            story.Description = "loooooooo";
+            story.Status = StoryStatus.Started;
+            story.IterationType= IterationType.Current;
+            story.CreatedBy = m_database.Users.All().ToList<dynamic>()[0].Id;
+            story.ProjectId = m_database.Projects.All().ToList<dynamic>()[0].Id;
+
+            DatabaseOperationResponse response = m_repository.Save(story);
+            Assert.IsTrue(response.HasSucceeded);
+
+            Story retrievedStory = response.Object;
+
+
+            var storyStatus = StoryStatus.Accepted;
+            Story updatedStory = m_repository.UpdateStoryStatus(retrievedStory.Id, (int)storyStatus);
+            
+            Assert.AreEqual(storyStatus,updatedStory.Status);
+        }
+
+        [Test]
         public void CannotUpdateNonExisitingStory()
         {
             var story = new Story();
