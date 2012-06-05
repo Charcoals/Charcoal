@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Charcoal.Common.Providers;
+using StructureMap;
 
 namespace Charcoal.Web {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -26,6 +28,18 @@ namespace Charcoal.Web {
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            ObjectFactory.Initialize(context => 
+                context.Scan(ias => {
+                    //providers
+                    ias.AddAllTypesOf<IAccountProvider>();
+                    ias.AddAllTypesOf<IProjectProvider>();
+                    ias.AddAllTypesOf<IStoryProvider>();
+                    //controllers
+                    ias.AddAllTypesOf<Controller>();
+            }));
+
+            ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
         }
     }
 }
