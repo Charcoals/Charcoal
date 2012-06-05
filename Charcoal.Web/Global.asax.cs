@@ -1,18 +1,25 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Charcoal.Common.Providers;
+using Charcoal.PivotalTracker;
 using StructureMap;
 
-namespace Charcoal.Web {
+namespace Charcoal.Web
+{
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : System.Web.HttpApplication {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
+    public class MvcApplication : System.Web.HttpApplication
+    {
+        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        {
             filters.Add(new HandleErrorAttribute());
         }
 
-        public static void RegisterRoutes(RouteCollection routes) {
+        public static void RegisterRoutes(RouteCollection routes)
+        {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
@@ -29,15 +36,31 @@ namespace Charcoal.Web {
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            ObjectFactory.Initialize(context => 
-                context.Scan(ias => {
-                    //providers
-                    ias.AddAllTypesOf<IAccountProvider>();
-                    ias.AddAllTypesOf<IProjectProvider>();
-                    ias.AddAllTypesOf<IStoryProvider>();
-                    //controllers
-                    ias.AddAllTypesOf<Controller>();
-            }));
+            var tokenRetrieval = new Func<string>(() =>
+            {
+                if (HttpContext.Current != null)
+                {
+                    var token = HttpContext.Current.Session["token"];
+                    if (token is string)
+                    {
+                        return token as string;
+                    }
+                }
+                return null;
+            });
+
+            ObjectFactory.Initialize(context =>
+            {
+                context.For<IAccountProvider>().Use<PTAuthenticationProvider>();
+                context.For<IProjectProvider>().Use(() => new PTProjectProvider(tokenRetrieval()));
+                context.For<IStoryProvider>().Use(() => new PTStoryProvider(tokenRetrieval()));
+
+                context.Scan(ias =>
+                                {
+                                    ias.TheCallingAssembly();
+                                    ias.AddAllTypesOf<Controller>();
+                                });
+            });
 
             ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
         }

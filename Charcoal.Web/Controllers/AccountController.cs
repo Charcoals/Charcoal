@@ -9,10 +9,11 @@ namespace Charcoal.Web.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Required)]
     public class AccountController : BaseController
     {
-        private IAccountProvider m_accountProvider;
-        IAccountProvider AccountProvider
+        private readonly IAccountProvider _accountProvider;
+        
+        public AccountController(IAccountProvider accountProvider)
         {
-            get { return m_accountProvider ?? (m_accountProvider = new AccountProviderFactory().Create(Authentication)); }
+            _accountProvider = accountProvider;
         }
 
         public ActionResult Register()
@@ -58,7 +59,7 @@ namespace Charcoal.Web.Controllers
             if (ModelState.IsValid)
             {
                 Authentication = model.Authentication;
-                var token = AccountProvider.Authenticate(model.UserName, model.Password);
+                var token = _accountProvider.Authenticate(model.UserName, model.Password);
                 if (!string.IsNullOrWhiteSpace(token))
                 {
                     Token = token;

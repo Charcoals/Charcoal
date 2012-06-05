@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using PivotalTrackerDotNet.Domain;
 using System.Web.Security;
 using Charcoal.Web.Models;
 

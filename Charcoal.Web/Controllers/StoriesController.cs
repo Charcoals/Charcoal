@@ -6,21 +6,17 @@ using Charcoal.Common.Providers;
 
 namespace Charcoal.Web.Controllers {
 	public class StoriesController : BaseController {
-		IStoryProvider service;
-        IStoryProvider Service
-        {
-			get { return service ?? (service = new PTStoryProvider(Token)); }
-		}
+		readonly IStoryProvider service;
 		public StoriesController() : this(null) { }
 
-        public StoriesController(IStoryProvider service = null)
+        public StoriesController(IStoryProvider service)
 			: base() {
 			this.service = service;
 		}
 
 		[HttpGet]
 		public ActionResult CurrentIteration(int projectId) {
-			return View(new ProjectStoryViewModel(projectId, Service.GetStories(projectId, IterationType.Current)));
+            return View(new ProjectStoryViewModel(projectId, service.GetStories(projectId, IterationType.Current)));
 		}
 
 		//put is needed so we can redirect here from Put requests
@@ -32,26 +28,26 @@ namespace Charcoal.Web.Controllers {
 
 		[HttpGet]
 		public ActionResult BackLogStories(int projectId) {
-            return View(new ProjectStoryViewModel(projectId, Service.GetStories(projectId, IterationType.Backlog)));
+            return View(new ProjectStoryViewModel(projectId, service.GetStories(projectId, IterationType.Backlog)));
 		}
 
 		[HttpGet]
 		public ActionResult IceboxStories(int projectId) {
-            return View(new ProjectStoryViewModel(projectId, Service.GetStories(projectId, IterationType.Icebox)));
+            return View(new ProjectStoryViewModel(projectId, service.GetStories(projectId, IterationType.Icebox)));
 		}
 
 		[HttpPut]
         public ActionResult Start(int projectId, int storyId, int iteration)
         {
             var iterationType = (IterationType)iteration;
-            var startedStory = Service.StartStory(projectId, storyId, iterationType);
+            var startedStory = service.StartStory(projectId, storyId, iterationType);
 		    return PartialView("StoryRow", new StoryRowViewModel(startedStory, iterationType));
 		}
 
 		[HttpPut]
 		public ActionResult Finish(int projectId, int storyId, int iteration) {
 		    var iterationType = (IterationType) iteration;
-			var finishedStory = Service.FinishStory(projectId, storyId,iterationType );
+            var finishedStory = service.FinishStory(projectId, storyId, iterationType);
 		    return PartialView("StoryRow", new StoryRowViewModel(finishedStory, iterationType));
 		}
 
@@ -60,7 +56,7 @@ namespace Charcoal.Web.Controllers {
         {
 			var task = new Task { Description = description, StoryId = storyId };
 			task.Description = AddInitialsToDescription(task, initials,projectId, iterationType);
-			Service.AddNewTask(task, projectId);
+            service.AddNewTask(task, projectId);
             return GetStory(storyId, projectId, iterationType);
 		}
 
@@ -73,19 +69,19 @@ namespace Charcoal.Web.Controllers {
 		[HttpDelete]
         public ActionResult DeleteTask(int storyId, int projectId, int taskId, int iteration)
         {
-			Service.RemoveTask(projectId, storyId, taskId);
+            service.RemoveTask(projectId, storyId, taskId);
 			return GetStory(storyId, projectId, (IterationType)iteration);
 		}
 
 		private ActionResult GetStory(long storyId, long projectId, IterationType iterationType) {
-            var story = Service.GetStory(projectId, storyId, iterationType);
+            var story = service.GetStory(projectId, storyId, iterationType);
 			return PartialView("StoryRow", new StoryRowViewModel(story,iterationType));
 		}
 
 		[HttpPost]
         public ActionResult AddComment(int projectId, int storyId, string comment, int iteration)
         {
-			Service.AddComment(projectId, storyId, comment);
+            service.AddComment(projectId, storyId, comment);
 			return GetStory(storyId, projectId,(IterationType)iteration);
 		}
 	}

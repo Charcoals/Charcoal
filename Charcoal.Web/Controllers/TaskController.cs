@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using Charcoal.Common.Entities;
-using Charcoal.PivotalTracker;
 using Charcoal.Web.Models;
 using Charcoal.Common.Providers;
 
@@ -10,14 +8,11 @@ namespace Charcoal.Web.Controllers
 {
     public class TaskController : BaseController
     {
-        IStoryProvider service;
-        IStoryProvider Service
-        {
-            get { return service ?? (service = new PTStoryProvider(Token)); }
-        }
+        readonly IStoryProvider service;
+
         public TaskController() : this(null) { }
 
-        public TaskController(IStoryProvider service = null)
+        public TaskController(IStoryProvider service)
             : base()
         {
             this.service = service;
@@ -67,9 +62,9 @@ namespace Charcoal.Web.Controllers
                     throw new InvalidOperationException("Invalid task id");
                 }
 
-                var task = Service.GetTask(projectId, storyId, taskId);
+                var task = service.GetTask(projectId, storyId, taskId);
                 task.Description = AddInitialsToDescription(task, initials, projectId, iterationType);
-                Service.UpdateTask(task, projectId);
+                service.UpdateTask(task, projectId);
             }
             return RedirectToAction("Get", "Stories", new { projectId = projectId, storyId = storyId, iterationType = iterationType });
         }
@@ -82,11 +77,11 @@ namespace Charcoal.Web.Controllers
         [HttpPut]
         public ActionResult Complete(int id, int storyId, int projectId, bool completed, int iteration)
         {
-            var task = Service.GetTask(projectId, storyId, id);
+            var task = service.GetTask(projectId, storyId, id);
             if (task.IsCompleted != completed)
             {
                 task.IsCompleted = completed;
-                Service.UpdateTask(task, projectId);
+                service.UpdateTask(task, projectId);
             }
             return PartialView("TaskDetails", new TaskViewModel(task, projectId, (IterationType)iteration));
         }
