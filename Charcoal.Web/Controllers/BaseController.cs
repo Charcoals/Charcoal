@@ -19,16 +19,16 @@ namespace Charcoal.Web.Controllers {
             set { Session.Add("token", value); }
         }
 
-        protected AuthenticationType Authentication
+        protected BackingType Backing
         {
             get
             {
                 if (Session != null)
                 {
                     var type = Session["authType"];
-                    if (type is AuthenticationType)
+                    if (type is BackingType)
                     {
-                        return (AuthenticationType)type ;
+                        return (BackingType)type ;
                     }
                 }
                 throw new NotAuthenticatedException();

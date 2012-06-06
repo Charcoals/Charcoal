@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Charcoal.Common.Providers;
 using Charcoal.PivotalTracker;
+using Charcoal.Web.Models;
 using StructureMap;
 
 namespace Charcoal.Web
@@ -49,11 +51,27 @@ namespace Charcoal.Web
                 return null;
             });
 
+            var backingTypeRetrieval = new Func<BackingType>(() =>
+                                                         {
+                                                             var backing = ConfigurationManager.AppSettings["backingType"];
+                                                             BackingType type;
+                                                             if (Enum.TryParse<BackingType>(backing, true,
+                                                                                                   out type))
+                                                             {
+                                                                 return type;
+                                                             }
+                                                             return BackingType.Charcoal;
+                                                         });
+
+            var accountProviderFactory = new AccountProviderFactory();
+            var projectProviderFactory = new ProjectProviderFactory();
+            var storyProviderFactory = new StoryProviderFactory();
+
             ObjectFactory.Initialize(context =>
             {
-                context.For<IAccountProvider>().Use<PTAuthenticationProvider>();
-                context.For<IProjectProvider>().Use(() => new PTProjectProvider(tokenRetrieval()));
-                context.For<IStoryProvider>().Use(() => new PTStoryProvider(tokenRetrieval()));
+                context.For<IAccountProvider>().Use(() => accountProviderFactory.Create(backingTypeRetrieval()));
+                context.For<IProjectProvider>().Use(() => projectProviderFactory.Create(backingTypeRetrieval(), tokenRetrieval()));
+                context.For<IStoryProvider>().Use(() => storyProviderFactory.Create(backingTypeRetrieval(), tokenRetrieval()));
 
                 context.Scan(ias =>
                                 {

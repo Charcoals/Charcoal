@@ -6,9 +6,9 @@ namespace Charcoal.Web.Models
 {
     public class AccountProviderFactory
     {
-        public IAccountProvider Create(AuthenticationType type)
+        public IAccountProvider Create(BackingType type)
         {
-            if(type== AuthenticationType.Charcoal)
+            if(type== BackingType.Charcoal)
                 return new CharcoalAccountProvider();
             return new PTAuthenticationProvider();
         }

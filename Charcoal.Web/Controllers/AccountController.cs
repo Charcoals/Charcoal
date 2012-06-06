@@ -58,7 +58,6 @@ namespace Charcoal.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Authentication = model.Authentication;
                 var token = _accountProvider.Authenticate(model.UserName, model.Password);
                 if (!string.IsNullOrWhiteSpace(token))
                 {

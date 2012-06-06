@@ -29,12 +29,6 @@
                         <div style="margin-top: 5px"> @Html.LabelFor(m => m.RememberMe)</div>
                         @Html.CheckBoxFor(m => m.RememberMe)
                     </div>
-                     <div style="margin-top: 5px" class="input">
-                       <div style="margin-top: 5px"> @Html.Label("Charcoal Auth")</div>
-                        @Html.RadioButtonFor(e => e.Authentication, AuthenticationType.Charcoal)
-                        <div style="margin-top: 5px"> @Html.Label("Pivotal Tracker Auth")</div>
-                        @Html.RadioButtonFor(e => e.Authentication, AuthenticationType.Pivotal)
-                    </div>
                     <button style="margin-top: 10px" class="btn primary" type="submit">
                         Log On</button>
                 </div>

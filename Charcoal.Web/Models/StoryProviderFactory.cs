@@ -6,9 +6,9 @@ namespace Charcoal.Web.Models
 {
     public class StoryProviderFactory
     {
-        public IStoryProvider Create(AuthenticationType type, string token)
+        public IStoryProvider Create(BackingType type, string token)
         {
-            if (type == AuthenticationType.Charcoal)
+            if (type == BackingType.Charcoal)
                 return new CharcoalStoryProvider();
             return new PTStoryProvider(token);
         }

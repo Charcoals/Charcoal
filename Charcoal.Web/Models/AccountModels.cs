@@ -33,13 +33,9 @@ namespace Charcoal.Web.Models {
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
-
-        [Required]
-        public AuthenticationType Authentication { get; set; }
-    
     }
 
-    public enum AuthenticationType
+    public enum BackingType
     {
         Charcoal, Pivotal
     }

@@ -6,9 +6,9 @@ namespace Charcoal.Web.Models
 {
     public class ProjectProviderFactory
     {
-        public IProjectProvider Create(AuthenticationType type, string token)
+        public IProjectProvider Create(BackingType type, string token)
         {
-            if (type == AuthenticationType.Charcoal)
+            if (type == BackingType.Charcoal)
                 return new CharcoalProjectProvider(token);
             return new PTProjectProvider(token);
         }
