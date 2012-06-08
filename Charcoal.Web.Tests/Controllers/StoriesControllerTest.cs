@@ -2,7 +2,6 @@
 using Charcoal.Web.Controllers;
 using Charcoal.Web.Models;
 using NUnit.Framework;
-using Rhino.Mocks;
 using PivotalTrackerDotNet.Domain;
 using System.Web.Mvc;
 

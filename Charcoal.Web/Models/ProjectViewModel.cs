@@ -24,5 +24,10 @@ namespace Charcoal.Web.Models {
         {
             get { return Project.Id; }
         }
+
+        public int Velocity
+        {
+            get { return Project.Velocity; }
+        }
     }
 }

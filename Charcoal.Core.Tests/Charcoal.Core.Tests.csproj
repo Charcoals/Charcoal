@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalyticsProviderTest.cs" />
     <Compile Include="CharcoalProjectProviderTest.cs" />
     <Compile Include="CharcoalStoryProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

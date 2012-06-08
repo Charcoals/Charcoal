@@ -55,24 +55,21 @@ namespace Charcoal.Web
                                                          {
                                                              var backing = ConfigurationManager.AppSettings["backingType"];
                                                              BackingType type;
-                                                             if (Enum.TryParse<BackingType>(backing, true,
-                                                                                                   out type))
-                                                             {
-                                                                 return type;
-                                                             }
-                                                             return BackingType.Charcoal;
+                                                             return Enum.TryParse(backing, true,out type) ? type : BackingType.Charcoal;
                                                          });
 
             var accountProviderFactory = new AccountProviderFactory();
             var projectProviderFactory = new ProjectProviderFactory();
             var storyProviderFactory = new StoryProviderFactory();
 
+            var storyProvider = new Func<IStoryProvider>(()=> storyProviderFactory.Create(backingTypeRetrieval(), tokenRetrieval()));
+
             ObjectFactory.Initialize(context =>
             {
                 context.For<IAccountProvider>().Use(() => accountProviderFactory.Create(backingTypeRetrieval()));
                 context.For<IProjectProvider>().Use(() => projectProviderFactory.Create(backingTypeRetrieval(), tokenRetrieval()));
-                context.For<IStoryProvider>().Use(() => storyProviderFactory.Create(backingTypeRetrieval(), tokenRetrieval()));
-
+                context.For<IStoryProvider>().Use(storyProvider);
+                context.For<IAnalyticsProvider>().Use(() => new AnalyticsProvider(storyProvider()));
                 context.Scan(ias =>
                                 {
                                     ias.TheCallingAssembly();

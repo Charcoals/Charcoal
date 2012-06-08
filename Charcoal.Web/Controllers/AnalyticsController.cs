@@ -1,21 +1,34 @@
 ﻿using System;
 using System.Web.Mvc;
+using Charcoal.Common.Providers;
 
 namespace Charcoal.Web.Controllers
 {
-    public class AnalyticsController : Controller
+    public class AnalyticsController : BaseController
     {
-        //
-        // GET: /Analytics/
 
-        public ActionResult Index(long projectId)
+        readonly IStoryProvider m_storyProvider;
+        IAnalyticsProvider m_analyticsProvider;
+        public AnalyticsController() : this(null) { }
+
+        public AnalyticsController(IStoryProvider storyProvider, IAnalyticsProvider analyticsProvider=null)
+			: base()
         {
-            return View();
+            this.m_storyProvider = storyProvider;
+            m_analyticsProvider = analyticsProvider;
         }
 
-        public ActionResult AnalyzeProject(long projectId)
+        IAnalyticsProvider AnalyticsProvider
         {
-            return View();
+            get { return m_analyticsProvider??(m_analyticsProvider=new AnalyticsProvider(m_storyProvider)); }
+        }
+
+        public ActionResult AnalyzeProject(long projectId, int velocity, string name)
+        {
+            var result = AnalyticsProvider.AnalyzeProject(projectId);
+            result.Velocity = velocity;
+            result.Name = name;
+            return View(result);
         }
 
         public ActionResult AnalyzeLabel(long projectId, string label)

@@ -36,7 +36,8 @@ namespace Charcoal.PivotalTracker
                        {
                            Id = project.Id,
                            Title = project.Name,
-                           Description = CreateDescription(project)
+                           Description = CreateDescription(project),
+                           Velocity = project.CurrentVelocity
                        };
         }
 

@@ -1,0 +1,39 @@
+﻿@model Charcoal.Common.Providers.OverviewAnalysisResult
+@{
+    ViewBag.Title = "Log On";
+}
+<fieldset class="well">
+    <legend>@Model.Name</legend><span>Features Count: </span>
+    @Html.DisplayFor(model => model.FeaturesCount)
+    <br />
+    @{
+        if (Model.UnplannedStoriesPoints.HasValue)
+        {
+        <span>Unplanned Stories Points: </span>
+        @Html.DisplayFor(model => model.UnplannedStoriesPoints)
+        <br />
+        }
+    }
+    <span>Unestimated Stories Count: </span>
+    @Html.DisplayFor(model => model.UnestimatedStoriesCount)
+    <br />
+    <span>Velocity: </span>
+    @Html.DisplayFor(model => model.Velocity)
+    <br />
+    <span>Total Points Completed: </span>
+    @Html.DisplayFor(model => model.TotalPointsCompleted)
+    <br />
+    <span>Total Points Left: </span>
+    @Html.DisplayFor(model => model.TotalPointsLeft)
+    <br />
+    <span>Total Bugs Count: </span>
+    @Html.DisplayFor(model => model.TotalBugsCount)
+    <br />
+    <span>Remaining Bugs Count; </span>
+    @Html.DisplayFor(model => model.RemainingBugsCount)
+</fieldset>
+<p>
+    @Html.ActionLink("Projections", "Projection", new { /* id=Model.PrimaryKey */ })
+    |
+    @Html.ActionLink("Back to List", "Index", "Projects")
+</p>

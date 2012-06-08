@@ -9,6 +9,7 @@ namespace Charcoal.Common.Providers
         Task AddNewTask(Task task, long projectId);
 		List<Story> GetStories(long projectId,IterationType iterationType);
 		List<Story> GetAllStories(long projectId);
+        List<Story> GetAllStoriesByTag(long projectId, string tag);
 		Story FinishStory(long projectId, long storyId, IterationType iterationType);
 		Story StartStory(long projectId, long storyId, IterationType iterationType);
 		Story GetStory(long projectId, long storyId, IterationType iterationType);

@@ -17,6 +17,11 @@ namespace Charcoal.Common.Entities
         public int? Estimate { get; set; }
         public StoryType StoryType { get; set; }
         public IterationType IterationType { get; set; }
+
+        public Story()
+        {
+            Description = "";
+        }
     }
     public enum StoryType {Feature, Bug, Chore }
     public enum IterationType{Undefined=0,Current, Backlog, Icebox}

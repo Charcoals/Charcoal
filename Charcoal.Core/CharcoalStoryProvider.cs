@@ -40,6 +40,11 @@ namespace Charcoal.Core
             return m_storyRepository.FindAllByProjectId(projectId);
         }
 
+        public List<Story> GetAllStoriesByTag(long projectId, string tag)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Story FinishStory(long projectId, long storyId, IterationType iterationType)
         {
             return m_storyRepository.UpdateStoryStatus(storyId, (int)StoryStatus.Finished);

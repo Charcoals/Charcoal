@@ -3,7 +3,7 @@
     <div class="span12">
        <div id="projectname"> @Model.Name</div>
     </div>
-    <div class="span12">
+    <div class="span16">
         <div class="row">
             <div class="span4">
                 @Html.ActionLink("Current", "CurrentIteration", "Stories", new { projectId = @Model.Id }, new { @class = "btn success" })
@@ -13,6 +13,9 @@
             </div>
             <div class="span4">
                 @Html.ActionLink("Icebox", "IceboxStories", "Stories", new { projectId = @Model.Id }, new { @class = "btn info" })
+            </div>
+            <div class="span4">
+                @Html.ActionLink("Analyze", "AnalyzeProject", "Analytics", new { projectId = @Model.Id, velocity= @Model.Velocity, name=@Model.Name}, new { @class = "btn info" })
             </div>
         </div>
     </div>
