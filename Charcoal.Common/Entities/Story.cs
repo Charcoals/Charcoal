@@ -18,9 +18,13 @@ namespace Charcoal.Common.Entities
         public StoryType StoryType { get; set; }
         public IterationType IterationType { get; set; }
 
+        //TODO: add to the database
+        public string Tag { get; set; }
+
         public Story()
         {
             Description = "";
+            Tag = "";
         }
     }
     public enum StoryType {Feature, Bug, Chore }

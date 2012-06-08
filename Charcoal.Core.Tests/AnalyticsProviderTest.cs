@@ -130,5 +130,33 @@ namespace Charcoal.Core.Tests
 
             storyProvider.Verify();
         }
+
+        [Test]
+        public void CanAnalyzeProjectLabel()
+        {
+            var storyProvider = new Mock<IStoryProvider>(MockBehavior.Strict);
+            var feature1 = new Story
+            {
+                Estimate = 2,
+                Status = StoryStatus.Accepted,
+                StoryType = StoryType.Feature,
+                Tag = "tag"
+                
+            };
+           
+            var project = new { Id = 212, Velocity = 3 };
+            storyProvider.Setup(e => e.GetAllStoriesByTag(project.Id, feature1.Tag)).Returns(new List<Story> { feature1});
+
+
+            var result = new AnalyticsProvider(storyProvider.Object, project.Velocity)
+                                               .AnalyzeStoryTag(project.Id, feature1.Tag, j => j.Description.Equals("mcjawn"));
+
+            Assert.AreEqual(project.Velocity, result.Velocity.Value);
+            Assert.AreEqual(1, result.FeaturesCount);
+            Assert.AreEqual(2, result.TotalPointsCompleted);
+            
+            storyProvider.Verify();
+
+        }
     }
 }

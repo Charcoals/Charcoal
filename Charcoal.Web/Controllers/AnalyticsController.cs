@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using Charcoal.Common.Providers;
+using Charcoal.Web.Models;
 
 namespace Charcoal.Web.Controllers
 {
@@ -28,12 +29,19 @@ namespace Charcoal.Web.Controllers
             var result = AnalyticsProvider.AnalyzeProject(projectId);
             result.Velocity = velocity;
             result.Name = name;
-            return View(result);
+            return View("AnalysisOverView", result);
         }
 
-        public ActionResult AnalyzeLabel(long projectId, string label)
+        public ActionResult AnalyzeTag(long projectId)
         {
-            return View();
+            return View(new TagAnalysisModel{ProjectId = projectId});
+        }
+
+        [HttpPost]
+        public ActionResult AnalyzeTag(TagAnalysisModel tagAnalysisModel)
+        {
+            var result = AnalyticsProvider.AnalyzeStoryTag(tagAnalysisModel.ProjectId,tagAnalysisModel.Tag);
+            return View("AnalysisOverView",result);
         }
 
         public ActionResult Projection(long projectId, string label, DateTime target)

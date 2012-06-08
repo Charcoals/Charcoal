@@ -8,7 +8,7 @@ namespace Charcoal.Common.Providers
     public interface IAnalyticsProvider
     {
         OverviewAnalysisResult AnalyzeProject(long projectId, Predicate<Story> unplannedStoriesPoints = null);
-        OverviewAnalysisResult AnalyzeStoryLabel(long projectId,string label, Predicate<Story> unplannedStoriesPoints = null);
+        OverviewAnalysisResult AnalyzeStoryTag(long projectId,string tag, Predicate<Story> unplannedStoriesPoints = null);
     }
 
     public class AnalyticsProvider : IAnalyticsProvider
@@ -30,12 +30,14 @@ namespace Charcoal.Common.Providers
             return BuildResult(unplannedStoriesPoints, stories);
         }
 
-        public OverviewAnalysisResult AnalyzeStoryLabel(long projectId, string label, Predicate<Story> unplannedStoriesPoints = null)
+        public OverviewAnalysisResult AnalyzeStoryTag(long projectId, string tag, Predicate<Story> unplannedStoriesPoints = null)
         {
-            var stories = m_storyProvider.GetAllStories(projectId)
+            var stories = m_storyProvider.GetAllStoriesByTag(projectId,tag)
                                          .Where(e => e.StoryType != StoryType.Chore).ToList();
 
-            return BuildResult(unplannedStoriesPoints, stories);
+            var overviewAnalysisResult = BuildResult(unplannedStoriesPoints, stories);
+            overviewAnalysisResult.Name = tag;
+            return overviewAnalysisResult;
         }
 
         private OverviewAnalysisResult BuildResult(Predicate<Story> unplannedStoriesPoints, List<Story> stories)

@@ -104,6 +104,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AccountProviderFactory.cs" />
     <Compile Include="Models\ActivityViewModel.cs" />
+    <Compile Include="Models\TagAnalysisModel.cs" />
     <Compile Include="Models\CharcoalMembershipProvider.cs" />
     <Compile Include="Models\ProjectProviderFactory.cs" />
     <Compile Include="Models\ProjectStoryViewModel.cs" />
@@ -265,7 +266,10 @@
     <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Analytics\AnalyzeProject.cshtml" />
+    <Content Include="Views\Analytics\AnalysisOverView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Analytics\AnalyzeTag.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -1,0 +1,17 @@
+﻿@model Charcoal.Web.Models.TagAnalysisModel
+@using (Html.BeginForm("AnalyzeTag", "Analytics", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.ProjectId)
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div class="well">
+            @Html.LabelFor(model => model.Tag)
+            <div class="input">
+                @Html.EditorFor(model => model.Tag)
+                @Html.ValidationMessageFor(model => model.Tag)
+            </div>
+                <input type="submit" value="Analyze" class="btn success" />
+        </div>
+    </fieldset>
+}
+<p>@Html.ActionLink("Back", "Index", "Projects")</p>
