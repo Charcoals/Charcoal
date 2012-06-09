@@ -46,7 +46,9 @@ namespace Charcoal.PivotalTracker
                 Status = ConvertTo(story.CurrentState),
                 StoryType = ConvertTo(story.StoryType),
                 Tasks = story.Tasks.Select(e => e.ConvertTo()).ToList(),
-                ProjectId = story.ProjectId
+                ProjectId = story.ProjectId,
+                AcceptedOn = story.AcceptedOn,
+                CreatedOn = story.CreatedOn.Value
             };
         }
 
@@ -61,7 +63,7 @@ namespace Charcoal.PivotalTracker
                 CurrentState = ConvertTo(story.Status),
                 StoryType = ConvertTo(story.StoryType),
                 Tasks = story.Tasks.Select(e => e.ConvertTo(projectId)).ToList(),
-                ProjectId = (int)story.ProjectId
+                ProjectId = (int)story.ProjectId,
             };
         }
 

@@ -50,7 +50,7 @@ namespace Charcoal.PivotalTracker
 
         public List<Common.Entities.Story> GetAllStoriesByTag(long projectId, string tag)
         {
-            return m_service.GetAllStoriesMatchingFilter((int)projectId, string.Format("label:\"{0}\"",tag)).ConvertAll(e => e.ConvertTo(IterationType.Undefined));
+            return m_service.GetAllStoriesMatchingFilter((int)projectId, FilteringCriteria.FilterBy.Label(tag)).ConvertAll(e => e.ConvertTo(IterationType.Undefined));
         }
 
         public Charcoal.Common.Entities.Story FinishStory(long projectId, long storyId, IterationType iterationType)
