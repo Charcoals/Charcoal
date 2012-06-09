@@ -1,7 +1,6 @@
-﻿@model Charcoal.Common.Providers.OverviewAnalysisResult
-@{
-    ViewBag.Title = "Log On";
-}
+﻿@using Charcoal.Web.Models
+@model Charcoal.Web.Models.OverviewModel
+<p>@Html.ActionLink("Back to List", "Index", "Projects")</p>
 <fieldset class="well">
     <legend>@Model.Name</legend><span>Features Count: </span>
     @Html.DisplayFor(model => model.FeaturesCount)
@@ -32,8 +31,6 @@
     <span>Remaining Bugs Count; </span>
     @Html.DisplayFor(model => model.RemainingBugsCount)
 </fieldset>
-<p>
-    @Html.ActionLink("Projections", "Projection", new { /* id=Model.PrimaryKey */ })
-    |
-    @Html.ActionLink("Back to List", "Index", "Projects")
-</p>
+@{
+    Html.RenderPartial("ProjectControl", new ProjectionModel { Name = Model.Name, ProjectId = Model.ProjectId, IsTagAnalysis = Model.IsTagAnalysis});
+}

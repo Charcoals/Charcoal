@@ -17,5 +17,6 @@ namespace Charcoal.Common.Providers
         public int TotalPointsLeft { get; set; }
         public int TotalBugsCount { get; set; }
         public int RemainingBugsCount { get; set; }
+        public bool IsTagAnalysis { get; set; }
     }
 }

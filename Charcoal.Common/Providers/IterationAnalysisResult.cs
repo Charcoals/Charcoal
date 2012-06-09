@@ -10,9 +10,7 @@ namespace Charcoal.Common.Providers
         public string Name { get; set; }
 
         public List<IterationResultItem> Items { get; set; }
-        public DateTime TargetDate { get; set; }
         public int? NeededAverageVelocity { get; set;}
-        public DateTime From { get; set; }
 
         public IterationAnalysisResult()
         {
@@ -22,6 +20,8 @@ namespace Charcoal.Common.Providers
 
     public class IterationResultItem
     {
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
         public int FeaturesAccepted { get; set; }
         public int BugsFixed { get; set; }
         public int BugsAdded { get; set; }

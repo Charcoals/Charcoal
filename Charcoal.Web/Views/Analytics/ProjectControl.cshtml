@@ -1,0 +1,29 @@
+﻿@model Charcoal.Web.Models.ProjectionModel
+@using (Html.BeginForm("Projection", "Analytics", FormMethod.Post))
+{
+    @Html.HiddenFor(model=>model.ProjectId)
+    @Html.HiddenFor(model => model.Name)
+    @Html.HiddenFor(model => model.IsTagAnalysis)
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend> Create Release Projection</legend>
+        <div class="well form-inline">
+            <span>From:</span>
+            <div class="input">
+                @Html.EditorFor(model => model.From)
+                @Html.ValidationMessageFor(model => model.From)
+            </div>
+            <span>Target Date:</span>
+            <div class="input">
+                @Html.EditorFor(model => model.TargetDate)
+                @Html.ValidationMessageFor(model => model.TargetDate)
+            </div>
+            <span>Iteration Length:</span>
+            <div class="input">
+                @Html.EditorFor(model => model.Iterationlength)
+                @Html.ValidationMessageFor(model => model.Iterationlength)
+            </div>
+            <input type="submit" value="Projection" class="btn success" />
+        </div>
+    </fieldset>
+}

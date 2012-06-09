@@ -43,6 +43,7 @@ namespace Charcoal.Common.Providers
             result.Name = tag;
             result.ProjectId = projectId;
             result.CachedStories = stories;
+            result.IsTagAnalysis = true;
             return result;
         }
 
@@ -52,8 +53,6 @@ namespace Charcoal.Common.Providers
             {
                 Name = overviewAnalysis.Name,
                 ProjectId = overviewAnalysis.ProjectId,
-                TargetDate = targetDate,
-                From = from
             };
 
             var iterationSpan = new TimeSpan(7 * iterationlength, 0, 0, 0);
@@ -62,12 +61,12 @@ namespace Charcoal.Common.Providers
             {
                 while (from + iterationSpan <= targetDate)
                 {
-                    var iterationStories = overviewAnalysis.CachedStories.Where(e => 
+                    var iterationStories = overviewAnalysis.CachedStories.Where(e =>
                         IsInRange(e, from, iterationSpan));
 
                     if (iterationStories.Any())
                     {
-                        result.Items.Add(CreateResult(iterationStories.ToList(), 
+                        result.Items.Add(CreateResult(iterationStories.ToList(),
                                         from, iterationSpan));
 
                         from += iterationSpan;
@@ -78,10 +77,10 @@ namespace Charcoal.Common.Providers
                     }
                 }
 
-                var remainingSpan = (targetDate - from).Days/iterationSpan.Days*1m;
+                var remainingSpan = (targetDate - from).Days / iterationSpan.Days * 1m;
                 if (remainingSpan > 0)
                 {
-                    result.NeededAverageVelocity = (int) Math.Round(overviewAnalysis.TotalPointsLeft/remainingSpan);
+                    result.NeededAverageVelocity = (int)Math.Round(overviewAnalysis.TotalPointsLeft / remainingSpan);
                 }
                 else
                 {
@@ -95,35 +94,37 @@ namespace Charcoal.Common.Providers
         static IterationResultItem CreateResult(List<Story> stories, DateTime iterationStart, TimeSpan span)
         {
             var iterationEnd = iterationStart + span;
-            
+
             var result = new IterationResultItem();
-                result.CachedStories = stories;
-                result.TotalPointsCompleted = stories.Where(e => e.AcceptedOn.HasValue
-                                                                && e.Estimate.HasValue)
-                                                        .Sum(e => e.Estimate.Value);
+            result.CachedStories = stories;
+            result.From = iterationStart;
+            result.To = iterationEnd;
+            result.TotalPointsCompleted = stories.Where(e => e.AcceptedOn.HasValue
+                                                            && e.Estimate.HasValue)
+                                                    .Sum(e => e.Estimate.Value);
 
-                result.BugsFixed = stories.Count(e => e.StoryType == StoryType.Bug
-                                                     && e.AcceptedOn.HasValue);
-                result.FeaturesAccepted = stories.Count(e => e.StoryType == StoryType.Feature
-                                                            && e.AcceptedOn.HasValue);
+            result.BugsFixed = stories.Count(e => e.StoryType == StoryType.Bug
+                                                 && e.AcceptedOn.HasValue);
+            result.FeaturesAccepted = stories.Count(e => e.StoryType == StoryType.Feature
+                                                        && e.AcceptedOn.HasValue);
 
-                result.BugsAdded = stories.Count(e => e.StoryType == StoryType.Bug
+            result.BugsAdded = stories.Count(e => e.StoryType == StoryType.Bug
+                                                    && InRange(e.CreatedOn, iterationStart,
+                                                                iterationEnd));
+            result.FeaturesAdded = stories.Count(e => e.StoryType == StoryType.Feature
                                                         && InRange(e.CreatedOn, iterationStart,
                                                                     iterationEnd));
-                result.FeaturesAdded = stories.Count(e => e.StoryType == StoryType.Feature
-                                                            && InRange(e.CreatedOn, iterationStart,
-                                                                        iterationEnd));
-         return result;   
-            
+            return result;
+
 
         }
 
         static bool IsInRange(Story story, DateTime iterationStart, TimeSpan span)
         {
             var iterationEnd = iterationStart + span;
-            return InRange(story.CreatedOn, iterationStart,iterationEnd)
-                   || (story.AcceptedOn.HasValue 
-                       && InRange(story.AcceptedOn.Value, iterationStart,iterationEnd));
+            return InRange(story.CreatedOn, iterationStart, iterationEnd)
+                   || (story.AcceptedOn.HasValue
+                       && InRange(story.AcceptedOn.Value, iterationStart, iterationEnd));
         }
 
         static bool InRange(DateTime time, DateTime from, DateTime to)

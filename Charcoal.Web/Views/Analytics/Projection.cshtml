@@ -1,0 +1,66 @@
+﻿@model Charcoal.Common.Providers.IterationAnalysisResult
+<h3>
+    @Model.Name
+</h3>
+Velocity Needed to Complete th remaingin stories: @Model.NeededAverageVelocity
+<br />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                From
+            </th>
+            <th>
+                To
+            </th>
+            <th>
+                Features Accepted
+            </th>
+            <th>
+                Features Added
+            </th>
+            <th>
+                Bugs Fixed
+            </th>
+            <th>
+                Bugs Added
+            </th>
+            <th>
+                Total Points Completed
+            </th>
+            <th>
+                Velocity
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Items.Count; i++)
+        {
+            var item = Model.Items[i];
+            
+            <tr>
+                <td>@i
+                </td>
+                <td>@item.From.ToShortDateString()
+                </td>
+                <td>@item.To.ToShortDateString()
+                </td>
+                <td>@item.FeaturesAccepted
+                </td>
+                <td>@item.FeaturesAdded
+                </td>
+                <td>@item.BugsFixed
+                </td>
+                <td>@item.BugsAdded
+                </td>
+                <td>@item.TotalPointsCompleted
+                </td>
+                <td>@item.Velocity
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

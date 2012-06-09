@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Charcoal.Common.Providers;
 using Charcoal.Web.Models;
@@ -12,8 +13,8 @@ namespace Charcoal.Web.Controllers
         IAnalyticsProvider m_analyticsProvider;
         public AnalyticsController() : this(null) { }
 
-        public AnalyticsController(IStoryProvider storyProvider, IAnalyticsProvider analyticsProvider=null)
-			: base()
+        public AnalyticsController(IStoryProvider storyProvider, IAnalyticsProvider analyticsProvider = null)
+            : base()
         {
             this.m_storyProvider = storyProvider;
             m_analyticsProvider = analyticsProvider;
@@ -21,7 +22,7 @@ namespace Charcoal.Web.Controllers
 
         IAnalyticsProvider AnalyticsProvider
         {
-            get { return m_analyticsProvider??(m_analyticsProvider=new AnalyticsProvider(m_storyProvider)); }
+            get { return m_analyticsProvider ?? (m_analyticsProvider = new AnalyticsProvider(m_storyProvider)); }
         }
 
         public ActionResult AnalyzeProject(long projectId, int velocity, string name)
@@ -29,25 +30,34 @@ namespace Charcoal.Web.Controllers
             var result = AnalyticsProvider.AnalyzeProject(projectId);
             result.Velocity = velocity;
             result.Name = name;
-            return View("AnalysisOverView", result);
+            return View("AnalysisOverView", new OverviewModel(result));
         }
 
         public ActionResult AnalyzeTag(long projectId)
         {
-            return View(new TagAnalysisModel{ProjectId = projectId});
+            return View(new TagAnalysisModel { ProjectId = projectId });
         }
 
         [HttpPost]
         public ActionResult AnalyzeTag(TagAnalysisModel tagAnalysisModel)
         {
-            var result = AnalyticsProvider.AnalyzeStoryTag(tagAnalysisModel.ProjectId,tagAnalysisModel.Tag);
-            return View("AnalysisOverView",result);
+            var result = AnalyticsProvider.AnalyzeStoryTag(tagAnalysisModel.ProjectId, tagAnalysisModel.Tag);
+            return View("AnalysisOverView", new OverviewModel(result));
         }
 
-        public ActionResult Projection(long projectId, string label, DateTime target)
+        [HttpPost]
+        public ActionResult Projection(ProjectionModel model)
         {
-            return View();
+            var overviewAnalysisResult = model.IsTagAnalysis
+                                             ? AnalyticsProvider.AnalyzeStoryTag(model.ProjectId, model.Name)
+                                             : AnalyticsProvider.AnalyzeProject(model.ProjectId);
+            var result = AnalyticsProvider.CreateReleaseProjection(overviewAnalysisResult,
+                                                                  model.TargetDate, model.Iterationlength, model.From);
+
+            return View(result);
         }
+
+
 
         public JsonResult ReleaseChart(long projectId, string label, DateTime target)
         {
@@ -58,6 +68,39 @@ namespace Charcoal.Web.Controllers
         {
             return null;
         }
-
+        //private static IterationAnalysisResult IterationAnalysisResult()
+        //       {
+        //           var result = new IterationAnalysisResult
+        //                            {
+        //                                Name = "lo",
+        //                                NeededAverageVelocity = 9,
+        //                                Items = new List<IterationResultItem>
+        //                                            {
+        //                                                new IterationResultItem
+        //                                                    {
+        //                                                        From = DateTime.Now,
+        //                                                        BugsAdded = 3,
+        //                                                        BugsFixed = 2,
+        //                                                        FeaturesAccepted = 1,
+        //                                                        FeaturesAdded = 3,
+        //                                                        To = DateTime.Now,
+        //                                                        TotalPointsCompleted = 3,
+        //                                                        Velocity = 4
+        //                                                    },
+        //                                                new IterationResultItem
+        //                                                    {
+        //                                                        From = DateTime.Now,
+        //                                                        BugsAdded = 3,
+        //                                                        BugsFixed = 2,
+        //                                                        FeaturesAccepted = 1,
+        //                                                        FeaturesAdded = 3,
+        //                                                        To = DateTime.Now,
+        //                                                        TotalPointsCompleted = 3,
+        //                                                        Velocity = 4
+        //                                                    }
+        //                                            }
+        //                            };
+        //           return result;
+        //       }
     }
 }

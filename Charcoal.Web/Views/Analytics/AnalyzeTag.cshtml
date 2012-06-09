@@ -4,7 +4,7 @@
     @Html.HiddenFor(model => model.ProjectId)
     @Html.ValidationSummary(true)
     <fieldset>
-        <div class="well">
+        <div class="well form-inline">
             @Html.LabelFor(model => model.Tag)
             <div class="input">
                 @Html.EditorFor(model => model.Tag)
