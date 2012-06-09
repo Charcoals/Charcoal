@@ -20,6 +20,7 @@ namespace Charcoal.Common.Entities
 
         //TODO: add to the database
         public string Tag { get; set; }
+        public DateTime? AcceptedOn { get; set; }
 
         public Story()
         {
