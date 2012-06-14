@@ -43,7 +43,8 @@ namespace Charcoal.PivotalTracker
 
         private string CreateDescription(Project project)
         {
-            return "";
+            
+            return string.Format("This project's iteration Length is of {0} weeks, and starts every {0} {1}. The last recorded activity was on {2}", project.IterationLength,project.WeekStartDay, project.LastActivityAt);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Charcoal.DataLayer.Tests
             var project = new Project();
             project.Title = "loooooooo";
             project.Description = "loooe3rewrrewooooo";
-
+            project.Velocity = 32;
             DatabaseOperationResponse response = m_repository.Save(project);
             Assert.IsTrue(response.HasSucceeded);
 
@@ -152,6 +152,7 @@ namespace Charcoal.DataLayer.Tests
         {
             Assert.AreEqual(expected.Title, actual.Title);
             Assert.AreEqual(expected.Description, actual.Description);
+            Assert.AreEqual(expected.Velocity, actual.Velocity);
         }
 
 
