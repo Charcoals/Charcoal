@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Charcoal.Common.Entities;
 using NUnit.Framework;
 using Simple.Data;
@@ -74,7 +75,9 @@ namespace Charcoal.DataLayer.Tests
 
             Story retrievedStory = m_database.Stories.All().ToList<dynamic>()[0];
             retrievedStory.Title = "New Title";
-
+            retrievedStory.AcceptedOn= new DateTime(2002,2,2);
+            retrievedStory.Tag = "llol";
+            retrievedStory.TransitionedOn=new DateTime(2009,8,9);
             response = m_repository.Update(retrievedStory);
             Assert.IsTrue(response.HasSucceeded);
 
@@ -278,6 +281,9 @@ namespace Charcoal.DataLayer.Tests
             Assert.AreEqual(expected.Title, actual.Title);
             Assert.AreEqual(expected.Description, actual.Description);
             Assert.AreEqual(expected.Status, actual.Status);
+            Assert.AreEqual(expected.AcceptedOn, actual.AcceptedOn);
+            Assert.AreEqual(expected.Tag, actual.Tag);
+            Assert.AreEqual(expected.TransitionedOn, actual.TransitionedOn);
         }
     }
 }

@@ -44,7 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddEstimateAndStoryTypeAndIterationTypeToStoriesTable.cs" />
+    <Compile Include="AddOrderToTasksTable.cs" />
     <Compile Include="AddPasswordColumnToUsersTableAndMakeEmailUnique.cs" />
+    <Compile Include="AddTagAndAcceptedOnAndTransitionedOnStoriesTable.cs" />
     <Compile Include="AddVelocityToProjectTable.cs" />
     <Compile Include="CreateProjectTableAndAddProjectIdToStoriesTable.cs" />
     <Compile Include="CreateStoriesTable.cs" />

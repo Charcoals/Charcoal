@@ -83,7 +83,7 @@ namespace Charcoal.Core
 
         public void ReorderTasks(long projectId, long storyId, List<Task> tasks)
         {
-            throw new System.NotImplementedException();
+            m_taskRepository.Save(tasks);
         }
 
         public void AddComment(long projectId, long storyId, string comment)

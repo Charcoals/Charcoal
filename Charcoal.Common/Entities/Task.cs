@@ -11,5 +11,6 @@ namespace Charcoal.Common.Entities
         public DateTime CreatedOn { get; set; }
         public DateTime LastEditedOn { get; set; }
         public Story Story { get; set; }
+        public int Position { get; set; }
     }
 }

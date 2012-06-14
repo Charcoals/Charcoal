@@ -19,6 +19,7 @@ namespace Charcoal.PivotalTracker
                            Description = task.Description,
                            IsCompleted = task.Complete,
                            StoryId = task.ParentStoryId,
+                           Position = task.Position
                        };
         }
 
@@ -30,7 +31,8 @@ namespace Charcoal.PivotalTracker
                            ParentStoryId = (int)task.StoryId,
                            ProjectId = (int)projectId,
                            Description = task.Description,
-                           Complete = task.IsCompleted
+                           Complete = task.IsCompleted,
+                           Position = task.Position
                        };
         }
 

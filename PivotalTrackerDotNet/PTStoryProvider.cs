@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Charcoal.Common;
 using Charcoal.Common.Entities;
 using Charcoal.Common.Providers;
@@ -91,7 +92,7 @@ namespace Charcoal.PivotalTracker
 
         public void ReorderTasks(long projectId, long storyId, List<Charcoal.Common.Entities.Task> tasks)
         {
-            //throw new NotImplementedException();
+            m_service.ReorderTasks((int)projectId, (int)storyId, tasks.Select(e=> e.ConvertTo(projectId)).ToList());
         }
 
         public void AddComment(long projectId, long storyId, string comment)

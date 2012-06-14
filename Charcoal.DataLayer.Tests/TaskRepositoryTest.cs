@@ -56,7 +56,7 @@ namespace Charcoal.DataLayer.Tests
             task.Assignees = "Dude1, Dude2";
             task.IsCompleted = true;
             task.StoryId = m_database.Stories.All().ToList<dynamic>()[0].Id;
-
+            task.Position = 5;
             DatabaseOperationResponse response = m_repository.Save(task);
             Assert.IsTrue(response.HasSucceeded);
 
@@ -160,6 +160,7 @@ namespace Charcoal.DataLayer.Tests
             Assert.AreEqual(expected.Assignees, actual.Assignees);
             Assert.AreEqual(expected.StoryId, actual.StoryId);
             Assert.AreEqual(expected.IsCompleted, actual.IsCompleted);
+            Assert.AreEqual(expected.Position, actual.Position);
         }
 
     }
