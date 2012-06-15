@@ -18,20 +18,6 @@ namespace Charcoal.Web.Controllers
             this.service = service;
         }
 
-        //[HttpGet]
-        //public ActionResult Details(int id, int storyId, int projectId)
-        //{
-        //    return PartialView("TaskDetails", new TaskViewModel(Service.GetTask(projectId, storyId, id), projectId));
-        //}
-
-        //[HttpPost]
-        //public ActionResult SignUp(int id, int storyId, int projectId, string initials) {
-        //    var task = Service.GetTask(projectId, storyId, id);
-        //    task.Description = AddInitialsToDescription(task, initials);
-        //    Service.SaveTask(task);
-        //    return PartialView("TaskDetails", new TaskViewModel(task));
-        //}
-
         [HttpPut]
         public ActionResult SignUp(string initials, string[] fullIds)
         {

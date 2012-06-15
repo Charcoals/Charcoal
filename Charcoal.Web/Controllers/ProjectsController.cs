@@ -18,9 +18,5 @@ namespace Charcoal.Web.Controllers {
             return View(projects);
         }
 
-        //public ActionResult RecentActivities(int projectId) {
-        //    return View(PTProjectProvider.GetRecentActivity(projectId));
-        //} 
-
     }
 }

@@ -1,147 +1,137 @@
 ﻿using System.Collections.Generic;
+using Charcoal.Common.Entities;
 using Charcoal.Web.Controllers;
 using Charcoal.Web.Models;
 using NUnit.Framework;
-using PivotalTrackerDotNet.Domain;
 using System.Web.Mvc;
+using Moq;
+using Charcoal.Common.Providers;
 
-namespace Charcoal.Web.Tests.Controllers {
+namespace Charcoal.Web.Tests.Controllers
+{
     [TestFixture]
-    public class StoriesControllerTest {
-        //[Test]
-        //public void CurrentIteration() {
-        //    var mockery = new MockRepository();
+    public class StoriesControllerTest
+    {
+        [Test]
+        public void CurrentIteration()
+        {
 
-        //    var projectId = 3;
-        //    var storyService = mockery.StrictMock<IStoryService>();
+            int projectId = 3;
+            var storyService = new Mock<IStoryProvider>();
 
-        //    using (mockery.Record()) {
-        //        Expect.Call(storyService.GetCurrentStories(projectId)).Return(new List<Story>());
-        //    }
 
-        //    using (mockery.Playback()) {
-        //        var controller = new StoriesController(storyService);
-        //        var result = controller.CurrentIteration(projectId);
-        //        var viewResult = result as ViewResult;
-        //        Assert.NotNull(viewResult);
-        //        Assert.IsInstanceOf<List<Story>>(viewResult.Model);
-        //    }
-        //}
+            storyService.Setup(e => e.GetStories(It.Is<long>(je => je == 3), IterationType.Current)).Returns(new List<Story>());
 
-        //[Test]
-        //public void BacklogStories() {
-        //    var mockery = new MockRepository();
+            var controller = new StoriesController(storyService.Object);
+            var result = controller.CurrentIteration(projectId);
+            var viewResult = result as ViewResult;
+            Assert.NotNull(viewResult);
+            Assert.IsInstanceOf<ProjectStoryViewModel>(viewResult.Model);
+            storyService.Verify();
+        }
 
-        //    var projectId = 3;
-        //    var storyService = mockery.StrictMock<IStoryService>();
+        [Test]
+        public void BacklogStories()
+        {
+            int projectId = 3;
+            var storyService = new Mock<IStoryProvider>();
 
-        //    using (mockery.Record()) {
-        //        Expect.Call(storyService.GetBacklogStories(projectId)).Return(new List<Story>());
-        //    }
 
-        //    using (mockery.Playback()) {
-        //        var controller = new StoriesController(storyService);
-        //        var result = controller.BackLogStories(projectId);
-        //        var viewResult = result as ViewResult;
-        //        Assert.NotNull(viewResult);
-        //        Assert.IsInstanceOf<List<Story>>(viewResult.Model);
-        //    }
-        //}
+            storyService.Setup(e => e.GetStories(It.Is<long>(je => je == 3), IterationType.Backlog)).Returns(new List<Story>());
 
-        //[Test]
-        //public void IceboxStories() {
-        //    var mockery = new MockRepository();
+            var controller = new StoriesController(storyService.Object);
+            var result = controller.BackLogStories(projectId);
+            var viewResult = result as ViewResult;
+            Assert.NotNull(viewResult);
+            Assert.IsInstanceOf<ProjectStoryViewModel>(viewResult.Model);
+            storyService.Verify();
+        }
 
-        //    var projectId = 3;
-        //    var storyService = mockery.StrictMock<IStoryService>();
+        [Test]
+        public void IceboxStories()
+        {
+            int projectId = 3;
+            var storyService = new Mock<IStoryProvider>();
 
-        //    using (mockery.Record()) {
-        //        Expect.Call(storyService.GetIceboxStories(projectId)).Return(new List<Story>());
-        //    }
 
-        //    using (mockery.Playback()) {
-        //        var controller = new StoriesController(storyService);
-        //        var result = controller.IceboxStories(projectId);
-        //        var viewResult = result as ViewResult;
-        //        Assert.NotNull(viewResult);
-        //        Assert.IsInstanceOf<List<Story>>(viewResult.Model);
-        //    }
-        //}
+            storyService.Setup(e => e.GetStories(It.Is<long>(je => je == projectId), IterationType.Icebox)).Returns(new List<Story>());
 
-        //[Test]
-        //public void Get() {
-        //    var mockery = new MockRepository();
-        //    var storyService = mockery.StrictMock<IStoryService>();
+            var controller = new StoriesController(storyService.Object);
+            var result = controller.IceboxStories(projectId);
+            var viewResult = result as ViewResult;
+            Assert.NotNull(viewResult);
+            Assert.IsInstanceOf<ProjectStoryViewModel>(viewResult.Model);
+            storyService.Verify();
+        }
 
-        //    var storyId = 1;
-        //    var projectId = 3;
+        [Test]
+        public void Get()
+        {
+            int projectId = 3;
+            int storyId = 5;
+            var storyService = new Mock<IStoryProvider>();
 
-        //    var story = new Story();
+            var story = new Story();
+            IterationType iterationType = IterationType.Backlog;
+            storyService.Setup(e => e.GetStory(It.Is<long>(je => je == projectId), It.Is<long>(je => je == storyId), iterationType)).Returns(story);
 
-        //    using (mockery.Record()) {
-        //        Expect.Call(storyService.GetStory(projectId, storyId)).Return(story);
-        //    }
+            var controller = new StoriesController(storyService.Object);
+            var result = controller.Get(projectId, storyId, (int)iterationType);
+            var viewResult = result as PartialViewResult;
+            Assert.NotNull(viewResult);
+            Assert.IsInstanceOf<StoryRowViewModel>(viewResult.Model);
+            Assert.AreEqual(((StoryRowViewModel)viewResult.Model).Story, story);
+            storyService.Verify();
+        }
 
-        //    using (mockery.Playback()) {
-        //        var controller = new StoriesController(storyService);
-        //        var result = controller.Get(projectId, storyId);
-        //        var viewResult = result as PartialViewResult;
-        //        Assert.NotNull(viewResult);
-        //        Assert.IsInstanceOf<StoryRowViewModel>(viewResult.Model);
-        //        Assert.AreEqual(((StoryRowViewModel)viewResult.Model).Story, story);
-        //    }
-        //}
+        [Test]
+        public void Start()
+        {
+            var storyService = new Mock<IStoryProvider>();
 
-        //[Test]
-        //public void Start() {
-        //    var mockery = new MockRepository();
-        //    var storyService = mockery.StrictMock<IStoryService>();
+            var storyId = 1;
+            var projectId = 3;
 
-        //    var storyId = 1;
-        //    var projectId = 3;
+            var anotherStory = new Story() { Status = StoryStatus.Started };
+            var iterationType = IterationType.Current;
+            storyService.Setup(e => e.StartStory(projectId, storyId, iterationType)).Returns(anotherStory);
 
-        //    var anotherStory = new Story() { CurrentState = StoryStatus.Started };
-        //    using (mockery.Record()) {
-        //        Expect.Call(storyService.StartStory(projectId, storyId)).Return(anotherStory);
-        //    }
+            var controller = new StoriesController(storyService.Object);
+            var result = controller.Start(projectId, storyId, (int)iterationType);
+            var viewResult = result as PartialViewResult;
+            Assert.NotNull(viewResult);
+            Assert.IsInstanceOf<StoryRowViewModel>(viewResult.Model);
+            Assert.AreEqual(((StoryRowViewModel)viewResult.Model).Story, anotherStory);
+            storyService.Verify();
+        }
 
-        //    using (mockery.Playback()) {
-        //        var controller = new StoriesController(storyService);
-        //        var result = controller.Start(projectId, storyId);
-        //        var viewResult = result as PartialViewResult;
-        //        Assert.NotNull(viewResult);
-        //        Assert.IsInstanceOf<StoryRowViewModel>(viewResult.Model);
-        //        Assert.AreEqual(((StoryRowViewModel)viewResult.Model).Story, anotherStory);
-        //    }
-        //}
+        [Test]
+        public void Finish()
+        {
 
-        //[Test]
-        //public void Finish() {
-        //    var mockery = new MockRepository();
-        //    var storyService = mockery.StrictMock<IStoryService>();
+            var storyService = new Mock<IStoryProvider>();
 
-        //    var storyId = 1;
-        //    var projectId = 3;
+            var storyId = 1;
+            var projectId = 3;
 
-        //    var anotherStory = new Story() { CurrentState = StoryStatus.Finished };
-        //    using (mockery.Record()) {
-        //        Expect.Call(storyService.FinishStory(projectId, storyId)).Return(anotherStory);
-        //    }
+            var anotherStory = new Story() { Status = StoryStatus.Finished };
 
-        //    using (mockery.Playback()) {
-        //        var controller = new StoriesController(storyService);
-        //        var result = controller.Finish(projectId, storyId);
-        //        var viewResult = result as PartialViewResult;
-        //        Assert.NotNull(viewResult);
-        //        Assert.IsInstanceOf<StoryRowViewModel>(viewResult.Model);
-        //        Assert.AreEqual(((StoryRowViewModel)viewResult.Model).Story, anotherStory);
-        //    }
-        //}
+            IterationType iterationType = IterationType.Undefined;
+            storyService.Setup(e => e.FinishStory(projectId, storyId, iterationType)).Returns(anotherStory);
+            var controller = new StoriesController(storyService.Object);
+            var result = controller.Finish(projectId, storyId, (int)iterationType);
+            var viewResult = result as PartialViewResult;
+            Assert.NotNull(viewResult);
+            Assert.IsInstanceOf<StoryRowViewModel>(viewResult.Model);
+            Assert.AreEqual(((StoryRowViewModel)viewResult.Model).Story, anotherStory);
+            storyService.Verify();
+        }
 
         //[Test]
-        //public void AddComment() {
-        //    var mockery = new MockRepository();
-        //    var storyService = mockery.StrictMock<IStoryService>();
+        //public void AddComment()
+        //{
+
+        //    var storyService = new Mock<IStoryProvider>();
 
         //    var storyId = 1;
         //    var projectId = 3;
@@ -149,13 +139,8 @@ namespace Charcoal.Web.Tests.Controllers {
 
         //    var story = new Story();
 
-        //    using (mockery.Record()) 
-        //    using (mockery.Ordered()) {
         //        storyService.AddComment(projectId, storyId, comment);
         //        Expect.Call(storyService.GetStory(projectId, storyId)).Return(story);
-        //    }
-
-        //    using(mockery.Playback()){
         //        var controller = new StoriesController(storyService);
         //        var result = controller.AddComment(projectId, storyId, comment);
 
@@ -164,7 +149,7 @@ namespace Charcoal.Web.Tests.Controllers {
         //        var model = partialResult.Model as StoryRowViewModel;
         //        Assert.NotNull(model);
         //        Assert.AreEqual(story, model.Story);
-        //    }
+        //    storyService.Verify();
         //}
     }
 }
