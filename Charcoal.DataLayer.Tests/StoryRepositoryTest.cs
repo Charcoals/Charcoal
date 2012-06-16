@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Charcoal.Common.Entities;
 using NUnit.Framework;
@@ -188,7 +189,7 @@ namespace Charcoal.DataLayer.Tests
             response = repository.Save(task2);
             Assert.IsTrue(response.HasSucceeded, response.Description);
 
-            var stories = m_repository.FindAllByIterationType(story.ProjectId, (int)story.IterationType);
+            List<Story> stories = m_repository.FindAllByIterationType(story.ProjectId, (int)story.IterationType).ConvertAll(e=>(Story)e).ToList();
             Assert.AreEqual(1, stories.Count);
             Assert.AreEqual(2, stories[0].Tasks.Count);
             Assert.NotNull(stories[0].Project);

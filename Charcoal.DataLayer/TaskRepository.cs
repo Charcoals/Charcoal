@@ -86,7 +86,7 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public dynamic FindAll()
+        public List<dynamic> FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
             return database.Tasks.All().With(database.Tasks.Stories.As("Story")).ToList();

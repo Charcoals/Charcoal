@@ -5,9 +5,11 @@ using Simple.Data;
 
 namespace Charcoal.DataLayer
 {
-    public interface IProjectRepository:IRepository
+    public interface IProjectRepository : IRepository
     {
-        dynamic GetProjectsByUseToken(string apiToken);
+        List<dynamic> GetProjectsByUseToken(string apiToken);
+        DatabaseOperationResponse CreateProjectAssociatedWithKey(dynamic project, string apiToken);
+        DatabaseOperationResponse AddUserToProject(long projectId, string userName);
     }
 
     public class ProjectRepository : IProjectRepository
@@ -23,7 +25,7 @@ namespace Charcoal.DataLayer
         public ProjectRepository()
             : this(ConfigurationManager.ConnectionStrings["Server"].ConnectionString)
         {
-            
+
         }
 
 
@@ -84,10 +86,12 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public dynamic FindAll()
+        public List<dynamic> FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
-            return database.Projects.All().ToList();
+            return database.Projects.All()
+                .With(database.Projects.UsersXProjects.Users.As("Users"))
+                .ToList();
         }
 
         public dynamic Find(long id)
@@ -96,13 +100,37 @@ namespace Charcoal.DataLayer
             return database.Projects.FindById(id);
         }
 
-        public dynamic GetProjectsByUseToken(string apiToken)
+        public List<dynamic> GetProjectsByUseToken(string apiToken)
         {
             var database = Database.OpenConnection(m_connectionString);
 
             var userId = database.Users.FindByAPIKey(apiToken).Id;
 
-            return database.Projects.FindAll(database.Projects.UsersXProjects.Users.Id == userId).ToList();
+            return database.Projects.FindAll(database.Projects.UsersXProjects.Users.Id == userId).ToList<dynamic>();
+        }
+
+        public DatabaseOperationResponse CreateProjectAssociatedWithKey(dynamic project, string apiToken)
+        {
+            try
+            {
+                var database = Database.OpenConnection(m_connectionString);
+                var userId = database.Users.FindByAPIKey(apiToken).Id;
+                var savedProject = database.Projects.Insert(project);
+
+                database.UsersXProjects.Insert(UserId: userId, ProjectId: savedProject.Id);
+                return new DatabaseOperationResponse(true);
+
+            }
+            catch (Exception ex)
+            {
+                return new DatabaseOperationResponse(description: ex.Message);
+            }
+
+        }
+
+        public DatabaseOperationResponse AddUserToProject(long projectId, string userName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

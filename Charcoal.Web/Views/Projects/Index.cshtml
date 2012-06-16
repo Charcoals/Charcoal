@@ -1,12 +1,17 @@
 ﻿@using Charcoal.Web.Models
-@model IEnumerable<Charcoal.Common.Entities.Project>
+@model ProjectsContainerViewModel
 
 @{
     ViewBag.Title = "Projects";
 }
-
 <h2>My Projects</h2>
+@{
+    if(Model.BackingType == BackingType.Charcoal)
+    {
+        @Html.ActionLink("Create New Project", "Create",new { @class = "btn success" });
+    }
+}
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Projects) {
     @Html.Partial("ProjectControl", new ProjectViewModel(item));
 }

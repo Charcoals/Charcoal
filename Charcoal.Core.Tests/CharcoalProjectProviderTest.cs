@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charcoal.Common;
 using Charcoal.Common.Entities;
 using Charcoal.DataLayer;
 using Moq;
@@ -16,12 +17,24 @@ namespace Charcoal.Core.Tests
         public void CanRetrieveProjectsForUser()
         {
             const string token = "dude";
-            var userRepo = new Mock<IProjectRepository>(MockBehavior.Strict);
-            userRepo.Setup(e => e.GetProjectsByUseToken(token)).Returns(new List<Project>());
+            var projectRepo = new Mock<IProjectRepository>(MockBehavior.Strict);
+            projectRepo.Setup(e => e.GetProjectsByUseToken(token)).Returns(new List<dynamic>());
 
-            new CharcoalProjectProvider(token, userRepo.Object).GetProjects();
-            userRepo.Verify();
-
+            new CharcoalProjectProvider(token, projectRepo.Object).GetProjects();
+            projectRepo.Verify();
         }
+
+        [Test]
+        public void CanCreateProject()
+        {
+            var project = new Project {Description = "re"};
+            var projectRepo = new Mock<IProjectRepository>(MockBehavior.Strict);
+            var apiToken = "key";
+            projectRepo.Setup(e => e.CreateProjectAssociatedWithKey(project, apiToken)).Returns(new DatabaseOperationResponse(true));
+
+            new CharcoalProjectProvider(apiToken, projectRepo.Object).CreateProject(project);
+            projectRepo.Verify();
+        }
+
     }
 }

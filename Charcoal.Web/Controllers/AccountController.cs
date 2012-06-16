@@ -32,7 +32,7 @@ namespace Charcoal.Web.Controllers
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("LogOn");
                 }
             }
 
@@ -47,7 +47,7 @@ namespace Charcoal.Web.Controllers
         {
             Response.TrySkipIisCustomErrors = true;
             Response.StatusCode = 999;
-            return View();
+            return View(new LogOnModel{BackingType = Backing});
         }
 
         //

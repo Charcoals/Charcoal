@@ -89,7 +89,7 @@ namespace Charcoal.Core.Tests
             var story = new Story {IterationType = IterationType.Backlog};
             var storyRepo = new Mock<IStoryRepository>(MockBehavior.Strict);
             storyRepo.Setup(repo => repo.FindAllByIterationType(projectId,(int)IterationType.Backlog ))
-                      .Returns(new List<Story>{story});
+                      .Returns(new List<dynamic>{story});
 
             new CharcoalStoryProvider(storyRepo.Object, Mock.Of<ITaskRepository>()).GetStories(projectId, IterationType.Backlog);
             storyRepo.Verify();
@@ -101,7 +101,7 @@ namespace Charcoal.Core.Tests
             var story = new Story { IterationType = IterationType.Backlog , ProjectId = projectId};
             var storyRepo = new Mock<IStoryRepository>(MockBehavior.Strict);
             storyRepo.Setup(repo => repo.FindAllByProjectId(projectId))
-                      .Returns(new List<Story> { story });
+                      .Returns(new List<dynamic> { story });
 
             new CharcoalStoryProvider(storyRepo.Object, Mock.Of<ITaskRepository>()).GetAllStories(projectId);
             storyRepo.Verify();

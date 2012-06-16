@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Charcoal.Common.Entities;
 using NUnit.Framework;
 using Simple.Data;
@@ -228,7 +229,7 @@ namespace Charcoal.DataLayer.Tests
             m_database.UsersXProjects.Insert(UserId: retrievedUser.Id,
                                              ProjectId: projectId);
 
-            var foundUsers = m_repository.FindAll();
+            List<User> foundUsers = m_repository.FindAll().ConvertAll(e=> (User)e);
             Assert.AreEqual(1, foundUsers.Count);
 
             VerifyUserStory(retrievedUser, foundUsers[0]);
@@ -239,7 +240,7 @@ namespace Charcoal.DataLayer.Tests
 
 
 
-        private void VerifyUserStory(dynamic expected, dynamic actual)
+        private void VerifyUserStory(User expected, User actual)
         {
             Assert.AreEqual(expected.Email, actual.Email);
             Assert.AreEqual(expected.UserName, actual.UserName);

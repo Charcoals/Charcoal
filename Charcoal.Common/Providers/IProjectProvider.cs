@@ -6,5 +6,6 @@ namespace Charcoal.Common.Providers
 	public interface IProjectProvider {
 		List<Project> GetProjectsByUser(string userName);
 		List<Project> GetProjects();
+	    OperationResponse CreateProject(Project project);
 	}
 }

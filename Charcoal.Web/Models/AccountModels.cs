@@ -33,6 +33,8 @@ namespace Charcoal.Web.Models {
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public BackingType BackingType { get; set; }
     }
 
     public enum BackingType

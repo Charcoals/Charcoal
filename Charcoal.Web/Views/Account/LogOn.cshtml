@@ -6,11 +6,12 @@
 <h2>
     Log On</h2>
 <p>
-    Please log on using your <a href="http://pivotaltracker.com">Pivotal Tracker</a>
-    credentials.
+    @Html.HiddenFor(model=> model.BackingType)
+    Please log on using your @(Model.BackingType == BackingType.Charcoal ? Html.Raw("<b>Charcoal</b>") : Html.Raw("<a href=\"http://pivotaltracker.com\">Pivotal Tracker</a>")) credentials.
 </p>
 @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     <div>
         <fieldset>
             <div class="clearfix">
@@ -36,3 +37,4 @@
         </fieldset>
     </div>
 }
+@(Model.BackingType == BackingType.Charcoal ? Html.ActionLink("Register a new Charcoal Account","Register") : Html.Raw(""))

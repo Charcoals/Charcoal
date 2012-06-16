@@ -32,12 +32,12 @@ namespace Charcoal.Core
 
         public List<Story> GetStories(long projectId, IterationType iterationType)
         {
-            return m_storyRepository.FindAllByIterationType(projectId, (int)iterationType);
+            return m_storyRepository.FindAllByIterationType(projectId, (int)iterationType).ConvertAll(e=> (Story)e);
         }
 
         public List<Story> GetAllStories(long projectId)
         {
-            return m_storyRepository.FindAllByProjectId(projectId);
+            return m_storyRepository.FindAllByProjectId(projectId).ConvertAll(e => (Story)e);
         }
 
         public List<Story> GetAllStoriesByTag(long projectId, string tag)

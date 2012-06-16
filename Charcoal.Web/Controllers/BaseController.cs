@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 using Charcoal.Web.Models;
@@ -23,17 +24,10 @@ namespace Charcoal.Web.Controllers {
         {
             get
             {
-                if (Session != null)
-                {
-                    var type = Session["authType"];
-                    if (type is BackingType)
-                    {
-                        return (BackingType)type ;
-                    }
-                }
-                throw new NotAuthenticatedException();
+                var backing = ConfigurationManager.AppSettings["backingType"];
+                                                             BackingType type;
+                return Enum.TryParse(backing, true, out type) ? type : BackingType.Charcoal;
             }
-            set { Session.Add("authType", value); }
         }
 
         protected override void OnException(ExceptionContext filterContext) {

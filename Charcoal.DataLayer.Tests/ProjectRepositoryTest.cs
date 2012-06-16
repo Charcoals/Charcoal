@@ -110,7 +110,7 @@ namespace Charcoal.DataLayer.Tests
 
             Project retrievedProject = m_database.Projects.All().ToList<Project>()[0];
 
-            var projects = m_repository.FindAll();
+            List<Project> projects = m_repository.FindAll().ConvertAll(e=>(Project)e);
             Assert.AreEqual(1, projects.Count);
             VerifyProject(retrievedProject, projects[0]);
         }
@@ -142,13 +142,30 @@ namespace Charcoal.DataLayer.Tests
             m_database.UsersXProjects.Insert(UserId: userId, ProjectId: dbProjects[0].Id);
             m_database.UsersXProjects.Insert(UserId: userId, ProjectId: dbProjects[1].Id);
 
-            var projects = m_repository.GetProjectsByUseToken(token);
+            List<Project> projects = m_repository.GetProjectsByUseToken(token).ConvertAll(e=>(Project)e);
             Assert.AreEqual(2, projects.Count);
         }
 
+        [Test]
+        public void CanCreateProjectAssociatedWithKey()
+        {
+            var project = new Project();
+            project.Title = "loooooooo";
+            project.Description = "loooe3rewrrewooooo";
 
+            var user = m_database.Users.Insert(UserName: "somedude", FirstName: "Some", LastName: "Dude", APIKey: "yuiu-998",
+            Email: "aaa@aaa.com", Privileges: 2, Password: "lolll");
 
-        private void VerifyProject(dynamic expected, dynamic actual)
+            var response = m_repository.CreateProjectAssociatedWithKey(project, user.APIKey);
+            Assert.IsTrue(response.HasSucceeded);
+
+            Assert.AreEqual(1, m_database.Projects.All().ToList<Project>().Count);
+
+            var projects = m_repository.GetProjectsByUseToken(user.APIKey);
+            Assert.AreEqual(1, projects.Count);
+        }
+
+        private void VerifyProject(Project expected, Project actual)
         {
             Assert.AreEqual(expected.Title, actual.Title);
             Assert.AreEqual(expected.Description, actual.Description);

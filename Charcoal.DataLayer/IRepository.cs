@@ -9,7 +9,7 @@ namespace Charcoal.DataLayer
         DatabaseOperationResponse Update(dynamic entity);
         DatabaseOperationResponse Delete(long id);
 
-        dynamic FindAll();
+        List<dynamic> FindAll();
         dynamic Find(long id);
     }
 }

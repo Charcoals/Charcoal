@@ -1,57 +1,68 @@
 ﻿@model Charcoal.Web.Models.RegisterModel
 @{
-    ViewBag.Title = "Log On";
+    ViewBag.Title = "Account Registration";
 }
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>RegisterModel</legend>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UserName)
+    <fieldset class="well">
+        <legend>Register Account</legend>
+        <div class="clearfix">
+            <div class="row">
+                <div class="span4">
+                    First Name:
+                </div>
+                <div class="span4">
+                    @Html.TextBoxFor(model => model.FirstName)
+                    @Html.ValidationMessageFor(model => model.FirstName)
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    Last Name:</div>
+                <div class="input">
+                    @Html.TextBoxFor(model => model.LastName)
+                    @Html.ValidationMessageFor(model => model.LastName)
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    Email:</div>
+                <div class="input">
+                    @Html.TextBoxFor(model => model.Email)
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    User Name:
+                </div>
+                <div class="span4">
+                    @Html.TextBoxFor(model => model.UserName)
+                    @Html.ValidationMessageFor(model => model.UserName)
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    Password:</div>
+                <div class="input">
+                    @Html.PasswordFor(model => model.Password)
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    Confirm Password:</div>
+                <div class="input">
+                    @Html.PasswordFor(model => model.ConfirmPassword)
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                </div>
+            </div>
+            <p>
+                <button style="margin-top: 10px; margin-left: 150px" class="btn primary" type="submit">
+                    Register</button>
+            </p>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UserName)
-            @Html.ValidationMessageFor(model => model.UserName)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FirstName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.LastName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Email)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Email)
-            @Html.ValidationMessageFor(model => model.Email)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Password)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ConfirmPassword)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ConfirmPassword)
-            @Html.ValidationMessageFor(model => model.ConfirmPassword)
-        </div>
-        <p>
-            <input type="submit" value="Register" />
-        </p>
     </fieldset>
 }
 <div>

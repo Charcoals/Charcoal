@@ -1,6 +1,4 @@
-﻿
-
-using Charcoal.Common.Entities;
+﻿using Charcoal.Common.Entities;
 
 namespace Charcoal.Web.Models {
     public class ProjectViewModel {

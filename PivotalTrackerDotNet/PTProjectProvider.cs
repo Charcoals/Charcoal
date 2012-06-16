@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Charcoal.Common;
 using Charcoal.Common.Providers;
 using PivotalTrackerDotNet;
 using PivotalTrackerDotNet.Domain;
@@ -28,6 +29,11 @@ namespace Charcoal.PivotalTracker
         public List<Charcoal.Common.Entities.Project> GetProjects()
         {
             return m_service.GetProjects().ConvertAll(ConvertProject);
+        }
+
+        public OperationResponse CreateProject(Common.Entities.Project project)
+        {
+            throw new NotImplementedException();
         }
 
         Charcoal.Common.Entities.Project ConvertProject(Project project)

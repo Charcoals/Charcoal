@@ -7,8 +7,8 @@ namespace Charcoal.DataLayer
 {
     public interface IStoryRepository:IRepository
     {
-        dynamic FindAllByIterationType(long projectId, int iterationType);
-        dynamic FindAllByProjectId(long projectId);
+        List<dynamic> FindAllByIterationType(long projectId, int iterationType);
+        List<dynamic> FindAllByProjectId(long projectId);
         dynamic UpdateStoryStatus(long storyId, int status);
     }
 
@@ -87,7 +87,7 @@ namespace Charcoal.DataLayer
             }
         }
 
-        public dynamic FindAll()
+        public List<dynamic> FindAll()
         {
             var database = Database.OpenConnection(m_connectionString);
             return database.Stories.All()
@@ -102,7 +102,7 @@ namespace Charcoal.DataLayer
             return GetStory(id, database);
         }
 
-        public dynamic FindAllByIterationType(long projectId, int iterationType)
+        public List<dynamic> FindAllByIterationType(long projectId, int iterationType)
         {
             var database = Database.OpenConnection(m_connectionString);
             return database.Stories.FindAll(database.Stories.IterationType == iterationType 
@@ -113,7 +113,7 @@ namespace Charcoal.DataLayer
         
         }
 
-        public dynamic FindAllByProjectId(long projectId)
+        public List<dynamic> FindAllByProjectId(long projectId)
         {
             var database = Database.OpenConnection(m_connectionString);
             return database.Stories.FindAll(database.Stories.ProjectId == projectId)
