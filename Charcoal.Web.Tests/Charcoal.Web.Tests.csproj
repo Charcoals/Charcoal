@@ -33,9 +33,6 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="PivotalTrackerDotNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PivotalTrackerDotNet.1.0.0\lib\net40\PivotalTrackerDotNet.dll</HintPath>
-    </Reference>
     <Reference Include="RestSharp, Version=103.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\RestSharp.103.1\lib\net4\RestSharp.dll</HintPath>
