@@ -44,14 +44,12 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp, Version=103.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RestSharp.103.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -66,8 +64,14 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc">
+    <Reference Include="System.Web.Mvc" Condition="'$(Configuration)'!='Mac'">
       <HintPath>..\packages\Mvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc" Condition="'$(Configuration)'=='Mac'">
+      <HintPath>..\packages\monodevelopMvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.103.1\lib\net4\RestSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

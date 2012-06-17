@@ -39,6 +39,8 @@
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Elmah">
@@ -48,16 +50,6 @@
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="PivotalTrackerDotNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PivotalTrackerDotNet.1.0.3\lib\net40\PivotalTrackerDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp, Version=103.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RestSharp.103.1\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Simple.Data, Version=0.16.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Simple.Data.Core.0.16.1.0\lib\net40\Simple.Data.dll</HintPath>
-    </Reference>
     <Reference Include="Simple.Data.Ado">
       <HintPath>..\packages\Simple.Data.Ado.0.16.1.0\lib\net40\Simple.Data.Ado.dll</HintPath>
     </Reference>
@@ -74,35 +66,33 @@
       <HintPath>..\packages\structuremap.2.6.3\lib\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" Condition="'$(Configuration)'!='Mac'" />
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"  Condition="'$(Configuration)'!='Mac'" />
-    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"  Condition="'$(Configuration)'!='Mac'" />
-	<Reference Include="System.Web.Entity"  Condition="'$(Configuration)'!='Mac'" />
-	
-	<Reference Include="System.Web.Entity"  Condition="'$(Configuration)'=='Mac'" >
-	<HintPath>..\packages\monodevelopMvc\System.Web.Entity.dll</HintPath>
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" Condition="'$(Configuration)'!='Mac'" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" Condition="'$(Configuration)'!='Mac'" />
+    <Reference Include="System.Web.Entity" Condition="'$(Configuration)'!='Mac'" />
+    <Reference Include="System.Web.Entity" Condition="'$(Configuration)'=='Mac'">
+      <HintPath>..\packages\monodevelopMvc\System.Web.Entity.dll</HintPath>
     </Reference>
-	<Reference Include="System.Web.Razor"  Condition="'$(Configuration)'=='Mac'" >
-	<HintPath>..\packages\monodevelopMvc\System.Web.Razor.dll</HintPath>
+    <Reference Include="System.Web.Razor" Condition="'$(Configuration)'=='Mac'">
+      <HintPath>..\packages\monodevelopMvc\System.Web.Razor.dll</HintPath>
     </Reference>
-	<Reference Include="System.Data.Entity"  Condition="'$(Configuration)'=='Mac'" >
-	<HintPath>..\packages\monodevelopMvc\System.Data.Entity.dll</HintPath>
+    <Reference Include="System.Data.Entity" Condition="'$(Configuration)'=='Mac'">
+      <HintPath>..\packages\monodevelopMvc\System.Data.Entity.dll</HintPath>
     </Reference>
-	<Reference Include="System.Web.Helpers"  Condition="'$(Configuration)'=='Mac'" >
-	<HintPath>..\packages\monodevelopMvc\System.Web.Helpers.dll</HintPath>
+    <Reference Include="System.Web.Helpers" Condition="'$(Configuration)'=='Mac'">
+      <HintPath>..\packages\monodevelopMvc\System.Web.Helpers.dll</HintPath>
     </Reference>
-	<Reference Include="System.Web.Mvc"  Condition="'$(Configuration)'=='Mac'" >
-	<HintPath>..\packages\monodevelopMvc\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Mvc" Condition="'$(Configuration)'=='Mac'">
+      <HintPath>..\packages\monodevelopMvc\System.Web.Mvc.dll</HintPath>
     </Reference>
-	<Reference Include="System.Web.WebPages"  Condition="'$(Configuration)'=='Mac'" >
-	<HintPath>..\packages\monodevelopMvc\System.Web.WebPages.dll</HintPath>
+    <Reference Include="System.Web.WebPages" Condition="'$(Configuration)'=='Mac'">
+      <HintPath>..\packages\monodevelopMvc\System.Web.WebPages.dll</HintPath>
     </Reference>
-	<Reference Include="System.Web.WebPages.Deployment"  Condition="'$(Configuration)'=='Mac'" >
-	<HintPath>..\packages\monodevelopMvc\System.Web.WebPages.Deployment.dll</HintPath>
+    <Reference Include="System.Web.WebPages.Deployment" Condition="'$(Configuration)'=='Mac'">
+      <HintPath>..\packages\monodevelopMvc\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
-	<Reference Include="System.Web.WebPages.Razor"  Condition="'$(Configuration)'=='Mac'" >
-	<HintPath>..\packages\monodevelopMvc\System.Web.WebPages.Razor.dll</HintPath>
+    <Reference Include="System.Web.WebPages.Razor" Condition="'$(Configuration)'=='Mac'">
+      <HintPath>..\packages\monodevelopMvc\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-	
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -120,6 +110,15 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="PivotalTrackerDotNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\PivotalTrackerDotNet.1.0.3\lib\net40\PivotalTrackerDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.103.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Simple.Data, Version=0.16.1.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Simple.Data.Core.0.16.1.0\lib\net40\Simple.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AnalyticsController.cs" />
