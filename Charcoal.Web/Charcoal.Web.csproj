@@ -32,6 +32,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Mac|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.corelibrary.1.2.1\lib\Elmah.dll</HintPath>
@@ -65,14 +73,40 @@
     <Reference Include="StructureMap">
       <HintPath>..\packages\structuremap.2.6.3\lib\StructureMap.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" Condition="'$(Configuration)'!='Mac'" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"  Condition="'$(Configuration)'!='Mac'" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"  Condition="'$(Configuration)'!='Mac'" />
+	<Reference Include="System.Web.Entity"  Condition="'$(Configuration)'!='Mac'" />
+	
+	<Reference Include="System.Web.Entity"  Condition="'$(Configuration)'=='Mac'" >
+	<HintPath>..\packages\monodevelopMvc\System.Web.Entity.dll</HintPath>
+    </Reference>
+	<Reference Include="System.Web.Razor"  Condition="'$(Configuration)'=='Mac'" >
+	<HintPath>..\packages\monodevelopMvc\System.Web.Razor.dll</HintPath>
+    </Reference>
+	<Reference Include="System.Data.Entity"  Condition="'$(Configuration)'=='Mac'" >
+	<HintPath>..\packages\monodevelopMvc\System.Data.Entity.dll</HintPath>
+    </Reference>
+	<Reference Include="System.Web.Helpers"  Condition="'$(Configuration)'=='Mac'" >
+	<HintPath>..\packages\monodevelopMvc\System.Web.Helpers.dll</HintPath>
+    </Reference>
+	<Reference Include="System.Web.Mvc"  Condition="'$(Configuration)'=='Mac'" >
+	<HintPath>..\packages\monodevelopMvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+	<Reference Include="System.Web.WebPages"  Condition="'$(Configuration)'=='Mac'" >
+	<HintPath>..\packages\monodevelopMvc\System.Web.WebPages.dll</HintPath>
+    </Reference>
+	<Reference Include="System.Web.WebPages.Deployment"  Condition="'$(Configuration)'=='Mac'" >
+	<HintPath>..\packages\monodevelopMvc\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+	<Reference Include="System.Web.WebPages.Razor"  Condition="'$(Configuration)'=='Mac'" >
+	<HintPath>..\packages\monodevelopMvc\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+	
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
