@@ -7,7 +7,7 @@ namespace Charcoal.Common.Providers
     {
         public long ProjectId { get; set; }
         public string Name { get; set; }
-        public IEnumerable<Story> CachedStories { get; set; } 
+        public List<Story> CachedStories { get; set; } 
 
         public int FeaturesCount { get; set; }
         public int? UnplannedStoriesPoints { get; set; }

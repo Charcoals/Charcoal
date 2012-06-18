@@ -69,12 +69,8 @@ namespace Charcoal.Common.Providers
                         result.Items.Add(CreateResult(iterationStories.ToList(),
                                         from, iterationSpan));
 
-                        from += iterationSpan;
                     }
-                    else
-                    {
-                        break;
-                    }
+                    from += iterationSpan;
                 }
 
                 var remainingSpan = (targetDate - from).Days / iterationSpan.Days * 1m;
@@ -99,14 +95,14 @@ namespace Charcoal.Common.Providers
             result.CachedStories = stories;
             result.From = iterationStart;
             result.To = iterationEnd;
-            result.TotalPointsCompleted = stories.Where(e => e.AcceptedOn.HasValue
-                                                            && e.Estimate.HasValue)
+            var enumerable = stories.Where(e => e.Status== StoryStatus.Accepted && e.Estimate.HasValue && InRange(e.AcceptedOn.Value, iterationStart,iterationEnd));
+            result.TotalPointsCompleted = enumerable
                                                     .Sum(e => e.Estimate.Value);
 
             result.BugsFixed = stories.Count(e => e.StoryType == StoryType.Bug
-                                                 && e.AcceptedOn.HasValue);
-            result.FeaturesAccepted = stories.Count(e => e.StoryType == StoryType.Feature
-                                                        && e.AcceptedOn.HasValue);
+                                                 && IsCompleted(e.Status));
+            result.FeaturesAccepted = stories.Count(e => e.StoryType == StoryType.Feature &&
+                                                       e.Status== StoryStatus.Accepted);
 
             result.BugsAdded = stories.Count(e => e.StoryType == StoryType.Bug
                                                     && InRange(e.CreatedOn, iterationStart,
@@ -122,9 +118,9 @@ namespace Charcoal.Common.Providers
         static bool IsInRange(Story story, DateTime iterationStart, TimeSpan span)
         {
             var iterationEnd = iterationStart + span;
-            return InRange(story.CreatedOn, iterationStart, iterationEnd)
+            return (InRange(story.CreatedOn, iterationStart, iterationEnd)
                    || (story.AcceptedOn.HasValue
-                       && InRange(story.AcceptedOn.Value, iterationStart, iterationEnd));
+                       && InRange(story.AcceptedOn.Value, iterationStart, iterationEnd)));
         }
 
         static bool InRange(DateTime time, DateTime from, DateTime to)

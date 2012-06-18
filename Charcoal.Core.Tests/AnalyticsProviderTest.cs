@@ -171,7 +171,7 @@ namespace Charcoal.Core.Tests
             var result = new AnalyticsProvider(null).CreateReleaseProjection(
                 new OverviewAnalysisResult
                     {
-                        CachedStories =  week1.Concat(week2).Concat(week3)
+                        CachedStories =  week1.Concat(week2).Concat(week3).ToList()
                     },
                 dateTime.AddDays(7*4),
                 2,
@@ -187,7 +187,7 @@ namespace Charcoal.Core.Tests
             Assert.AreEqual(5, firstStories.Count(e => e.StoryType == StoryType.Feature));
             Assert.AreEqual(5, firstStories.Count(e => e.StoryType == StoryType.Bug));
             Assert.AreEqual(4, firstResult.FeaturesAccepted);
-            Assert.AreEqual(4, firstResult.BugsFixed);
+            Assert.AreEqual(5, firstResult.BugsFixed);
 
             Assert.AreEqual(4, firstResult.FeaturesAdded);
             Assert.AreEqual(4, firstResult.BugsAdded);
@@ -201,7 +201,7 @@ namespace Charcoal.Core.Tests
             Assert.AreEqual(3, secondStories.Count(e => e.StoryType == StoryType.Feature));
             Assert.AreEqual(3, secondStories.Count(e => e.StoryType == StoryType.Bug));
             Assert.AreEqual(2, secondResult.FeaturesAccepted);
-            Assert.AreEqual(2, secondResult.BugsFixed);
+            Assert.AreEqual(3, secondResult.BugsFixed);
 
             Assert.AreEqual(4, secondResult.TotalPointsCompleted);
 
