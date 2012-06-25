@@ -68,39 +68,11 @@ namespace Charcoal.Web.Controllers
         {
             return null;
         }
-        //private static IterationAnalysisResult IterationAnalysisResult()
-        //       {
-        //           var result = new IterationAnalysisResult
-        //                            {
-        //                                Name = "lo",
-        //                                NeededAverageVelocity = 9,
-        //                                Items = new List<IterationResultItem>
-        //                                            {
-        //                                                new IterationResultItem
-        //                                                    {
-        //                                                        From = DateTime.Now,
-        //                                                        BugsAdded = 3,
-        //                                                        BugsFixed = 2,
-        //                                                        FeaturesAccepted = 1,
-        //                                                        FeaturesAdded = 3,
-        //                                                        To = DateTime.Now,
-        //                                                        TotalPointsCompleted = 3,
-        //                                                        Velocity = 4
-        //                                                    },
-        //                                                new IterationResultItem
-        //                                                    {
-        //                                                        From = DateTime.Now,
-        //                                                        BugsAdded = 3,
-        //                                                        BugsFixed = 2,
-        //                                                        FeaturesAccepted = 1,
-        //                                                        FeaturesAdded = 3,
-        //                                                        To = DateTime.Now,
-        //                                                        TotalPointsCompleted = 3,
-        //                                                        Velocity = 4
-        //                                                    }
-        //                                            }
-        //                            };
-        //           return result;
-        //       }
+        
+        public ActionResult AnalyzeRecent(long projectid)
+        {
+            var result = AnalyticsProvider.AnalyzeRecentIterations(projectid);
+            return View("Projection", result);
+        }
     }
 }

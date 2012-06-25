@@ -2,6 +2,7 @@ using System;
 using Charcoal.Common.Entities;
 using PivotalTrackerDotNet.Domain;
 using System.Linq;
+using Iteration = PivotalTrackerDotNet.Domain.Iteration;
 using Story = PivotalTrackerDotNet.Domain.Story;
 using StoryStatus = PivotalTrackerDotNet.Domain.StoryStatus;
 using StoryType = PivotalTrackerDotNet.Domain.StoryType;
@@ -11,6 +12,19 @@ namespace Charcoal.PivotalTracker
 {
     public static class Extensions
     {
+        public static Common.Entities.Iteration ConvertTo(this Iteration iteration, IterationType type)
+        {
+            var convertedIteration = new Common.Entities.Iteration
+                                {
+                                    Id = iteration.Id,
+                                    Finish = iteration.FinishDate,
+                                    Start = iteration.StartDate
+                                };
+
+            convertedIteration.Stories.AddRange(iteration.Stories.Select(e=> e.ConvertTo(type)));
+            return convertedIteration;
+        }
+
         public static Charcoal.Common.Entities.Task ConvertTo(this Task task)
         {
             return new Charcoal.Common.Entities.Task

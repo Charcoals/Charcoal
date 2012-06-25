@@ -19,5 +19,6 @@ namespace Charcoal.Common.Providers
 	    OperationResponse UpdateTask(Task task, long projectId);
 		void ReorderTasks(long projectId, long storyId, List<Task> tasks);
 		void AddComment(long projectId, long storyId, string comment);
+	    List<Iteration> GetRecentIterations(long projectId, int number);
 	}
 }

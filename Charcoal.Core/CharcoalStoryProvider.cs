@@ -90,5 +90,10 @@ namespace Charcoal.Core
         {
             throw new System.NotImplementedException();
         }
+
+        public List<Iteration> GetRecentIterations(long projectId, int number)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

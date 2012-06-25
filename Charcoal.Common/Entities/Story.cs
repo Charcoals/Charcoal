@@ -30,5 +30,5 @@ namespace Charcoal.Common.Entities
         }
     }
     public enum StoryType {Feature, Bug, Chore }
-    public enum IterationType{Undefined=0,Current, Backlog, Icebox}
+    public enum IterationType{Undefined=0,Current, Backlog, Icebox, Done}
 }

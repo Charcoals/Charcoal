@@ -99,5 +99,10 @@ namespace Charcoal.PivotalTracker
         {
             m_service.AddComment((int)projectId, (int)storyId, comment);
         }
+
+        public List<Iteration> GetRecentIterations(long projectId, int number)
+        {
+            return m_service.GetLastIterations((long) projectId, number).ConvertAll(e => e.ConvertTo(IterationType.Done));
+        }
     }
 }

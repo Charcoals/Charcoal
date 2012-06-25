@@ -10,6 +10,7 @@ namespace Charcoal.Common.Providers
         OverviewAnalysisResult AnalyzeProject(long projectId, Predicate<Story> unplannedStoriesPoints = null);
         OverviewAnalysisResult AnalyzeStoryTag(long projectId, string tag, Predicate<Story> unplannedStoriesPoints = null);
         IterationAnalysisResult CreateReleaseProjection(OverviewAnalysisResult overviewAnalysis, DateTime targetDate, int iterationlength, DateTime from);
+        IterationAnalysisResult AnalyzeRecentIterations(long projectId);
     }
 
     public class AnalyticsProvider : IAnalyticsProvider
@@ -66,8 +67,8 @@ namespace Charcoal.Common.Providers
 
                     if (iterationStories.Any())
                     {
-                        result.Items.Add(CreateResult(iterationStories.ToList(),
-                                        from, iterationSpan));
+                        result.Items.Add(CreateTimeFramedResult(iterationStories.ToList(),
+                                        from, from + iterationSpan));
 
                     }
                     from += iterationSpan;
@@ -87,10 +88,26 @@ namespace Charcoal.Common.Providers
             return result;
         }
 
-        static IterationResultItem CreateResult(List<Story> stories, DateTime iterationStart, TimeSpan span)
+        public IterationAnalysisResult AnalyzeRecentIterations(long projectId)
         {
-            var iterationEnd = iterationStart + span;
+            var result = new IterationAnalysisResult
+            {
+                Name = "Recent Iteration review",
+                ProjectId = projectId,
+            };
 
+            var iterations = m_storyProvider.GetRecentIterations(projectId, 10);
+
+            foreach (var iteration in iterations)
+            {
+                result.Items.Add(CreateTimeFramedResult(iteration.Stories, iteration.Start.Value, iteration.Finish.Value));
+            }
+            return result;
+        }
+
+
+        static IterationResultItem CreateTimeFramedResult(List<Story> stories, DateTime iterationStart, DateTime iterationEnd)
+        {
             var result = new IterationResultItem();
             result.CachedStories = stories;
             result.From = iterationStart;

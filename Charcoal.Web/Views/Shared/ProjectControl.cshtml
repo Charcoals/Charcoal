@@ -1,10 +1,12 @@
 ﻿@model Charcoal.Web.Models.ProjectViewModel
 <div class="row" id="projectdetail">
-    <div class="span8" >
-        <div id="projectname" class="span4"> @Model.Name</div>
-        <div id="velocity" class="span4"> @Model.Velocity</div>
+    <div class="span8">
+        <div id="projectname" class="span4">
+            @Model.Name</div>
+        <div id="velocity" class="span4">
+            @Model.Velocity</div>
     </div>
-    <div class="span20">
+    <div class="span24">
         <div class="row">
             <div class="span4">
                 @Html.ActionLink("Current", "CurrentIteration", "Stories", new { projectId = @Model.Id }, new { @class = "btn success" })
@@ -15,11 +17,16 @@
             <div class="span4">
                 @Html.ActionLink("Icebox", "IceboxStories", "Stories", new { projectId = @Model.Id }, new { @class = "btn info" })
             </div>
+        </div>
+        <div class="row">
             <div class="span4">
-                @Html.ActionLink("Analyze", "AnalyzeProject", "Analytics", new { projectId = @Model.Id, velocity= @Model.Velocity, name=@Model.Name}, new { @class = "btn info" })
+                @Html.ActionLink("Analyze", "AnalyzeProject", "Analytics", new { projectId = @Model.Id, velocity = @Model.Velocity, name = @Model.Name }, new { @class = "btn info" })
             </div>
             <div class="span4">
-                @Html.ActionLink("Analyze Tag", "AnalyzeTag", "Analytics", new { projectId = @Model.Id}, new { @class = "btn info" })
+                @Html.ActionLink("Analyze Tag", "AnalyzeTag", "Analytics", new { projectId = @Model.Id }, new { @class = "btn info" })
+            </div>
+            <div class="span4">
+                @Html.ActionLink("Analyze Recent", "AnalyzeRecent", "Analytics", new { projectId = @Model.Id }, new { @class = "btn info" })
             </div>
         </div>
     </div>
