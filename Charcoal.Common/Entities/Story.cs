@@ -29,6 +29,6 @@ namespace Charcoal.Common.Entities
             Tag = "";
         }
     }
-    public enum StoryType {Feature, Bug, Chore }
+    public enum StoryType {Feature, Bug, Chore, Release }
     public enum IterationType{Undefined=0,Current, Backlog, Icebox, Done}
 }

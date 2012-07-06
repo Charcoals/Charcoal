@@ -51,7 +51,11 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PivotalTrackerDotNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PivotalTrackerDotNet.1.0.4\lib\net40\PivotalTrackerDotNet.dll</HintPath>
+      <HintPath>..\packages\PivotalTrackerDotNet.1.0.5\lib\net40\PivotalTrackerDotNet.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=103.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestSharp.103.2\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="Simple.Data.Ado">
       <HintPath>..\packages\Simple.Data.Ado.0.16.1.0\lib\net40\Simple.Data.Ado.dll</HintPath>
@@ -113,9 +117,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="RestSharp">
-      <HintPath>..\packages\RestSharp.103.1\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="Simple.Data, Version=0.16.1.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\Simple.Data.Core.0.16.1.0\lib\net40\Simple.Data.dll</HintPath>
     </Reference>

@@ -21,7 +21,7 @@ namespace Charcoal.PivotalTracker
                                     Start = iteration.StartDate
                                 };
 
-            convertedIteration.Stories.AddRange(iteration.Stories.Select(e=> e.ConvertTo(type)));
+            convertedIteration.Stories.AddRange(iteration.Stories.Select(e => e.ConvertTo(type)));
             return convertedIteration;
         }
 
@@ -144,6 +144,8 @@ namespace Charcoal.PivotalTracker
                     return StoryType.Bug;
                 case Common.Entities.StoryType.Chore:
                     return StoryType.Chore;
+                case Common.Entities.StoryType.Release:
+                    return StoryType.Release;
                 default:
                     throw new ArgumentOutOfRangeException("val");
             }
@@ -159,6 +161,8 @@ namespace Charcoal.PivotalTracker
                     return Common.Entities.StoryType.Chore;
                 case StoryType.Feature:
                     return Common.Entities.StoryType.Feature;
+                case StoryType.Release:
+                    return Common.Entities.StoryType.Release;
                 default:
                     throw new ArgumentOutOfRangeException("val");
             }
