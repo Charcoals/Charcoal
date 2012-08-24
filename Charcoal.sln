@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.DataLayer", "Charc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.PivotalTracker", "Charcoal.PivotalTracker\Charcoal.PivotalTracker.csproj", "{579B9125-0944-4C30-A31F-6C70A0DDE1C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.GitHub", "Charcoal.GitHub\Charcoal.GitHub.csproj", "{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Charcoal.GitHub.Tests", "Charcoal.GitHub.Tests\Charcoal.GitHub.Tests.csproj", "{BB81F1E4-9702-437A-9D64-32E19929A0FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -174,6 +178,36 @@ Global
 		{579B9125-0944-4C30-A31F-6C70A0DDE1C8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{579B9125-0944-4C30-A31F-6C70A0DDE1C8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{579B9125-0944-4C30-A31F-6C70A0DDE1C8}.Release|x86.ActiveCfg = Release|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Mac|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Mac|Any CPU.Build.0 = Release|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Mac|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Mac|Mixed Platforms.Build.0 = Release|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Mac|x86.ActiveCfg = Release|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C4D1620D-B85E-40AA-8759-9408AF3AB8AD}.Release|x86.ActiveCfg = Release|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Mac|Any CPU.ActiveCfg = Release|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Mac|Any CPU.Build.0 = Release|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Mac|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Mac|Mixed Platforms.Build.0 = Release|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Mac|x86.ActiveCfg = Release|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BB81F1E4-9702-437A-9D64-32E19929A0FC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
