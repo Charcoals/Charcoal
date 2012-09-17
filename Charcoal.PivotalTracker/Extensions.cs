@@ -63,8 +63,8 @@ namespace Charcoal.PivotalTracker
                 StoryType = ConvertTo(story.StoryType),
                 Tasks = story.Tasks.Select(e => e.ConvertTo()).ToList(),
                 ProjectId = story.ProjectId,
-                AcceptedOn = story.AcceptedOn,
-                CreatedOn = story.CreatedOn.Value
+             //   AcceptedOn = story.AcceptedOn,
+               // CreatedOn = story.CreatedOn.Value
             };
         }
 

@@ -19,19 +19,8 @@ namespace Charcoal.PivotalTracker
 
         public string Authenticate(string username, string password)
         {
-            var client = new RestClient();
-            client.BaseUrl = PivotalTrackerRestEndpoint.ENDPOINT;
-            client.Authenticator = new HttpBasicAuthenticator(username, password);
-
-            var request = new RestRequest();
-            request.Resource = AuthenticationEndpoint;
-
-            var response = client.Execute<AuthenticationToken>(request).Data;
-            if (response != null)
-            {
-                return response.Guid.ToString("N");
-            }
-            return "";
+            var response = AuthenticationService.Authenticate(username, password);
+            return response != null ? response.Guid.ToString("N") : "";
         }
     }
 }
